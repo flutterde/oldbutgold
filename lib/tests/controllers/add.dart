@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -11,9 +12,11 @@ class AddCtrTest extends GetxController {
   void onInit() {
     super.onInit();
     var user = _auth.currentUser;
-    print('===============');
-    print(user!.uid);
-    print('===============');
+    if (kDebugMode) {
+      print('===============');
+      print(user!.uid);
+      print('===============');
+    }
   }
 
   Future<void> login() async {
@@ -52,6 +55,4 @@ class AddCtrTest extends GetxController {
       print(e);
     }
   }
-
-
 }

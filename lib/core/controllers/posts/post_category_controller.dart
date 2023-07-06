@@ -3,10 +3,7 @@ import 'package:oldbutgold/core/models/post/post_category_model.dart';
 
 class PostCategoryController extends GetxController {
   RxBool isLoading = false.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
+
 
   List<PostCategoryModel> categories = [
     PostCategoryModel(

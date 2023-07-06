@@ -23,7 +23,9 @@ class CreatePostScreen extends GetWidget {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 12.0, vertical: 20),
+                        horizontal: 12.0,
+                        vertical: 20,
+                      ),
                       child: Form(
                         key: ctr.formKey,
                         child: Column(
@@ -37,6 +39,12 @@ class CreatePostScreen extends GetWidget {
                                           onPressed: () async {
                                             await ctr.selectFile();
                                           },
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                              Colors.yellow,
+                                            ),
+                                          ),
                                           child: const Text('Select Video'),
                                         ),
                                         const SizedBox(
@@ -132,6 +140,77 @@ class CreatePostScreen extends GetWidget {
                                         ctr.selectedCategory.value = newValue;
                                       },
                                     ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Obx(
+                              () => Container(
+                                height: 150,
+                                width: double.infinity,
+                                color: Colors.grey[200],
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Expanded(
+                                          child: TextFormField(
+                                            controller: ctr.tagsCtr,
+                                            decoration: InputDecoration(
+                                              labelText: 'Add Tag'.tr,
+                                            ),
+                                          ),
+                                        ),
+                                        IconButton(
+                                          onPressed: () {
+                                            ctr.addTag(ctr.tagsCtr.text);
+                                            ctr.tagsCtr.clear();
+                                          },
+                                          icon: const Icon(Icons.add),
+                                        ),
+                                      ],
+                                    ),
+                                    Expanded(
+                                      child: ctr.tags.isEmpty
+                                          ? const Padding(
+                                              padding: EdgeInsets.all(8.0),
+                                              child: Text(
+                                                'No Tags',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    color: Colors.red),
+                                              ),
+                                            )
+                                          : ListView.builder(
+                                              scrollDirection: Axis.horizontal,
+                                              itemCount: ctr.tags.length,
+                                              itemBuilder: (context, index) {
+                                                return Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Chip(
+                                                    label:
+                                                        Text(ctr.tags[index]),
+                                                    onDeleted: () {
+                                                      ctr.tags.removeAt(index);
+                                                    },
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
                             ),
                             ElevatedButton(
                               onPressed: () async {

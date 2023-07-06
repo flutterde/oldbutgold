@@ -21,6 +21,7 @@ class CreatePostController extends GetxController {
 
   final formKey = GlobalKey<FormState>();
   final TextEditingController videoDescriptionCtr = TextEditingController();
+  final TextEditingController tagsCtr = TextEditingController();
 
   // file picker
   PlatformFile? pickedVideoFile;
@@ -30,6 +31,22 @@ class CreatePostController extends GetxController {
   // categoryID
   RxString selectedCategory = ''.obs;
   double videoDuration = 0.0;
+
+  RxList<String> tags = RxList<String>([]);
+
+  addTag(String tag) {
+    
+    if (tag == '' || tag == ' ' || tag.isEmpty) {
+      Get.snackbar(
+        'Error',
+        'Tag is required',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+      );
+    } else {
+      tags.add(tag);
+    }
+  }
 
   // video path
   String fireStoreVideoPath = '';
@@ -55,17 +72,14 @@ class CreatePostController extends GetxController {
     await vc.initialize();
     var duration = vc.value.duration;
     videoDuration = duration.inSeconds.toDouble();
-    print('===============Video Data ===============');
-    print(videoDuration);
-    print(vc.value.size);
-    print(vc.value.buffered);
-    print('==============================');
+    if (kDebugMode) {
+      print('===============Video Data ===============');
+      print(videoDuration);
+      print(vc.value.size);
+      print(vc.value.buffered);
+      print('==============================');
+    }
     update();
-  }
-
-  Future getVideoData(File video) async {
-    VideoPlayerController fileVideocontroller =
-        VideoPlayerController.file(video)..initialize();
   }
 
   Future<void> createPost(String description, String categoryID) async {
@@ -125,6 +139,7 @@ class CreatePostController extends GetxController {
           'videoUrl': videoUrl,
           'videoDescription': description,
           'categoryID': categoryID,
+          'tags': tags,
           'createdAt': DateTime.now(),
           'updatedAt': DateTime.now(),
           'fcmToken': fcmToken,
@@ -134,6 +149,7 @@ class CreatePostController extends GetxController {
           'isRejected': false,
           'is_processed': false,
           'meta_data': {
+            'duration': videoDuration,
             'size_in_mb': sizeInMb,
             'size': videMetaData.size,
             'contentType': videMetaData.contentType,
@@ -182,6 +198,10 @@ class CreatePostController extends GetxController {
   @override
   void onInit() {
     postId = generateRandomString();
+    if (kDebugMode) {
+      print('==============================================');
+      print('==============================================');
+    }
     super.onInit();
   }
 
