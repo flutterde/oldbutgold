@@ -19,7 +19,8 @@ class TestView2 extends StatelessWidget {
         itemBuilder: (context, index) {
           return ListTile(
             title: Text(ctr.posts[index].content!),
-            subtitle: Text(ctr.posts[index].author!.name!),
+            subtitle: Text(ctr.posts[index].author!.email!),
+
           );
         },
       ))
