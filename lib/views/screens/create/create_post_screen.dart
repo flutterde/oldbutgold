@@ -146,9 +146,12 @@ class CreatePostScreen extends GetWidget {
                             ),
                             Obx(
                               () => Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.grey[200],
+                                ),
                                 height: 150,
                                 width: double.infinity,
-                                color: Colors.grey[200],
                                 child: Column(
                                   children: [
                                     Row(
@@ -212,22 +215,27 @@ class CreatePostScreen extends GetWidget {
                             const SizedBox(
                               height: 20,
                             ),
-                            ElevatedButton(
-                              onPressed: () async {
-                                if (ctr.formKey.currentState!.validate()) {
-                                  await ctr.createPost(
-                                    ctr.videoDescriptionCtr.text,
-                                    ctr.selectedCategory.value,
-                                  );
-                                }
-                              },
-                              child: SizedBox(
-                                width: double.infinity,
-                                child: Text(
-                                  'Create Post'.tr,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
+                            Obx(
+                              () => ctr.isLoading.value
+                                  ? const CircularProgressIndicator()
+                                  : ElevatedButton(
+                                      onPressed: () async {
+                                        if (ctr.formKey.currentState!
+                                            .validate()) {
+                                          await ctr.createPost(
+                                            ctr.videoDescriptionCtr.text,
+                                            ctr.selectedCategory.value,
+                                          );
+                                        }
+                                      },
+                                      child: SizedBox(
+                                        width: double.infinity,
+                                        child: Text(
+                                          'Create Post'.tr,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
                             ),
                           ],
                         ),

@@ -1,37 +1,69 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter/foundation.dart';
 
 import '../comment/comment_model.dart';
 import '../user/user_model.dart';
 
 class PostModel {
-  String backetCdnUrl = dotenv.get('CLOUDFLARE_R2_URL');
-  late String id;
-  late Future<UserModel> user;
-  Future<List<CommentModel>?>? comments;
+ // String backetCdnUrl = dotenv.get('CLOUDFLARE_R2_URL');
+  String? id;
+  UserModel? user;
   String? description;
-  late String videoUrl;
+  String? categoryId;
+  String? videoUrl;
   String? thumbnailGifUrl;
-  DateTime? createdAt;
+  double? duration;
+  List<dynamic>? tags;
+  Timestamp? createdAt;
 
   PostModel({
-    required this.id,
-    required this.user,
-    this.comments,
+    this.id,
+    this.user,
     this.description,
-    required this.videoUrl,
+    this.categoryId,
+    this.videoUrl,
     this.thumbnailGifUrl,
+    this.duration,
+    this.tags,
     this.createdAt,
   });
 
   PostModel.fromDocumentSnapshot({required DocumentSnapshot documentSnapshot}) {
     id = documentSnapshot.id;
-    user = getUser(documentSnapshot['user_id']);
-    comments = getComments(documentSnapshot.id);
+    // user = getUser(documentSnapshot['user_id']);
+    // comments = getComments(documentSnapshot.id);
     description = documentSnapshot['description'];
-    videoUrl = '$backetCdnUrl/${documentSnapshot['video_url']}';
-    thumbnailGifUrl = '$backetCdnUrl/${documentSnapshot['thumbnail_gif_url']}';
+   // videoUrl = '$backetCdnUrl/${documentSnapshot['video_url']}';
+   // thumbnailGifUrl = '$backetCdnUrl/${documentSnapshot['thumbnail_gif_url']}';
     createdAt = documentSnapshot['created_at'].toDate();
+  }
+
+  /*
+
+  * Post with User
+
+  */
+
+  Future<PostModel> fromDocSnapshot({required DocumentSnapshot doc}) async {
+              if (kDebugMode) {
+        print('=====================');
+        print('in Post Model.......');
+        print('======================');
+      }
+    final postUser = doc['user'] as DocumentReference;
+    return PostModel(
+      id: doc.id,
+      user: UserModel.fromDocumentSnapshot(
+        documentSnapshot: await postUser.get(),
+      ),
+      description: doc['videoDescription'],
+      categoryId: doc['categoryID'],
+      videoUrl: doc['videoUrl'],
+      // thumbnailGifUrl: doc['thumbnailGifUrl'],
+      duration: doc['meta_data']['duration'],
+      tags: doc['tags'],
+      createdAt: doc['createdAt'],
+    );
   }
 
   // return the user for post model

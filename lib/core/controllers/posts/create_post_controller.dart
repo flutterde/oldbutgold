@@ -10,12 +10,16 @@ import 'package:file_picker/file_picker.dart';
 import 'dart:math';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:video_player/video_player.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class CreatePostController extends GetxController {
   // firebase
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final storageRef = FirebaseStorage.instance.ref();
+  final dbPostsRef = FirebaseDatabase.instance.ref().child('posts');
+
+  Timestamp timestamp = Timestamp.now();
 
   final RxBool isLoading = false.obs;
 
@@ -35,8 +39,7 @@ class CreatePostController extends GetxController {
   RxList<String> tags = RxList<String>([]);
 
   addTag(String tag) {
-    
-    if (tag == '' || tag == ' ' || tag.isEmpty) {
+    if (tag == '' || tag == ' ' || tag.isEmpty || tag.trim().isEmpty) {
       Get.snackbar(
         'Error',
         'Tag is required',
@@ -138,10 +141,11 @@ class CreatePostController extends GetxController {
           'user': _firestore.collection('users').doc(_auth.currentUser!.uid),
           'videoUrl': videoUrl,
           'videoDescription': description,
+          'thumbnailGifUrl': '',
           'categoryID': categoryID,
           'tags': tags,
-          'createdAt': DateTime.now(),
-          'updatedAt': DateTime.now(),
+          'createdAt': timestamp,
+          'updatedAt': timestamp,
           'fcmToken': fcmToken,
           'video_lang_code': 'en',
           'user_lang_code': 'en',
@@ -167,7 +171,8 @@ class CreatePostController extends GetxController {
             'fullPath': videMetaData.fullPath,
             'video_extension': pickedVideoFile!.extension,
           },
-        }).whenComplete(() {
+        }).whenComplete(() async {
+          await storePostView();
           isLoading.value = false;
           Get.offAllNamed('/');
           Get.snackbar(
@@ -187,6 +192,20 @@ class CreatePostController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red,
       );
+      if (kDebugMode) {
+        print('==============================================');
+        print(e);
+        print('==============================================');
+      }
+    }
+  }
+
+  Future<void> storePostView() async {
+    try {
+      await dbPostsRef.child(postId).set({
+        'views': 0,
+      });
+    } catch (e) {
       if (kDebugMode) {
         print('==============================================');
         print(e);
@@ -219,7 +238,7 @@ class CreatePostController extends GetxController {
     final random = Random();
     final buffer = StringBuffer();
 
-    for (var i = 0; i < 27; i++) {
+    for (var i = 0; i < 30; i++) {
       final randomIndex = random.nextInt(characters.length);
       buffer.write(characters[randomIndex]);
     }

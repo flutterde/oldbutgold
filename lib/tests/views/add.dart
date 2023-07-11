@@ -20,8 +20,8 @@ class AddTest extends GetWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      onPressed: () => ctr.login(),
-                      child: const Text('Login'),
+                      onPressed: () => Get.toNamed('/main/feed'),
+                      child: const Text('Feed'),
                     ),
                     ElevatedButton(
                       onPressed: () => ctr.addTest(),
