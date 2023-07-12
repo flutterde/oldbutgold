@@ -15,15 +15,16 @@ class FeedController extends GetxController {
       print('fetching posts.......');
       print('======================');
     }
+
     try {
       isLoading.value = true;
       final postsDocs = await _firestore
           .collection('posts')
           .orderBy('createdAt', descending: true)
           .get();
-      if (kDebugMode) {
+      if (kDebugMode) { 
         print('=====================');
-        print('fetching posts.......');
+        print('Posts that fetched .......');
         print(postsDocs.docs.length);
         print('======================');
       }

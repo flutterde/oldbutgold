@@ -139,6 +139,7 @@ class CreatePostController extends GetxController {
         await _firestore.collection('posts').doc(postId).set({
           'id': postId,
           'user': _firestore.collection('users').doc(_auth.currentUser!.uid),
+          'user_id': _auth.currentUser!.uid,
           'videoUrl': videoUrl,
           'videoDescription': description,
           'thumbnailGifUrl': '',

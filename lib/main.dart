@@ -5,6 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 
+import 'core/bindings/initial_binding.dart';
 import 'core/routes/app_routes.dart';
 
 class MyHttpOverrides extends HttpOverrides {
@@ -35,13 +36,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Flutter Demo',
+      title: 'Old But Gold',
       getPages: appRoutes,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       initialRoute: '/',
+      debugShowCheckedModeBanner: false,
+      initialBinding: InitialBinding(),
     );
   }
 }

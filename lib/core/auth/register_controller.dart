@@ -1,12 +1,12 @@
 // ignore_for_file: unnecessary_overrides
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart' hide Category;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -20,6 +20,7 @@ class RegisterAuthController extends GetxController {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final dbUserssRef = FirebaseDatabase.instance.ref().child('users');
 
   //
   String getLocationApiUrl = 'https://freeipapi.com/api/json';
@@ -87,7 +88,8 @@ class RegisterAuthController extends GetxController {
             'profile_photo_url': 'data/images/defaults/avatar.png',
           },
         });
-        await value.user!.sendEmailVerification().then((value) async{
+        await storeUserMetadata(value.user!.uid);
+        await value.user!.sendEmailVerification().then((value) async {
           Get.snackbar(
             'Success',
             'Please check your email to verify your account',
@@ -117,6 +119,32 @@ class RegisterAuthController extends GetxController {
         colorText: Colors.white,
         snackPosition: SnackPosition.BOTTOM,
       );
+    }
+  }
+
+  Future<void> storeUserMetadata(String userUid) async {
+    try {
+      await dbUserssRef.child(userUid).set({
+        'is_online': 0,
+        'is_typing': 0,
+        'last_seen': Timestamp.now(),
+        'is_recording': 0,
+        'conversation_id': 'null',
+      });
+    } on FirebaseException catch (e) {
+      if (e.code == 'permission-denied') {
+        if (kDebugMode) {
+          print('==========================================================');
+          print('User does not have permission to create this post.');
+          print('==========================================================');
+        }
+      } else {
+        if (kDebugMode) {
+          print('==========================================================');
+          print(e);
+          print('==========================================================');
+        }
+      }
     }
   }
 

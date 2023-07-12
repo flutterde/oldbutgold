@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class UserModel {
  // String backetCdnUrl = dotenv.get('CLOUDFLARE_R2_URL');
