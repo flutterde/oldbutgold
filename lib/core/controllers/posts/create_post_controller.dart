@@ -22,6 +22,8 @@ class CreatePostController extends GetxController {
   Timestamp timestamp = Timestamp.now();
 
   final RxBool isLoading = false.obs;
+  RxInt progress = 0.obs;
+  RxBool showProgress = false.obs;
 
   final formKey = GlobalKey<FormState>();
   final TextEditingController videoDescriptionCtr = TextEditingController();

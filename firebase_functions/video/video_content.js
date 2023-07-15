@@ -4,35 +4,34 @@
  * @param {!Object} event Event payload.
  * @param {!Object} context Metadata for the event.
  */
+
 const admin = require('firebase-admin');
 admin.initializeApp();
 const video = require('@google-cloud/video-intelligence').v1;
 
-
-
 const bucket = 'gs://old-butgold.appspot.com/';
-
-
-
-exports.videoProcess = async (event, context) => {
+exports.videoContentDetection = async (event, context) => {
     const documentData = event.value.fields;
     const postId = documentData.id.stringValue;
+    const userId = documentData.user_id.stringValue;
     const userLang = documentData.user_lang_code.stringValue;
     const videoUrl = documentData.videoUrl.stringValue;
     const userDeviceToken = documentData.fcmToken.stringValue;
     const videoMetadata = documentData.meta_data.mapValue.fields;
     const videoFullPath = videoMetadata.fullPath.stringValue;
+    const videoExtension = videoMetadata.video_extension.stringValue;
+    const videoContentType = videoMetadata.contentType.stringValue;
     console.log(`Processing video for ${videoFullPath}...`);
     const gcsUri = bucket + videoFullPath;
 
 
-    const client = new video.VideoIntelligenceServiceClient();
 
-
-    const request = {
+        const client = new video.VideoIntelligenceServiceClient();
+            const request = {
         inputUri: gcsUri,
         features: ['EXPLICIT_CONTENT_DETECTION'],
     };
+
 
     // Human-readable likelihoods
     const likelihoods = [
@@ -43,8 +42,6 @@ exports.videoProcess = async (event, context) => {
         'LIKELY',
         'VERY_LIKELY',
     ];
-
-
 
 
     console.log(`Processing video for ${gcsUri}...`);
@@ -86,16 +83,23 @@ exports.videoProcess = async (event, context) => {
 
         const isRejected = veryLikelyCount >= 2 || likelyCount >= 5;
 
-        // Here you can perform further actions based on the explicit content results,
-        await updatePost(isRejected);
-
-        if (isRejected) {
-            await sendPushNotification('Post Rejected', 'Your post has been rejected due to explicit content.');
+        if (isRejected === true) {
+            console.log('================= Video Rejected =================');
+            await updatePost(postId, isRejected);
+            await sendPushNotification(userDeviceToken, 'Post Rejected', 'Your post has been rejected due to explicit content.');
             return;
+
         } else {
-            await sendPushNotification('Post Approved', 'Your post has been approved.');
+            console.log('================= Video Approved =================');
+            await updatePost(postId, isRejected);
+            await nextProcess(postId, userId, userLang, videoUrl, userDeviceToken, videoExtension, videoContentType, videoFullPath);
+            return;
+
+
+
         }
-        // such as deleting or flagging the post if explicit content is detected.
+
+
 
     } catch (error) {
         console.error('Error processing video:', error);
@@ -104,39 +108,56 @@ exports.videoProcess = async (event, context) => {
 
 
 
-
-    async function updatePost(isRejected) {
-        try {
-            const db = admin.firestore();
-            await db.collection('posts').doc(postId).update({
-                'is_processed': true,
-                'isRejected': isRejected,
-            });
-        } catch (err) {
-            console.error('Error Updating post: ', err);
-        }
-    }
-
-
-    // Send a message to devices subscribed to the provided topic.
-    async function sendPushNotification(title, body) {
-        const message = {
-            token: userDeviceToken,
-            notification: {
-                title: title,
-                body: body,
-            },
-        };
-
-        try {
-            const response = await admin.messaging().send(message);
-            console.log('Push notification sent successfully:', response);
-        } catch (error) {
-            console.error('Error sending push notification:', error);
-        }
-    }
-
-
-
-
 };
+
+
+
+
+async function updatePost(postUid, isRejected) {
+    try {
+        const db = admin.firestore();
+        await db.collection('posts').doc(postUid).update({
+            'is_processed': true,
+            'isRejected': isRejected,
+
+        });
+    } catch (err) {
+        console.error('Error Updating post: ', err);
+    }
+}
+
+async function nextProcess(postUid, userUid, userLang, videoUrl, dToken, videoExtension, videoContentType, vPath) {
+    try {
+        const db = admin.firestore();
+        await db.collection('pprocess').doc(postUid).set({
+            'post_id': postUid,
+            'user_id': userUid,
+            'user_lang_code': userLang,
+            'videoUrl': videoUrl,
+            'fcmToken': dToken,
+            'video_extension': videoExtension,
+            'contentType': videoContentType,
+            'videoGsUri': vPath,
+        });
+    } catch (err) {
+        console.error('Error Updating post: ', err);
+    }
+
+}
+
+async function sendPushNotification(dToken, title, body) {
+    const message = {
+        token: dToken,
+        notification: {
+            title: title,
+            body: body,
+        },
+    };
+
+    try {
+        const response = await admin.messaging().send(message);
+        console.log('Push notification sent successfully:', response);
+    } catch (error) {
+        console.error('Error sending push notification:', error);
+    }
+}

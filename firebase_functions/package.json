@@ -1,9 +1,0 @@
-
-{
-  "name": "sample-firestore",
-  "version": "0.0.1",
-    "dependencies": {
-    "firebase-admin": "^11.9.0",
-    "@google-cloud/video-intelligence": "^4.2.3"
-  }
-}
