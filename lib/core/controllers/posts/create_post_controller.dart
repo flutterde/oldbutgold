@@ -19,7 +19,7 @@ class CreatePostController extends GetxController {
   final storageRef = FirebaseStorage.instance.ref();
   final dbPostsRef = FirebaseDatabase.instance.ref().child('posts');
 
-  Timestamp timestamp = Timestamp.now();
+
 
   final RxBool isLoading = false.obs;
   RxInt progress = 0.obs;
@@ -147,8 +147,9 @@ class CreatePostController extends GetxController {
           'thumbnailGifUrl': '',
           'categoryID': categoryID,
           'tags': tags,
-          'createdAt': timestamp,
-          'updatedAt': timestamp,
+          'createdAt': FieldValue.serverTimestamp(),
+          
+          'updatedAt': FieldValue.serverTimestamp(),
           'fcmToken': fcmToken,
           'video_lang_code': 'en',
           'user_lang_code': 'en',

@@ -42,6 +42,10 @@ class RegisterAuthController extends GetxController {
 
   @override
   void onInit() {
+    print('============== Time =======================');
+    print('t');
+    print('=====================================');
+
     _getUserDevToken();
     getUserLocation();
     super.onInit();
@@ -54,6 +58,7 @@ class RegisterAuthController extends GetxController {
 
   // register user
   Future<void> registerNewUser() async {
+    // time
     try {
       isLoading.value = true;
       await _auth
@@ -63,11 +68,10 @@ class RegisterAuthController extends GetxController {
         await _firestore.collection('users').doc(value.user!.uid).set({
           'name': nameController.text,
           'email': emailController.text,
-          'password': passwordController.text,
           'userDeviceToken': userDeviceToken,
           'userRole': 'user',
           'user_account_status': 'active',
-          'created_at': DateTime.now(),
+          'created_at': FieldValue.serverTimestamp(),
           'user_data': {
             'countryName': countryName,
             'countryCode': countryCode,
@@ -86,6 +90,18 @@ class RegisterAuthController extends GetxController {
             'is_profile_verified': false,
             'profile_bio': '',
             'profile_photo_url': 'data/images/defaults/avatar.png',
+          },
+          'user_social_links': {
+            'facebook': '',
+            'twitter': '',
+            'instagram': '',
+            'youtube': '',
+            'linkedin': '',
+            'website': '',
+          },
+          'wallet': {
+            'diamond': 5,
+            'obg_coin': 20,
           },
         });
         await storeUserMetadata(value.user!.uid);
@@ -123,11 +139,12 @@ class RegisterAuthController extends GetxController {
   }
 
   Future<void> storeUserMetadata(String userUid) async {
+   
     try {
       await dbUserssRef.child(userUid).set({
         'is_online': 0,
         'is_typing': 0,
-        'last_seen': Timestamp.now(),
+        'last_seen':  FieldValue.serverTimestamp().toString(),
         'is_recording': 0,
         'conversation_id': 'null',
       });

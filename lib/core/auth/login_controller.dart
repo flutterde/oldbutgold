@@ -1,6 +1,5 @@
 // ignore_for_file: unnecessary_overrides
 
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,18 +18,39 @@ class LoginController extends GetxController {
   Future<void> loginUser() async {
     try {
       isLoading.value = true;
-      await _auth.signInWithEmailAndPassword(
-          email: emailController.text, password: passwordController.text);
-      isLoading.value = false;
-      emailController.clear();
-      passwordController.clear();
-      Get.snackbar(
-        'Success',
-        'Login successful',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.green,
-        colorText: Colors.white,
-      );
+      await _auth
+          .signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      )
+          .then((value) async {
+        
+        emailController.clear();
+        passwordController.clear();
+        if (value.user!.emailVerified) {
+          isLoading.value = false;
+          Get.offAllNamed('/');
+          Get.snackbar(
+            'Success',
+            'Login successful',
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.green,
+            colorText: Colors.white,
+          );
+        } else {
+          await value.user!.sendEmailVerification();
+          await _auth.signOut();
+          isLoading.value = false;
+          Get.snackbar(
+            'Verify Email',
+            'Please check your email to verify your account',
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+            duration: const Duration(seconds: 6),
+          );
+        }
+      });
     } on FirebaseAuthException catch (e) {
       isLoading.value = false;
       if (e.code == 'user-not-found') {

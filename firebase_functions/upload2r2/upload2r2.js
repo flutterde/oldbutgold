@@ -66,6 +66,10 @@ exports.uploadPostFiles2R2 = async (event, context) => {
     console.log('Post updated successfully');
     await sendPushNotification(fcmToken, 'Old but Gold', 'Your video is ready');
     console.log('Push notification sent successfully');
+    await deleteFileFromBucket(bucketName, vGsUri);
+    console.log('Video deleted successfully');
+    await deleteFileFromBucket(bucketName, gGsUri);
+    console.log('Gif deleted successfully');
     await deletePprocess(postId);
     console.log('Pprocess deleted successfully');
     return;
@@ -163,6 +167,17 @@ async function deletePprocess(postUid) {
     console.log('Pprocess deleted successfully');
   } catch (err) {
     console.log('Error while deleting pprocess', err);
+  }
+}
+
+
+async function deleteFileFromBucket(bucketName, fileName) {
+  try {
+    const bucket = admin.storage().bucket(bucketName);
+    await bucket.file(fileName).delete();
+    console.log('File deleted successfully');
+  } catch (err) {
+    console.log('Error while deleting file', err);
   }
 }
 

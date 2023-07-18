@@ -1,12 +1,9 @@
 import 'package:get/get.dart';
 
 class CustomUserAdsController extends GetxController {
+  Future<void> fetchCustomUserAds() async {}
 
-    Future<void> fetchCustomUserAds() async {
-}
-
-
-onInit() {
+  onInit() {
     super.onInit();
-}
+  }
 }

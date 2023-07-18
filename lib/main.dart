@@ -5,6 +5,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 
+import 'core/apis/firebase_api.dart';
 import 'core/bindings/initial_binding.dart';
 import 'core/routes/app_routes.dart';
 
@@ -22,6 +23,9 @@ void main() async {
   await dotenv.load(fileName: ".env");
   // firebase
   await Firebase.initializeApp();
+
+  // notifications
+  await FirebaseApi().initNotifications();
 
   // shared preferences
  // SharedPreferences pref = await SharedPreferences.getInstance();
