@@ -31,7 +31,18 @@ class CreatePostScreen extends GetWidget {
                         child: Column(
                           children: [
                             ctr.pickedVideoFile != null
-                                ? Text(ctr.pickedVideoFile!.name)
+                                ? Column(
+                                    children: [
+                                      const SizedBox(
+                                        height: 200,
+                                        child: Icon(
+                                          Icons.play_circle_outline_outlined,
+                                          size: 60,
+                                        ),
+                                      ),
+                                      Text(ctr.pickedVideoFile!.name),
+                                    ],
+                                  )
                                 : SizedBox(
                                     child: Column(
                                       children: [
@@ -220,6 +231,10 @@ class CreatePostScreen extends GetWidget {
                                   ? const CircularProgressIndicator()
                                   : ElevatedButton(
                                       onPressed: () async {
+                                        if (ctr.selectedCategory.value == '') {
+                                          ctr.selectedCategory.value =
+                                              items[0].id ?? '';
+                                        }
                                         if (ctr.formKey.currentState!
                                             .validate()) {
                                           await ctr.createPost(

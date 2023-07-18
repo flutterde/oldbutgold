@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/apis/firebase_api.dart';
 import 'core/bindings/initial_binding.dart';
+import 'core/languages/local.dart';
 import 'core/routes/app_routes.dart';
 
 class MyHttpOverrides extends HttpOverrides {
@@ -21,14 +23,16 @@ class MyHttpOverrides extends HttpOverrides {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
+
+  // shared preferences
+  SharedPreferences pref = await SharedPreferences.getInstance();
+
   // firebase
   await Firebase.initializeApp();
 
   // notifications
   await FirebaseApi().initNotifications();
 
-  // shared preferences
- // SharedPreferences pref = await SharedPreferences.getInstance();
   HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
@@ -46,10 +50,12 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      locale: const Locale('en'),
+      fallbackLocale: const Locale('en'),
+      translations: AppLocal(),
       initialRoute: '/',
       debugShowCheckedModeBanner: false,
       initialBinding: InitialBinding(),
     );
   }
 }
-

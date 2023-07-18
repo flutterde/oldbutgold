@@ -19,8 +19,6 @@ class CreatePostController extends GetxController {
   final storageRef = FirebaseStorage.instance.ref();
   final dbPostsRef = FirebaseDatabase.instance.ref().child('posts');
 
-
-
   final RxBool isLoading = false.obs;
   RxInt progress = 0.obs;
   RxBool showProgress = false.obs;
@@ -34,6 +32,7 @@ class CreatePostController extends GetxController {
 
   // postID
   String postId = '';
+  
   // categoryID
   RxString selectedCategory = ''.obs;
   double videoDuration = 0.0;
@@ -148,7 +147,6 @@ class CreatePostController extends GetxController {
           'categoryID': categoryID,
           'tags': tags,
           'createdAt': FieldValue.serverTimestamp(),
-          
           'updatedAt': FieldValue.serverTimestamp(),
           'fcmToken': fcmToken,
           'video_lang_code': 'en',
