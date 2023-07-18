@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/controllers/main_pages/feed/feed_controller.dart';
-import '../../../../tests/controllers/t.dart';
 
 class FeedScreen extends GetWidget {
   const FeedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final c = Get.put(Tctr());
 
     return GetBuilder(
       init: FeedController(),
@@ -19,7 +17,6 @@ class FeedScreen extends GetWidget {
           actions: [
             IconButton(
               onPressed: () {
-                c.f();
               },
               icon: const Icon(Icons.logout),
             )
@@ -28,6 +25,7 @@ class FeedScreen extends GetWidget {
         body: Obx(
           () => ctr.isLoading.value
               ? const Center(child: CircularProgressIndicator())
+              : ctr.isPostsEmpty.value ? const Center(child: Text('No Post to display'),)
               : ListView.builder(
                   itemCount: ctr.posts.length,
                   itemBuilder: (context, index) {

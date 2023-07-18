@@ -7,6 +7,7 @@ import 'package:oldbutgold/core/models/post/post_model.dart';
 class FeedController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   RxBool isLoading = false.obs;
+  RxBool isPostsEmpty = false.obs;
   List<PostModel> posts = [];
 
   Future<void> fetchAllPosts() async {
@@ -22,6 +23,7 @@ class FeedController extends GetxController {
           .collection('posts')
           .where('is_ready', isEqualTo: true)
           .orderBy('createdAt', descending: true)
+          .limit(10)
           .get();
       if (kDebugMode) {
         print('=====================');
@@ -38,6 +40,8 @@ class FeedController extends GetxController {
           print('======================');
         }
       }
+      posts.isEmpty ? isPostsEmpty.value = true : isPostsEmpty.value = false;
+      
       isLoading.value = false;
     } on FirebaseException catch (e) {
       isLoading.toggle();

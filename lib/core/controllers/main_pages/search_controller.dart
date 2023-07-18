@@ -8,6 +8,7 @@ class SearchScreenController extends GetxController {
   final formKey = GlobalKey<FormState>();
   final TextEditingController searchCtr = TextEditingController();
   RxBool isLoading = false.obs;
+  RxBool isUsersEmpty = false.obs;
   RxList<UserModel> users = <UserModel>[].obs;
 
   @override
@@ -26,13 +27,14 @@ class SearchScreenController extends GetxController {
       isLoading.value = true;
       await _firestore
           .collection('users')
-          .where('name', isGreaterThanOrEqualTo: searchCtr.text)
-          .where('name', isLessThanOrEqualTo: searchCtr.text)
+          .where('name', isGreaterThanOrEqualTo: searchCtr.text.toLowerCase())
+          .where('name', isLessThanOrEqualTo: searchCtr.text.toLowerCase())
           .get()
           .then((value) {
         for (var doc in value.docs) {
           users.add(UserModel.fromDocumentSnapshot(documentSnapshot: doc));
         }
+        users.isEmpty ? isUsersEmpty.value = true : isUsersEmpty.value = false;
         isLoading.value = false;
       });
     } catch (e) {
