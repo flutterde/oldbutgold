@@ -226,6 +226,25 @@ class CreatePostScreen extends GetWidget {
                             const SizedBox(
                               height: 20,
                             ),
+                            Obx(() => ctr.isLoading.value
+                                ? Row(
+                                    children: [
+                                      Expanded(
+                                        child: LinearProgressIndicator(
+                                          value: ctr.uploadProgress.value,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                          '${(ctr.uploadProgress.value * 100).toStringAsFixed(2)} %'),
+                                    ],
+                                  )
+                                : const SizedBox()),
+                            const SizedBox(
+                              height: 20,
+                            ),
                             Obx(
                               () => ctr.isLoading.value
                                   ? const CircularProgressIndicator()
@@ -251,6 +270,9 @@ class CreatePostScreen extends GetWidget {
                                         ),
                                       ),
                                     ),
+                            ),
+                           const SizedBox(
+                              height: 20,
                             ),
                           ],
                         ),

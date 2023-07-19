@@ -18,10 +18,11 @@ class CreatePostController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final storageRef = FirebaseStorage.instance.ref();
   final dbPostsRef = FirebaseDatabase.instance.ref().child('posts');
+  UploadTask? uploadTask;
 
   final RxBool isLoading = false.obs;
-  RxInt progress = 0.obs;
   RxBool showProgress = false.obs;
+  RxDouble uploadProgress = 0.0.obs;
 
   final formKey = GlobalKey<FormState>();
   final TextEditingController videoDescriptionCtr = TextEditingController();
@@ -32,7 +33,7 @@ class CreatePostController extends GetxController {
 
   // postID
   String postId = '';
-  
+
   // categoryID
   RxString selectedCategory = ''.obs;
   double videoDuration = 0.0;
@@ -122,7 +123,20 @@ class CreatePostController extends GetxController {
         final videoFile = File(pickedVideoFile!.path!);
         final videoFileDestination = storageRef.child(fireStoreVideoPath);
         // store video to Firebase Storage
-        await videoFileDestination.putFile(videoFile);
+        uploadTask = videoFileDestination.putFile(videoFile);
+        uploadTask!.snapshotEvents.listen((event) {
+          uploadProgress.value =
+              event.bytesTransferred.toDouble() / event.totalBytes.toDouble();
+          if (kDebugMode) {
+            print('==============================================');
+            print('================ Progress !! ====================');
+            print(uploadProgress.value);
+            print('==============================================');
+            print('=================------=======================');
+          }
+        });
+         await uploadTask!.whenComplete(() {});
+        // await videoFileDestination.putFile(videoFile);
         var videoUrl = await videoFileDestination.getDownloadURL();
         FullMetadata videMetaData = await videoFileDestination.getMetadata();
         if (kDebugMode) {
@@ -137,7 +151,7 @@ class CreatePostController extends GetxController {
         }
         var sizeInMb = videMetaData.size! / 1024 / 1024;
 
-        await _firestore.collection('posts').doc(postId).set({
+        await _firestore.collection('ppp').doc(postId).set({
           'id': postId,
           'user': _firestore.collection('users').doc(_auth.currentUser!.uid),
           'user_id': _auth.currentUser!.uid,
@@ -175,6 +189,9 @@ class CreatePostController extends GetxController {
           },
         }).whenComplete(() async {
           await storePostView();
+          videoDescriptionCtr.clear();
+          tagsCtr.clear();
+          pickedVideoFile = null;
           isLoading.value = false;
           Get.offAllNamed('/');
           Get.snackbar(
