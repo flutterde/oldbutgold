@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 
 import '../../tests/views/add.dart';
+import '../../tests/views/add_t.dart';
 import '../../views/screens/auth/login_screen.dart';
 import '../../views/screens/auth/register_screen.dart';
 import '../../views/screens/create/create_post_screen.dart';
@@ -27,4 +28,10 @@ var appRoutes = [
 
   // notifications
   GetPage(name: '/notifications/announcement', page: ()=> const NotificationScreen(), middlewares: [AuthMiddleware()]),
+
+
+
+
+  // tests
+  GetPage(name: '/test2', page: ()=> const AddT(), middlewares: [AuthMiddleware()]),
 ];

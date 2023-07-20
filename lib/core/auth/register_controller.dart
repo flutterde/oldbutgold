@@ -98,6 +98,8 @@ class RegisterAuthController extends GetxController {
             'youtube': '',
             'linkedin': '',
             'website': '',
+            'github': '',
+            'email': '',
           },
           'wallet': {
             'diamond': 5,
@@ -139,12 +141,11 @@ class RegisterAuthController extends GetxController {
   }
 
   Future<void> storeUserMetadata(String userUid) async {
-   
     try {
       await dbUserssRef.child(userUid).set({
         'is_online': 0,
         'is_typing': 0,
-        'last_seen':  FieldValue.serverTimestamp().toString(),
+        'last_seen': ServerValue.timestamp,
         'is_recording': 0,
         'conversation_id': 'null',
       });

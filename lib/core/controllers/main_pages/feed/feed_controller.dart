@@ -10,6 +10,9 @@ class FeedController extends GetxController {
   RxBool isPostsEmpty = false.obs;
   List<PostModel> posts = [];
 
+  // Page content..
+  final pageController = PageController();
+
   Future<void> fetchAllPosts() async {
     if (kDebugMode) {
       print('=====================');
@@ -41,7 +44,7 @@ class FeedController extends GetxController {
         }
       }
       posts.isEmpty ? isPostsEmpty.value = true : isPostsEmpty.value = false;
-      
+
       isLoading.value = false;
     } on FirebaseException catch (e) {
       isLoading.toggle();
