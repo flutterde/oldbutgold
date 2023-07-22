@@ -8,6 +8,7 @@ import '../../views/screens/create/create_post_screen.dart';
 import '../../views/screens/mains/feed/feed_screen.dart';
 import '../../views/screens/mains/main_page.dart';
 import '../../views/screens/notifications/notification_screen.dart';
+import '../../views/widgets/comments/comments_screen.dart';
 import '../middlewares/auth_middlewares.dart';
 
 var appRoutes = [
@@ -24,6 +25,7 @@ var appRoutes = [
 
   GetPage(name: '/', page: ()=> const MainPage(), middlewares: [AuthMiddleware()]),
   GetPage(name: '/main/feed', page: ()=> const FeedScreen(), middlewares: [AuthMiddleware()]),
+  GetPage(name: '/main/comments', page: ()=> const CommentsScreen(), middlewares: [AuthMiddleware()]),
 
 
   // notifications

@@ -250,6 +250,7 @@ class CreatePostScreen extends GetWidget {
                                   ? const CircularProgressIndicator()
                                   : ElevatedButton(
                                       onPressed: () async {
+                                        FocusScope.of(context).unfocus();
                                         if (ctr.selectedCategory.value == '') {
                                           ctr.selectedCategory.value =
                                               items[0].id ?? '';

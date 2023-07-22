@@ -67,6 +67,7 @@ class RegisterAuthController extends GetxController {
           .then((value) async {
         await _firestore.collection('users').doc(value.user!.uid).set({
           'name': nameController.text.toLowerCase(),
+          'username': nameController.text.toLowerCase(),
           'email': emailController.text.toLowerCase(),
           'userDeviceToken': userDeviceToken,
           'userRole': 'user',

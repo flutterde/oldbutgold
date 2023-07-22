@@ -6,7 +6,7 @@ class CommentModel {
   String? id;
   UserModel? user;
   String? content;
-  DateTime? createdAt;
+  Timestamp? createdAt;
 
   CommentModel({
     this.id,
@@ -27,7 +27,7 @@ class CommentModel {
       user: UserModel.fromDocumentSnapshot(
         documentSnapshot: await postUser.get(),
       ),
-      content: doc['content'],
+      content: doc['comment'],
       createdAt: doc['createdAt'],
     );
   }

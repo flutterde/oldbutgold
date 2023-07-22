@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class UserModel {
- // String backetCdnUrl = dotenv.get('CLOUDFLARE_R2_URL');
+  String backetCdnUrl = dotenv.get('CF_R_DOMAIN');
   late String id;
   String? name;
   String? username;
@@ -17,7 +18,7 @@ class UserModel {
     this.name,
     this.email,
     this.country,
-   // this.profilePic,
+    this.profilePic,
     this.bio,
    // this.createdAt,
   });
@@ -33,8 +34,7 @@ class UserModel {
     //username = documentSnapshot['username'];
     email = documentSnapshot['email'];
     country = documentSnapshot['user_data']['countryName'];
-   // profilePic =
-     //   '$backetCdnUrl/${documentSnapshot['profile']['profile_photo_url']}';
+    profilePic = '$backetCdnUrl${documentSnapshot['profile']['profile_photo_url']}';
     bio = documentSnapshot['profile']['profile_bio'];
    // createdAt = documentSnapshot['created_at'];
   }
