@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/foundation.dart';
 
 import '../user/user_model.dart';
@@ -19,6 +20,8 @@ class PostModel {
   int? commentsCount;
   int? likesCount;
   bool? isLiked;
+  int? viewsCount;
+  String? videoExtension;
 
   PostModel({
     this.id,
@@ -33,6 +36,8 @@ class PostModel {
     this.commentsCount,
     this.likesCount,
     this.isLiked,
+    this.viewsCount,
+    this.videoExtension,
   });
 
 
@@ -64,6 +69,8 @@ class PostModel {
       commentsCount: await getPostCommentsCount(postId: doc.id),
       likesCount: await getPostLikesCount(postId: doc.id),
       isLiked: await getIsPostLiked(postId: doc.id),
+      viewsCount: await getPostViewsCount(postId: doc.id),
+      videoExtension: doc['meta_data']['video_extension'] ?? 'mp4',
     );
   }
 
@@ -113,4 +120,31 @@ class PostModel {
     print('================== isPost Likes ===================');
     return isLiked;
   }
+
+  // todo: get post views count from realtime database
+  Future<int?> getPostViewsCount({required String postId}) async {
+    final dbPostsRef = FirebaseDatabase.instance.ref().child('posts');
+    int? viewsCount = 0;
+    try{
+      //
+      await dbPostsRef.child(postId).once().then((DatabaseEvent snapshot) {
+         viewsCount = (snapshot.snapshot.value as Map<dynamic, dynamic>)['views'] as int?;
+       
+        
+        print('================== Views Count ===================');
+        print(viewsCount);
+        print('================== Views Count ===================');
+
+       
+      });
+
+    } catch (e) {
+      print('======== Error in getPostViewsCount =========');
+      print(e);
+      print('======== End Error in getPostViewsCount =========');
+    }
+    return viewsCount;
+  }
+
+
 }

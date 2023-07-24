@@ -9,6 +9,7 @@ import '../../views/screens/mains/feed/feed_screen.dart';
 import '../../views/screens/mains/main_page.dart';
 import '../../views/screens/notifications/notification_screen.dart';
 import '../../views/widgets/comments/comments_screen.dart';
+import '../../views/widgets/profile/edit_profile_screen.dart';
 import '../middlewares/auth_middlewares.dart';
 
 var appRoutes = [
@@ -36,4 +37,8 @@ var appRoutes = [
 
   // tests
   GetPage(name: '/test2', page: ()=> const AddT(), middlewares: [AuthMiddleware()]),
+  
+
+  // profile
+  GetPage(name: '/edit-profile', page: ()=> const EditProfileScreen(), middlewares: [AuthMiddleware()]),
 ];

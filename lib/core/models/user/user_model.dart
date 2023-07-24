@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class UserModel {
   String backetCdnUrl = dotenv.get('CF_R_DOMAIN');
-  late String id;
+  String? id;
   String? name;
   String? username;
   String? email;
@@ -14,7 +14,7 @@ class UserModel {
   DateTime? createdAt;
 
   UserModel({
-    required this.id,
+     this.id,
     this.name,
     this.email,
     this.country,

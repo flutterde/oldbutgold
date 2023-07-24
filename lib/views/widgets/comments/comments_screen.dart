@@ -31,7 +31,23 @@ class CommentsScreen extends GetWidget {
                                 var comment = ctr.comments[index];
                                 return ListTile(
                                   title: Text(comment.content!),
-                                 // subtitle: Text(comment.createdAt!.toString()),
+                                  subtitle: Row(
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 10,
+                                        backgroundImage: NetworkImage(
+                                          comment.user!.profilePic!,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 5),
+                                      Text(
+                                        comment.user!.name!,
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.grey[600]),
+                                      ),
+                                    ],
+                                  ),
                                 );
                               },
                             ),

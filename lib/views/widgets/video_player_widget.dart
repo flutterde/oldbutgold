@@ -34,7 +34,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   }
 
   Future<void> increaseViews(String postID) async {
-    final dbPostsRef = FirebaseDatabase.instance.ref().child('tests');
+    final dbPostsRef = FirebaseDatabase.instance.ref().child('posts');
     try {
        await dbPostsRef.child(postID).set({
         'views': ServerValue.increment(1),

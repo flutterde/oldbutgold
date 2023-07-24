@@ -43,6 +43,10 @@ class MainPage extends GetWidget {
                               icon: const Icon(Icons.add_circle_outline),
                               selectedIcon: const Icon(Icons.add_circle),
                               label: 'create'.tr),
+                          NavigationDestination(
+                              icon: const Icon(Icons.person_outline_sharp),
+                              selectedIcon: const Icon(Icons.person_pin),
+                              label: 'profile'.tr),
                         ]),
                   ),
                 ),

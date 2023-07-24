@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../core/controllers/main_pages/feed/feed_controller.dart';
+import '../../../widgets/posts/more_post_widget.dart';
+import '../../../widgets/video_player_widget.dart';
 
 class FeedScreen extends GetWidget {
   const FeedScreen({super.key});
@@ -37,13 +39,34 @@ class FeedScreen extends GetWidget {
                             return Stack(
                               children: [
                                 // video
-                                /*
+                                
                                 VideoPlayerWidget(
                                   videoUrl: post.videoUrl!,
                                   postId: post.id!,
                                 ),
                                     
-                                */
+                                
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Spacer(),
+                                    Text(
+                                      ' @${post.user!.name!}',
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8),
+                                      child: Text(
+                                        post.description!,
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -67,10 +90,12 @@ class FeedScreen extends GetWidget {
                                                 onPressed: () {
                                                   ctr.likePost(post);
                                                 },
-                                                icon:  Icon(
+                                                icon: Icon(
                                                   Icons.favorite,
                                                   size: 38,
-                                                  color: post.isLiked! ? Colors.red : Colors.grey,
+                                                  color: post.isLiked!
+                                                      ? Colors.red
+                                                      : Colors.grey,
                                                 ),
                                               ),
                                               Text(
@@ -106,10 +131,27 @@ class FeedScreen extends GetWidget {
                                                 height: Get.height * 0.005,
                                               ),
                                               IconButton(
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  morePostWidget(
+                                                    post,
+                                                  );
+                                                },
                                                 icon: const Icon(
                                                   Icons.more_horiz,
                                                   size: 38,
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
+                                              const Icon(
+                                                Icons.visibility,
+                                                size: 15,
+                                                color: Colors.grey,
+                                              ),
+                                              Text(
+                                                post.viewsCount.toString(),
+                                                style: const TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.normal,
                                                   color: Colors.grey,
                                                 ),
                                               ),
@@ -118,8 +160,6 @@ class FeedScreen extends GetWidget {
                                         ),
                                       ],
                                     ),
-                                    const Spacer(),
-                                    Text(post.description!),
                                   ],
                                 ),
                               ],
