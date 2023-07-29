@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,6 +22,39 @@ class EditProfileScreen extends GetWidget {
                 key: ctr.formKey,
                 child: Column(
                   children: [
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    ctr.pickedImageFile == null
+                        ? CircleAvatar(
+                            radius: 60,
+                            backgroundImage:
+                                Image.network(ctr.user.profilePic!).image,
+                            child: IconButton(
+                              onPressed: () {
+                                ctr.selectFile();
+                              },
+                              icon: const Icon(
+                                Icons.camera_alt,
+                                size: 30,
+                                color: Colors.grey,
+                              ),
+                            ))
+                        : CircleAvatar(
+                            radius: 50,
+                            backgroundImage:
+                                FileImage(File(ctr.pickedImageFile!.path!)),
+                            child: IconButton(
+                              onPressed: () {
+                                ctr.selectFile();
+                              },
+                              icon: const Icon(
+                                Icons.camera_alt,
+                                size: 30,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
                     TextFormField(
                       controller: ctr.nameController,
                       decoration: const InputDecoration(
@@ -37,7 +72,7 @@ class EditProfileScreen extends GetWidget {
                     ),
                     ElevatedButton(
                         onPressed: () {
-                          ctr.updateUserDate();
+                          ctr.updateUserData(ctr.nameController.text);
                         },
                         child: const Text('Update')),
                   ],
