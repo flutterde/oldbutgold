@@ -17,65 +17,76 @@ class EditProfileScreen extends GetWidget {
             appBar: AppBar(
               title: const Text('Edit Profile'),
             ),
-            body: SingleChildScrollView(
-              child: Form(
-                key: ctr.formKey,
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    ctr.pickedImageFile == null
-                        ? CircleAvatar(
-                            radius: 60,
-                            backgroundImage:
-                                Image.network(ctr.user.profilePic!).image,
-                            child: IconButton(
-                              onPressed: () {
-                                ctr.selectFile();
-                              },
-                              icon: const Icon(
-                                Icons.camera_alt,
-                                size: 30,
-                                color: Colors.grey,
-                              ),
-                            ))
-                        : CircleAvatar(
-                            radius: 50,
-                            backgroundImage:
-                                FileImage(File(ctr.pickedImageFile!.path!)),
-                            child: IconButton(
-                              onPressed: () {
-                                ctr.selectFile();
-                              },
-                              icon: const Icon(
-                                Icons.camera_alt,
-                                size: 30,
-                                color: Colors.grey,
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SingleChildScrollView(
+                child: Form(
+                  key: ctr.formKey,
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      ctr.pickedImageFile == null
+                          ? CircleAvatar(
+                              radius: 60,
+                              backgroundImage:
+                                  Image.network(ctr.user.profilePic!).image,
+                              child: IconButton(
+                                onPressed: () {
+                                  ctr.selectFile();
+                                },
+                                icon: const Icon(
+                                  Icons.camera_alt,
+                                  size: 30,
+                                  color: Colors.grey,
+                                ),
+                              ))
+                          : CircleAvatar(
+                              radius: 50,
+                              backgroundImage:
+                                  FileImage(File(ctr.pickedImageFile!.path!)),
+                              child: IconButton(
+                                onPressed: () {
+                                  ctr.selectFile();
+                                },
+                                icon: const Icon(
+                                  Icons.camera_alt,
+                                  size: 30,
+                                  color: Colors.grey,
+                                ),
                               ),
                             ),
-                          ),
-                    TextFormField(
-                      controller: ctr.nameController,
-                      decoration: const InputDecoration(
-                        labelText: 'Name',
-                      ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your name';
-                        }
-                        return null;
-                      },
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    ElevatedButton(
-                        onPressed: () {
-                          ctr.updateUserData(ctr.nameController.text);
+                      TextFormField(
+                        controller: ctr.nameController,
+                        decoration: const InputDecoration(
+                          labelText: 'Name',
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your name';
+                          }
+                          return null;
                         },
-                        child: const Text('Update')),
-                  ],
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Obx(
+                        () => ctr.isLoading.value
+                            ? const CircularProgressIndicator()
+                            : ElevatedButton(
+                                onPressed: () {
+                                   FocusScope.of(context).unfocus();
+                                  if (ctr.formKey.currentState!.validate()) {
+                                    ctr.updateUserData(ctr.nameController.text);
+                                  }
+                                },
+                                child: const Text('Update Profile'),
+                              ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
