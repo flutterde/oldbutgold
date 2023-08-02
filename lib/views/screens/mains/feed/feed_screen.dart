@@ -15,7 +15,7 @@ class FeedScreen extends GetWidget {
         builder: (ctr) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Feed'),
+              title:  Text('feed'.tr),
               actions: [
                 IconButton(
                   onPressed: () {},
@@ -27,8 +27,8 @@ class FeedScreen extends GetWidget {
               () => ctr.isLoading.value
                   ? const Center(child: CircularProgressIndicator())
                   : ctr.isPostsEmpty.value
-                      ? const Center(
-                          child: Text('No Post to display'),
+                      ?  Center(
+                          child: Text('no_post_to_display'.tr),
                         )
                       : PageView.builder(
                           scrollDirection: Axis.vertical,

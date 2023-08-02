@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
@@ -24,6 +23,7 @@ class EditProfileController extends GetxController {
   UserModel user = Get.arguments['user'];
 
   final TextEditingController nameController = TextEditingController();
+  final TextEditingController bioController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   Future selectFile() async {
@@ -49,15 +49,15 @@ class EditProfileController extends GetxController {
     update();
   }
 
-  Future<void> updateUserData(String name) async {
+  Future<void> updateUserData(String name, String bio) async {
     try {
       isLoading.value = true;
       if (pickedImageFile != null) {
         //
         await updateProfileImage();
-        await __(name);
+        await __(name, bio);
       } else {
-        await __(name);
+        await __(name, bio);
       }
       isLoading.value = false;
       Get.back();
@@ -83,13 +83,13 @@ class EditProfileController extends GetxController {
     }
   }
 
-  Future<void> __(String n) async {
+  Future<void> __(String n, String b) async {
     //
     isLoading.value = true;
-    await _firestore
-        .collection('users')
-        .doc(_auth.currentUser!.uid)
-        .update({'name': n});
+    await _firestore.collection('users').doc(_auth.currentUser!.uid).update({
+      'name': n,
+      'profile': {'profile_bio': b}
+    });
   }
 
   Future<void> updateProfileImage() async {
@@ -122,6 +122,7 @@ class EditProfileController extends GetxController {
   @override
   void onInit() {
     nameController.text = user.name!;
+    bioController.text = user.bio!;
     super.onInit();
   }
 }

@@ -3,9 +3,11 @@ import 'package:get/get.dart';
 import 'package:oldbutgold/core/models/post/post_model.dart';
 
 import '../../../core/controllers/downloads/download_post_controller.dart';
+import '../../../core/controllers/reports/post_report_controller.dart';
 
 Future<dynamic> morePostWidget(PostModel post) async {
   final DownloadPostController downloadCtr = Get.put(DownloadPostController());
+  final PostReportController reportCtr = Get.put(PostReportController());
   final scaffoldMessenger = ScaffoldMessenger.of(Get.context!);
   return await Get.bottomSheet(
     Container(
@@ -33,16 +35,24 @@ Future<dynamic> morePostWidget(PostModel post) async {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.report)),
+            IconButton(
+                onPressed: () {
+                  reportCtr.reportPost(post.id!);
+                },
+                icon: Obx(
+                  () => reportCtr.isLoading.value
+                      ? const Icon(Icons.autorenew_sharp)
+                      : const Icon(Icons.report),
+                )),
             const SizedBox(
               height: 10,
             ),
-            const Text(
-              'Report',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Obx(() => Text(
+                  reportCtr.isLoading.value ? 'load'.tr : 'report'.tr,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
           ],
         )),
         Expanded(
@@ -56,7 +66,7 @@ Future<dynamic> morePostWidget(PostModel post) async {
                 scaffoldMessenger.showSnackBar(
                   SnackBar(
                     content: Obx(() => Text(
-                        'Downloading ${downloadCtr.progress.value.toStringAsFixed(0)}%')),
+                        '${'download'.tr} ${downloadCtr.progress.value.toStringAsFixed(0)}%')),
                     duration: const Duration(seconds: 100),
                   ),
                 );
@@ -73,9 +83,9 @@ Future<dynamic> morePostWidget(PostModel post) async {
             const SizedBox(
               height: 10,
             ),
-            const Text(
-              'Download',
-              style: TextStyle(
+            Text(
+              'download'.tr,
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -89,9 +99,9 @@ Future<dynamic> morePostWidget(PostModel post) async {
             const SizedBox(
               height: 10,
             ),
-            const Text(
-              'Copy Link',
-              style: TextStyle(
+            Text(
+              'copy_link'.tr,
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),

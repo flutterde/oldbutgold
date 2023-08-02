@@ -13,84 +13,88 @@ class RegisterUserScreen extends GetWidget {
         builder: (ctr) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Register'),
+              title:  Text('register'.tr),
             ),
-            body: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Form(
-                        key: ctr.formKey,
-                        child: Column(
-                          children: [
-                            TextFormField(
-                              controller: ctr.nameController,
-                              decoration: const InputDecoration(
-                                hintText: 'Enter your name',
+            body: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Form(
+                          key: ctr.formKey,
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                controller: ctr.nameController,
+                                decoration:  InputDecoration(
+                                  hintText: 'enter_your_name'.tr,
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'please_enter_your_name'.tr;
+                                  }
+                                  return null;
+                                },
                               ),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter your name';
-                                }
-                                return null;
-                              },
-                            ),
-                            TextFormField(
-                              controller: ctr.emailController,
-                              decoration: const InputDecoration(
-                                hintText: 'Enter your email',
+                              TextFormField(
+                                controller: ctr.emailController,
+                                decoration:  InputDecoration(
+                                  hintText: 'enter_your_email'.tr,
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty || !value.isEmail) {
+                                    return 'Please enter your email';
+                                  }
+                                  return null;
+                                },
                               ),
-                              validator: (value) {
-                                if (value!.isEmpty || !value.isEmail) {
-                                  return 'Please enter your email';
-                                }
-                                return null;
-                              },
-                            ),
-                            TextFormField(
-                              controller: ctr.passwordController,
-                              decoration: const InputDecoration(
-                                hintText: 'Enter your password',
+                              TextFormField(
+                                controller: ctr.passwordController,
+                                decoration:  InputDecoration(
+                                  hintText: 'enter_your_password'.tr,
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty || value.trim().length < 6) {
+                                    return 'password_should_be_longer_than_6_characters'.tr;
+                                  }
+                                  return null;
+                                },
                               ),
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter your password';
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            Obx(() => ctr.isLoading.value
-                                ? const CircularProgressIndicator()
-                                : ElevatedButton(
-                                    onPressed: () {
-                                      if (ctr.formKey.currentState!
-                                          .validate()) {
-                                        ctr.registerNewUser();
-                                      }
-                                    },
-                                    child: const Text('Register'),
-                                  )),
-                          ],
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Obx(() => ctr.isLoading.value
+                                  ? const CircularProgressIndicator()
+                                  : ElevatedButton(
+                                      onPressed: () {
+                                        FocusScope.of(context).unfocus();
+                                        if (ctr.formKey.currentState!
+                                            .validate()) {
+                                          ctr.registerNewUser();
+                                        }
+                                      },
+                                      child:  Text('register'.tr),
+                                    )),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Get.toNamed('/auth/login');
-                    },
-                    child: const Text('Login'),
-                  ),
-                ],
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Get.toNamed('/auth/login');
+                      },
+                      child:  Text('login'.tr),
+                    ),
+                  ],
+                ),
               ),
             ),
           );

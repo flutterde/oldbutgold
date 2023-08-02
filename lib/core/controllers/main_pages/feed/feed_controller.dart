@@ -72,14 +72,14 @@ class FeedController extends GetxController {
     await postReportCtr
         .reportPost(postId)
         .then((value) => Get.snackbar(
-              'Report',
-              'Post has been reported',
+              'report'.tr,
+              'post_has_been_reported'.tr,
               snackPosition: SnackPosition.BOTTOM,
               backgroundColor: Colors.green,
             ))
         .catchError(
           (e) => Get.snackbar(
-            'Error',
+            'error'.tr,
             e.toString(),
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.red,
@@ -117,7 +117,7 @@ class FeedController extends GetxController {
       }
     } catch (e) {
       Get.snackbar(
-        'Error',
+        'error'.tr,
         e.toString(),
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,

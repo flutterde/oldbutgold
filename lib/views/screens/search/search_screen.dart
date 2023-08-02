@@ -19,8 +19,8 @@ class SearchScreen extends GetWidget {
                 key: ctr.formKey,
                 child: TextFormField(
                   controller: ctr.searchCtr,
-                  decoration: const InputDecoration(
-                    hintText: 'Search',
+                  decoration:  InputDecoration(
+                    hintText: 'search_here'.tr,
                     border: InputBorder.none,
                   ),
                   onFieldSubmitted: (value) {

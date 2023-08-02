@@ -16,7 +16,7 @@ class CreatePostScreen extends GetWidget {
         init: CreatePostController(),
         builder: (ctr) => Scaffold(
               appBar: AppBar(
-                title: const Text('Create Post'),
+                title: Text('create_post'.tr),
               ),
               body: SingleChildScrollView(
                 child: Column(
@@ -56,19 +56,19 @@ class CreatePostScreen extends GetWidget {
                                               Colors.yellow,
                                             ),
                                           ),
-                                          child: const Text('Select Video'),
+                                          child: Text('select_video'.tr),
                                         ),
                                         const SizedBox(
                                           height: 10,
                                         ),
                                         Text(
-                                          'Video is required'.tr,
+                                          'video_is_required'.tr,
                                           textAlign: TextAlign.center,
                                           style: const TextStyle(
                                               color: Colors.red),
                                         ),
                                         Text(
-                                          'video duration chould be between 45 seconds \n to 2 minutes  and less than 100 Mb'
+                                          'video_duration_should_be_between_45sec_to_2_min'
                                               .tr,
                                           textAlign: TextAlign.center,
                                           style: const TextStyle(
@@ -82,8 +82,8 @@ class CreatePostScreen extends GetWidget {
                                   ? ''
                                   : ctr.videoDuration < 45 ||
                                           ctr.videoDuration > 120
-                                      ? 'Invalid Video Duration'
-                                      : 'Video Duration: ${ctr.videoDuration.toString()}',
+                                      ? 'invalid_video_duration'.tr
+                                      : '${'video_duration'.tr} ${ctr.videoDuration.toString()}',
                               style: TextStyle(
                                   color: ctr.videoDuration < 45 ||
                                           ctr.videoDuration > 120
@@ -95,12 +95,12 @@ class CreatePostScreen extends GetWidget {
                             ),
                             TextFormField(
                               controller: ctr.videoDescriptionCtr,
-                              decoration: const InputDecoration(
-                                labelText: 'Video Description',
+                              decoration: InputDecoration(
+                                labelText: 'video_description'.tr,
                               ),
                               validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Video description is required';
+                                if (value!.isEmpty || value.trim().isEmpty) {
+                                  return 'video_description_is_required'.tr;
                                 }
                                 return null;
                               },
@@ -113,7 +113,7 @@ class CreatePostScreen extends GetWidget {
                               () => items.length == null
                                   ? SizedBox(
                                       child: Text(
-                                        'No Category to choose'.tr,
+                                        'no_category_to_select'.tr,
                                         textAlign: TextAlign.center,
                                         style:
                                             const TextStyle(color: Colors.red),
@@ -177,7 +177,7 @@ class CreatePostScreen extends GetWidget {
                                           child: TextFormField(
                                             controller: ctr.tagsCtr,
                                             decoration: InputDecoration(
-                                              labelText: 'Add Tag'.tr,
+                                              labelText: 'add_tags'.tr,
                                             ),
                                           ),
                                         ),
@@ -192,12 +192,13 @@ class CreatePostScreen extends GetWidget {
                                     ),
                                     Expanded(
                                       child: ctr.tags.isEmpty
-                                          ? const Padding(
-                                              padding: EdgeInsets.all(8.0),
+                                          ? Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
                                               child: Text(
-                                                'No Tags',
+                                                'no_tags'.tr,
                                                 textAlign: TextAlign.center,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: Colors.red),
                                               ),
                                             )
@@ -266,13 +267,13 @@ class CreatePostScreen extends GetWidget {
                                       child: SizedBox(
                                         width: double.infinity,
                                         child: Text(
-                                          'Create Post'.tr,
+                                          'create_post'.tr,
                                           textAlign: TextAlign.center,
                                         ),
                                       ),
                                     ),
                             ),
-                           const SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                           ],

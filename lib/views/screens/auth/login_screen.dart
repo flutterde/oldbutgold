@@ -13,63 +13,67 @@ class LoginUserScreen extends GetWidget {
         builder: (ctr) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Login'),
+              title:  Text('login'.tr),
             ),
             body: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Form(
-                    key: ctr.formKey,
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          controller: ctr.emailController,
-                          decoration: const InputDecoration(
-                            hintText: 'Enter your email',
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Form(
+                      key: ctr.formKey,
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            controller: ctr.emailController,
+                            decoration:  InputDecoration(
+                              hintText: 'enter_your_email'.tr,
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty || !value.isEmail) {
+                                return 'please_enter_your_email'.tr;
+                              }
+                              return null;
+                            },
                           ),
-                          validator: (value) {
-                            if (value!.isEmpty || !value.isEmail) {
-                              return 'Please enter your email';
-                            }
-                            return null;
-                          },
-                        ),
-                        TextFormField(
-                          controller: ctr.passwordController,
-                          decoration: const InputDecoration(
-                            hintText: 'Enter your password',
+                          TextFormField(
+                            controller: ctr.passwordController,
+                            decoration:  InputDecoration(
+                              hintText: 'enter_your_password'.tr,
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty || value.trim().length < 6) {
+                                return 'please_enter_your_password'.tr;
+                              }
+                              return null;
+                            },
                           ),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter your password';
-                            }
-                            return null;
-                          },
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Obx(() => ctr.isLoading.value
-                            ? const CircularProgressIndicator()
-                            : ElevatedButton(
-                                onPressed: () {
-                                  if (ctr.formKey.currentState!.validate()) {
-                                    ctr.loginUser();
-                                  }
-                                },
-                                child: const Text('Login'),
-                              )),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Get.toNamed('/auth/register');
-                          },
-                          child: const Text('Register'),
-                        ),
-                      ],
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Obx(() => ctr.isLoading.value
+                              ? const CircularProgressIndicator()
+                              : ElevatedButton(
+                                  onPressed: () {
+                                    FocusScope.of(context).unfocus();
+                                    if (ctr.formKey.currentState!.validate()) {
+                                      ctr.loginUser();
+                                    }
+                                  },
+                                  child:  Text('login'.tr),
+                                )),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Get.toNamed('/auth/register');
+                            },
+                            child:  Text('register'.tr),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

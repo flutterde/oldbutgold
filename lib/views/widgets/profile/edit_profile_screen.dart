@@ -15,7 +15,7 @@ class EditProfileScreen extends GetWidget {
         builder: (ctr) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Edit Profile'),
+              title:  Text('edit_profile'.tr),
             ),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -59,12 +59,12 @@ class EditProfileScreen extends GetWidget {
                             ),
                       TextFormField(
                         controller: ctr.nameController,
-                        decoration: const InputDecoration(
-                          labelText: 'Name',
+                        decoration:  InputDecoration(
+                          labelText: 'name'.tr,
                         ),
                         validator: (value) {
                           if (value!.isEmpty) {
-                            return 'Please enter your name';
+                            return 'please_enter_your_name'.tr;
                           }
                           return null;
                         },
@@ -72,17 +72,32 @@ class EditProfileScreen extends GetWidget {
                       const SizedBox(
                         height: 10,
                       ),
+                      TextFormField(
+                        controller: ctr.bioController,
+                        decoration:  InputDecoration(
+                          labelText: 'bio'.tr,
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'please_enter_your_bio'.tr;
+                          }
+                          return null;
+                        },
+                      ),
                       Obx(
                         () => ctr.isLoading.value
                             ? const CircularProgressIndicator()
                             : ElevatedButton(
                                 onPressed: () {
-                                   FocusScope.of(context).unfocus();
+                                  FocusScope.of(context).unfocus();
                                   if (ctr.formKey.currentState!.validate()) {
-                                    ctr.updateUserData(ctr.nameController.text);
+                                    ctr.updateUserData(ctr.nameController.text,
+                                        ctr.bioController.text);
                                   }
                                 },
-                                child: const Text('Update Profile'),
+                                child:  SizedBox(
+                                    width: double.infinity,
+                                    child: Text('update_profile'.tr)),
                               ),
                       ),
                     ],

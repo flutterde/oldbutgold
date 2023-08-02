@@ -11,10 +11,6 @@ class SearchScreenController extends GetxController {
   RxBool isUsersEmpty = false.obs;
   RxList<UserModel> users = <UserModel>[].obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
 
   void clearSearch() {
     searchCtr.clear();
@@ -40,7 +36,7 @@ class SearchScreenController extends GetxController {
     } catch (e) {
       isLoading.value = false;
       Get.snackbar(
-        'Error',
+        'error'.tr,
         e.toString(),
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red,

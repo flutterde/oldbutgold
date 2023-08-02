@@ -15,6 +15,10 @@ class AppLocalController extends GetxController {
     LanguageModel('العربية', 'AR', 'assets/images/flags/arab.png'),
     LanguageModel('Français', 'FR', 'assets/images/flags/french.png'),
     LanguageModel('Español', 'ES', 'assets/images/flags/spain.png'),
+    LanguageModel('Português', 'PT', 'assets/images/flags/portugal.png'),
+    LanguageModel('Deutsche', 'DE', 'assets/images/flags/germany.png'),
+    LanguageModel('Bahasa Indonesia', 'ID', 'assets/images/flags/indonesia.png'),
+    LanguageModel('русский', 'RU', 'assets/images/flags/russia.png'),
   ];
 
   saveLocale() {

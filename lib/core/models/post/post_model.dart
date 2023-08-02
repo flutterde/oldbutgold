@@ -104,12 +104,12 @@ class PostModel {
 
 
   Future<bool> getIsPostLiked({required String postId}) async {
-    final FirebaseAuth _auth = FirebaseAuth.instance;
+    final FirebaseAuth auth = FirebaseAuth.instance;
     bool isLiked = false;
     print('================== Start isPost Likes ===================');
     final query = await FirebaseFirestore.instance
         .collection('likes')
-        .where('user_id', isEqualTo: _auth.currentUser!.uid)
+        .where('user_id', isEqualTo: auth.currentUser!.uid)
         .where('post_id', isEqualTo: postId)
         .get();
 

@@ -41,8 +41,8 @@ class DownloadPostController extends GetxController {
         );
         isDownloaded.value = true;
         Get.snackbar(
-          'Success',
-          'Video downloaded successfully',
+          'success'.tr,
+          'video_downloaded_successfully'.tr,
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.green,
           
@@ -58,8 +58,8 @@ class DownloadPostController extends GetxController {
       print('==================== ERROR DOWNLOADING ====================');
       print(e);
       Get.snackbar(
-        'Error',
-        'Error downloading video',
+        'error'.tr,
+        'error_downloading_video'.tr,
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,
       );
