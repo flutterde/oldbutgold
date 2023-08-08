@@ -19,7 +19,7 @@ class CreateCommentController extends GetxController{
    try{
     isLoading.toggle();
       //
-      await _firestore.collection('comments').doc(postId).collection('list').add({
+      await _firestore.collection('pt').doc(postId).collection('comments').add({
         'comment': comment,
         'createdAt': FieldValue.serverTimestamp(),
         'user': _firestore.collection('users').doc(_auth.currentUser!.uid),
@@ -27,6 +27,7 @@ class CreateCommentController extends GetxController{
         'postId': postId,
         'post': _firestore.collection('posts').doc(postId),
       });
+
       commentCtr.clear();
       isLoading.toggle();
       Get.back();

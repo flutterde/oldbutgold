@@ -125,4 +125,6 @@ class EditProfileController extends GetxController {
     bioController.text = user.bio!;
     super.onInit();
   }
+
+
 }

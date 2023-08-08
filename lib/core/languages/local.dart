@@ -6,8 +6,10 @@ import 'langs/en.dart';
 import 'langs/es.dart';
 import 'langs/fr.dart';
 import 'langs/id.dart';
+import 'langs/it.dart';
 import 'langs/pt.dart';
 import 'langs/ru.dart';
+import 'langs/tr.dart';
 
 class AppLocal implements Translations {
   @override
@@ -20,5 +22,7 @@ class AppLocal implements Translations {
         'de': de,
         'id': id,
         'ru': ru,
+        'it': it,
+        'tr': tr,
       };
 }

@@ -167,6 +167,7 @@ class CreatePostController extends GetxController {
           'user_lang_code': 'en',
           'is_ready': false,
           'isRejected': false,
+          'audience': 'public', // 'public' | 'following' | 'followers' | 'friends' | 'only_me'
           'is_processed': false,
           'meta_data': {
             'duration': videoDuration,

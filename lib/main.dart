@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'core/apis/firebase_api.dart';
 import 'core/bindings/initial_binding.dart';
 import 'core/languages/local.dart';
+import 'core/languages/local_controller.dart';
 import 'core/routes/app_routes.dart';
 
 class MyHttpOverrides extends HttpOverrides {
@@ -45,6 +46,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+    Get.put(AppLocalController());
     return GetMaterialApp(
       
       title: 'Old But Gold',

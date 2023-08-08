@@ -16,7 +16,7 @@ class PostReportController extends GetxController {
       //
       var user = _auth.currentUser;
       var userId = user!.uid;
-      await _firestore.collection('reports').add({
+      await _firestore.collection('posts').doc(postId).collection('reports').add({
         'userId': userId,
         'post': _firestore.collection('posts').doc(postId),
         'user': _firestore.collection('users').doc(userId),
@@ -29,16 +29,16 @@ class PostReportController extends GetxController {
       isLoading.value = false;
       Get.back();
       Get.snackbar(
-        'Success',
-        'Post reported successfully',
+        'success'.tr,
+        'post_reported_successfully',
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.green,
       );
     } on FirebaseException catch (e) {
       isLoading.value = false;
       Get.snackbar(
-        'Error',
-        'Something went wrong, try again later',
+        'error'.tr,
+        'something_went_wrong_try_again_later',
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.red,
       );

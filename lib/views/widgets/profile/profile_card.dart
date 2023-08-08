@@ -36,7 +36,7 @@ Widget profileCard(UserModel user) {
         ),
         ElevatedButton(onPressed: () {
           Get.toNamed('/edit-profile', arguments: {'user': user});
-        }, child: Text('Edit Profile'.tr)),
+        }, child: Text('edit_profile'.tr)),
       ],
     ),
   );

@@ -50,9 +50,10 @@ class LanguageWidget extends StatelessWidget {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(2),
-                              child: Text(
+                              child: Image.asset(
                                 value.flag,
-                              ),
+                                width: 20,
+                              )
                             ),
                             Text(value.name),
                           ],

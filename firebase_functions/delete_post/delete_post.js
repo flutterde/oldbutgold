@@ -6,7 +6,9 @@
  */
 
 const admin = require('firebase-admin');
-admin.initializeApp();
+admin.initializeApp({
+    databaseURL: "https://old-butgold-default-rtdb.europe-west1.firebasedatabase.app",
+});
 
 const { S3Client, DeleteObjectCommand } = require("@aws-sdk/client-s3");
 
@@ -39,6 +41,9 @@ exports.deletePost = async (event, context) => {
                 // Delete the post from Firestore
                 await db.doc(postId).delete();
                 console.log('Post deleted from Firestore');
+                // Delete the post from RealtimeDB
+                await deletePostFromRealtimeDB(postId);
+                // Delete the post from delete_post collection
                 await admin.firestore().collection('delete_post').doc(postId).delete();
                 console.log('Delete-post document deleted from Firestore');
 
@@ -65,7 +70,7 @@ const s3 = new S3Client({
 
 
 async function deleteVideoFromR2(videoUrl, r2BucketName) {
-    
+
     const params = {
         Bucket: r2BucketName,
         Key: videoUrl,
@@ -75,6 +80,16 @@ async function deleteVideoFromR2(videoUrl, r2BucketName) {
         console.log('Success', data);
     } catch (err) {
         console.log('Error', err);
+    }
+}
+
+
+async function deletePostFromRealtimeDB(postId) {
+    try {
+        await admin.database().ref('posts').child(postId).remove();
+        console.log('Post deleted from RealtimeDB');
+    } catch (error) {
+        console.log(`Error::::: ${error}`);
     }
 }
 

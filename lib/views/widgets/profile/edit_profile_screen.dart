@@ -15,7 +15,7 @@ class EditProfileScreen extends GetWidget {
         builder: (ctr) {
           return Scaffold(
             appBar: AppBar(
-              title:  Text('edit_profile'.tr),
+              title: Text('edit_profile'.tr),
             ),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -59,7 +59,7 @@ class EditProfileScreen extends GetWidget {
                             ),
                       TextFormField(
                         controller: ctr.nameController,
-                        decoration:  InputDecoration(
+                        decoration: InputDecoration(
                           labelText: 'name'.tr,
                         ),
                         validator: (value) {
@@ -74,7 +74,7 @@ class EditProfileScreen extends GetWidget {
                       ),
                       TextFormField(
                         controller: ctr.bioController,
-                        decoration:  InputDecoration(
+                        decoration: InputDecoration(
                           labelText: 'bio'.tr,
                         ),
                         validator: (value) {
@@ -95,9 +95,12 @@ class EditProfileScreen extends GetWidget {
                                         ctr.bioController.text);
                                   }
                                 },
-                                child:  SizedBox(
+                                child: SizedBox(
                                     width: double.infinity,
-                                    child: Text('update_profile'.tr)),
+                                    child: Text(
+                                      'update_profile'.tr,
+                                      textAlign: TextAlign.center,
+                                    )),
                               ),
                       ),
                     ],

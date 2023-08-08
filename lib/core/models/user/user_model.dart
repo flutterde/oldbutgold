@@ -35,7 +35,7 @@ class UserModel {
     email = documentSnapshot['email'];
     country = documentSnapshot['user_data']['countryName'];
     profilePic = '$backetCdnUrl${documentSnapshot['profile']['profile_photo_url']}';
-    bio = documentSnapshot['profile']['profile_bio'];
+    bio = documentSnapshot['profile']['profile_bio'] ?? '';
    // createdAt = documentSnapshot['created_at'];
   }
    

@@ -25,6 +25,19 @@ exports.videoContentDetection = async (event, context) => {
     const gcsUri = bucket + videoFullPath;
 
 
+    const u_id1 = process.env.USER_ID1;
+    const u_id2 = process.env.USER_ID2;
+    const u_id3 = process.env.USER_ID3;
+
+
+    if (userId === u_id1 || userId === u_id2 || userId === u_id3) {
+        console.log('================= Video Approved =================');
+        await updatePost(postId, false);
+        await nextProcess(postId, userId, userLang, videoUrl, userDeviceToken, videoExtension, videoContentType, videoFullPath);
+        return;
+    }
+
+
 
         const client = new video.VideoIntelligenceServiceClient();
             const request = {

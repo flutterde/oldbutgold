@@ -19,12 +19,13 @@ class SearchScreen extends GetWidget {
                 key: ctr.formKey,
                 child: TextFormField(
                   controller: ctr.searchCtr,
-                  decoration:  InputDecoration(
+                  textInputAction: TextInputAction.search,
+                  decoration: InputDecoration(
                     hintText: 'search_here'.tr,
                     border: InputBorder.none,
                   ),
                   onFieldSubmitted: (value) {
-                    print('========================');
+                    
                     ctr.search();
                   },
                 ),

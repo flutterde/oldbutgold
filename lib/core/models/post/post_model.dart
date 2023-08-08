@@ -92,8 +92,9 @@ class PostModel {
   Future<int> getPostLikesCount({required String postId}) async {
     print('================== Start Counts ===================');
     AggregateQuerySnapshot query = await FirebaseFirestore.instance
+        .collection('pt')
+        .doc(postId)
         .collection('likes')
-        .where('post_id', isEqualTo: postId)
         .count()
         .get();
     print('================== Counts ===================');
@@ -108,12 +109,14 @@ class PostModel {
     bool isLiked = false;
     print('================== Start isPost Likes ===================');
     final query = await FirebaseFirestore.instance
+        .collection('pt')
+        .doc(postId)
         .collection('likes')
-        .where('user_id', isEqualTo: auth.currentUser!.uid)
-        .where('post_id', isEqualTo: postId)
+        .doc(auth.currentUser!.uid)
         .get();
 
-        query.size > 0 ? isLiked = true : isLiked = false;
+        query.exists ? isLiked = true : isLiked = false;
+
       
     print('================== isPost Likes ===================');
     print(isLiked);

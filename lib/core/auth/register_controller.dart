@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart' hide Category;
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dio/dio.dart';
@@ -65,53 +66,11 @@ class RegisterAuthController extends GetxController {
           .createUserWithEmailAndPassword(
               email: emailController.text, password: passwordController.text)
           .then((value) async {
-        await _firestore.collection('users').doc(value.user!.uid).set({
-          'name': nameController.text.toLowerCase(),
-          'username': nameController.text.toLowerCase(),
-          'email': emailController.text.toLowerCase(),
-          'userDeviceToken': userDeviceToken,
-          'userRole': 'user',
-          'user_account_status': 'active',
-          'created_at': FieldValue.serverTimestamp(),
-          'user_data': {
-            'countryName': countryName,
-            'countryCode': countryCode,
-            'city': city,
-            'regionName': regionName,
-            'userIpAddress': userIpAddress,
-            'userProviderId': value.user!.providerData[0].providerId,
-            'userUid': value.user!.uid,
-            // 'userEmailVerified': value.user!.emailVerified,
-            'userPhoneNumber': value.user!.phoneNumber,
-            'userPhotoUrl': value.user!.photoURL,
-            'userCreationTime': value.user!.metadata.creationTime,
-            'userLastSignInTime': value.user!.metadata.lastSignInTime,
-          },
-          'profile': {
-            'is_profile_verified': false,
-            'profile_bio': '',
-            'profile_photo_url': 'data/images/defaults/avatar.png',
-          },
-          'user_social_links': {
-            'facebook': '',
-            'twitter': '',
-            'instagram': '',
-            'youtube': '',
-            'linkedin': '',
-            'website': '',
-            'github': '',
-            'email': '',
-          },
-          'wallet': {
-            'diamond': 5,
-            'obg_coin': 20,
-          },
-        });
-        await storeUserMetadata(value.user!.uid);
+        await storeUserData(value, value.user!.uid);
         await value.user!.sendEmailVerification().then((value) async {
           Get.snackbar(
-            'Success',
-            'Please check your email to verify your account',
+            'success'.tr,
+            'please_check_your_email_to_verify_your_account'.tr,
             backgroundColor: Colors.green,
             colorText: Colors.white,
             snackPosition: SnackPosition.BOTTOM,
@@ -139,6 +98,90 @@ class RegisterAuthController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
       );
     }
+  }
+
+
+
+    Future<void> registerWithGoogle() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    try {
+      //
+      isLoading.value = true;
+      GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+      AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      await auth.signInWithCredential(credential).then((value) async {
+        var id = value.user!.uid;
+        await storeUserData(value, id);
+      });
+      isLoading.value = false;
+      Get.offAllNamed('/auth/redeem');
+    } catch (e) {
+      if (kDebugMode) {
+        print('=========ERROR=========');
+        print(e);
+        print('=========ERROR=========');
+      }
+      Get.snackbar(
+        'error'.tr,
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        duration: const Duration(seconds: 6),
+      );
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> storeUserData(UserCredential  _user, String _userUid) async {
+    await _firestore.collection('users').doc(_user.user!.uid).set({
+      'name': nameController.text.toLowerCase(),
+      'username': nameController.text.toLowerCase(),
+      'email': emailController.text.toLowerCase(),
+      'userDeviceToken': userDeviceToken,
+      'userRole': 'user',
+      'user_account_status': 'active',
+      'created_at': FieldValue.serverTimestamp(),
+      'user_data': {
+        'countryName': countryName,
+        'countryCode': countryCode,
+        'city': city,
+        'regionName': regionName,
+        'userIpAddress': userIpAddress,
+        'userProviderId': _user.user!.providerData[0].providerId,
+        'userUid': _user.user!.uid,
+        // 'userEmailVerified': value.user!.emailVerified,
+        'userPhoneNumber': _user.user!.phoneNumber,
+        'userPhotoUrl': _user.user!.photoURL,
+        'userCreationTime': _user.user!.metadata.creationTime,
+        'userLastSignInTime': _user.user!.metadata.lastSignInTime,
+      },
+      'profile': {
+        'is_profile_verified': false,
+        'profile_bio': '',
+        'profile_photo_url': 'data/images/defaults/avatar.png',
+      },
+      'user_social_links': {
+        'facebook': '',
+        'twitter': '',
+        'instagram': '',
+        'youtube': '',
+        'linkedin': '',
+        'website': '',
+        'github': '',
+        'email': '',
+      },
+      'wallet': {
+        'diamond': 5,
+        'obg_coin': 20,
+      },
+    }).then((value) async {
+      await storeUserMetadata(_userUid);
+    });
   }
 
   Future<void> storeUserMetadata(String userUid) async {
