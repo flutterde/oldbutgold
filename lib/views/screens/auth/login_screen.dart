@@ -63,18 +63,15 @@ class LoginUserScreen extends GetWidget {
                             const SizedBox(
                               height: 20,
                             ),
-                            Obx(() => ctr.isLoading.value
-                                ? const CircularProgressIndicator()
-                                : ElevatedButton(
-                                    onPressed: () {
-                                      FocusScope.of(context).unfocus();
-                                      if (ctr.formKey.currentState!
-                                          .validate()) {
-                                        ctr.loginUser();
-                                      }
-                                    },
-                                    child: Text('login'.tr),
-                                  )),
+                            ElevatedButton(
+                              onPressed: () {
+                                FocusScope.of(context).unfocus();
+                                if (ctr.formKey.currentState!.validate()) {
+                                  ctr.loginUser();
+                                }
+                              },
+                              child: Text('login'.tr),
+                            ),
                             const SizedBox(
                               height: 20,
                             ),
@@ -82,7 +79,7 @@ class LoginUserScreen extends GetWidget {
                               onPressed: () {
                                 Get.toNamed('/auth/register');
                               },
-                              child: Text('already_have_an_account'.tr),
+                              child: Text('dont_have_an_account'.tr),
                             ),
                           ],
                         ),
@@ -94,9 +91,23 @@ class LoginUserScreen extends GetWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Divider(),
+                        const Expanded(
+                          child: Divider(
+                            color: Colors.grey,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         Text('or'.tr),
-                        const Divider(),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        const Expanded(
+                          child: Divider(
+                            color: Colors.grey,
+                          ),
+                        ),
                       ],
                     ),
                     const SizedBox(
@@ -112,16 +123,22 @@ class LoginUserScreen extends GetWidget {
                   ],
                 ),
                 Obx(() => ctr.isLoading.value
-                    ? Container(
-                        height: Get.height,
-                        width: Get.width,
-                        color: Colors.black.withOpacity(0.5),
-                        child: Center(
-                          child: Column(
-                            children: [
-                              Text('loading'.tr),
-                              const CircularProgressIndicator(),
-                            ],
+                    ? Center(
+                        child: Container(
+                          padding: EdgeInsets.only(top: Get.height * 0.3),
+                          height: Get.height,
+                          width: Get.width,
+                          color: Colors.black.withOpacity(0.5),
+                          child: Center(
+                            child: Column(
+                              children: [
+                                Text(
+                                  'loading'.tr,
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                                const CircularProgressIndicator(),
+                              ],
+                            ),
                           ),
                         ),
                       )

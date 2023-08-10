@@ -15,19 +15,14 @@ class FeedScreen extends GetWidget {
         builder: (ctr) {
           return Scaffold(
             appBar: AppBar(
-              title:  Text('feed'.tr),
-              actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.logout),
-                )
-              ],
+              title: Text('feed'.tr),
+              actions: const [],
             ),
             body: Obx(
               () => ctr.isLoading.value
                   ? const Center(child: CircularProgressIndicator())
                   : ctr.isPostsEmpty.value
-                      ?  Center(
+                      ? Center(
                           child: Text('no_post_to_display'.tr),
                         )
                       : PageView.builder(
@@ -39,13 +34,12 @@ class FeedScreen extends GetWidget {
                             return Stack(
                               children: [
                                 // video
-                                
+
                                 VideoPlayerWidget(
                                   videoUrl: post.videoUrl!,
                                   postId: post.id!,
                                 ),
-                                    
-                                
+
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [

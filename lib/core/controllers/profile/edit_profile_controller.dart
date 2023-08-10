@@ -9,7 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:oldbutgold/core/models/user/user_model.dart';
 
+import 'profile_controller.dart';
+
 class EditProfileController extends GetxController {
+  ProfileConntroller pCtr = Get.put(ProfileConntroller());
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final ref = FirebaseStorage.instance.ref();
@@ -61,6 +64,7 @@ class EditProfileController extends GetxController {
       }
       isLoading.value = false;
       Get.back();
+      await pCtr.userData();
       Get.snackbar(
         'Success',
         'Profile Updated Successfully',
@@ -88,7 +92,10 @@ class EditProfileController extends GetxController {
     isLoading.value = true;
     await _firestore.collection('users').doc(_auth.currentUser!.uid).update({
       'name': n,
-      'profile': {'profile_bio': b}
+      'profile': {
+        'is_profile_verified': user.isVerified,
+        'profile_bio': b,
+      }
     });
   }
 
@@ -125,6 +132,4 @@ class EditProfileController extends GetxController {
     bioController.text = user.bio!;
     super.onInit();
   }
-
-
 }

@@ -40,20 +40,25 @@ class ResetPasswordScreen extends GetWidget {
                               const SizedBox(
                                 height: 20,
                               ),
-                              Obx(() => ctr.isLoading.value
-                                  ? const CircularProgressIndicator()
-                                  : ElevatedButton(
-                                      onPressed: () {
-                                        if (ctr.formKey.currentState!
-                                            .validate()) {
-                                          ctr.resetPass(
-                                              ctr.emailController.text);
-                                        }
-                                      },
-                                      child: SizedBox(
-                                        width: double.infinity,
-                                        child: Text('reset_password'.tr , textAlign: TextAlign.center,),)),
-                                    )),
+                              Obx(
+                                () => ctr.isLoading.value
+                                    ? const CircularProgressIndicator()
+                                    : ElevatedButton(
+                                        onPressed: () {
+                                          if (ctr.formKey.currentState!
+                                              .validate()) {
+                                            ctr.resetPass(
+                                                ctr.emailController.text);
+                                          }
+                                        },
+                                        child: SizedBox(
+                                          width: double.infinity,
+                                          child: Text(
+                                            'reset_password'.tr,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        )),
+                              ),
                             ],
                           ),
                         ),

@@ -114,9 +114,9 @@ async function updateUserData(userUid, iR2Path) {
     // Update the post to indicate that the video has been uploaded.
     const db = admin.firestore();
     await db.collection('users').doc(userUid).update({
-        'profile': {
+        
             'profile_photo_url':iR2Path,
-        }
+        
 
     });
     console.log('User  updated successfully');

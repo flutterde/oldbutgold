@@ -30,7 +30,7 @@ var appRoutes = [
   GetPage(name: '/main/feed', page: ()=> const FeedScreen(), middlewares: [AuthMiddleware()]),
   GetPage(name: '/main/comments', page: ()=> const CommentsScreen(), middlewares: [AuthMiddleware()]),
 
-
+  GetPage(name: '/post/:id', page: ()=> const ProfileActionsScreen(), middlewares: [AuthMiddleware()]),
   // notifications
   GetPage(name: '/notifications/announcement', page: ()=> const AnnouncementsScreen(), middlewares: [AuthMiddleware()]),
 

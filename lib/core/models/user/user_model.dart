@@ -12,6 +12,7 @@ class UserModel {
   String? profilePic;
   String? bio;
   DateTime? createdAt;
+  bool? isVerified;
 
   UserModel({
      this.id,
@@ -21,6 +22,7 @@ class UserModel {
     this.profilePic,
     this.bio,
    // this.createdAt,
+    this.isVerified,
   });
 
   UserModel.fromDocumentSnapshot({required DocumentSnapshot documentSnapshot}) {
@@ -34,8 +36,9 @@ class UserModel {
     //username = documentSnapshot['username'];
     email = documentSnapshot['email'];
     country = documentSnapshot['user_data']['countryName'];
-    profilePic = '$backetCdnUrl${documentSnapshot['profile']['profile_photo_url']}';
+    profilePic = '$backetCdnUrl${documentSnapshot['profile_photo_url']}';
     bio = documentSnapshot['profile']['profile_bio'] ?? '';
+    isVerified = documentSnapshot['profile']['is_profile_verified'] ?? false;
    // createdAt = documentSnapshot['created_at'];
   }
    

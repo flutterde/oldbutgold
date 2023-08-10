@@ -73,6 +73,7 @@ const Map<String, String> en = {
   'forgot_password': 'Forgot Password?',
   'already_have_an_account': 'Already have an account?',
   'please_check_your_email_to_reset_your_password': 'Please check your email to reset your password',
+  'dont_have_an_account': 'Don\'t have an account?',
 
 // Post Categories
 
@@ -98,4 +99,7 @@ const Map<String, String> en = {
   'post_reported_successfully': 'Post reported successfully',
   'something_went_wrong_try_again_later':
       'Something went wrong, try again later',
+
+
+  'error_in_update_user_data': 'Error in update user data',
 };

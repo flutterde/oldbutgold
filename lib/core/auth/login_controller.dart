@@ -119,6 +119,9 @@ class LoginController extends GetxController {
           Get.offAllNamed('/');
         } else {
           await registerController.storeUserData(
+            value.user!.displayName!,
+            '',
+            value.user!.email!,
             value,
             value.user!.uid,
           );

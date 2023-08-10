@@ -72,18 +72,21 @@ class RegisterUserScreen extends GetWidget {
                                   const SizedBox(
                                     height: 20,
                                   ),
-                                  Obx(() => ctr.isLoading.value
-                                      ? const CircularProgressIndicator()
-                                      : ElevatedButton(
-                                          onPressed: () {
-                                            FocusScope.of(context).unfocus();
-                                            if (ctr.formKey.currentState!
-                                                .validate()) {
-                                              ctr.registerNewUser();
-                                            }
-                                          },
-                                          child: Text('register'.tr),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      FocusScope.of(context).unfocus();
+                                      if (ctr.formKey.currentState!
+                                          .validate()) {
+                                        ctr.registerNewUser();
+                                      }
+                                    },
+                                    child: SizedBox(
+                                        width: double.infinity,
+                                        child: Text(
+                                          'register'.tr,
+                                          textAlign: TextAlign.center,
                                         )),
+                                  ),
                                 ],
                               ),
                             ),
@@ -96,7 +99,7 @@ class RegisterUserScreen extends GetWidget {
                           onPressed: () {
                             Get.toNamed('/auth/login');
                           },
-                          child: Text('login'.tr),
+                          child: Text('already_have_an_account'.tr),
                         ),
                         const SizedBox(
                           height: 20,
@@ -104,10 +107,25 @@ class RegisterUserScreen extends GetWidget {
 
                         // social login
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Divider(),
+                            const Expanded(
+                              child: Divider(
+                                color: Colors.grey,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
                             Text('or'.tr),
-                            const Divider(),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const Expanded(
+                              child: Divider(
+                                color: Colors.grey,
+                              ),
+                            ),
                           ],
                         ),
                         const SizedBox(
@@ -124,13 +142,17 @@ class RegisterUserScreen extends GetWidget {
                     ),
                     Obx(() => ctr.isLoading.value
                         ? Container(
+                            padding: EdgeInsets.only(top: Get.height * 0.3),
                             height: Get.height,
                             width: Get.width,
                             color: Colors.black.withOpacity(0.5),
                             child: Center(
                               child: Column(
                                 children: [
-                                  Text('loading'.tr),
+                                  Text(
+                                    'loading'.tr,
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
                                   const CircularProgressIndicator(),
                                 ],
                               ),

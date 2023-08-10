@@ -77,9 +77,9 @@ class PostModel {
   Future<int> getPostCommentsCount({required String postId}) async {
     print('================== Start Counts ===================');
     AggregateQuerySnapshot query = await FirebaseFirestore.instance
-        .collection('comments')
+        .collection('pt')
         .doc(postId)
-        .collection('list')
+        .collection('comments')
         .count()
         .get();
     print('================== Counts ===================');

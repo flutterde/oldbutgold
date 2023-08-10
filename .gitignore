@@ -17,6 +17,8 @@ migrate_working_dir/
 .env
 .helpers
 
+/website/public/.well-known/assetlinks.json
+
 
 /android/app/google-services.json
 /android/app/upload-keystore.jks

@@ -66,7 +66,7 @@ class RegisterAuthController extends GetxController {
           .createUserWithEmailAndPassword(
               email: emailController.text, password: passwordController.text)
           .then((value) async {
-        await storeUserData(value, value.user!.uid);
+        await storeUserData(nameController.text, '', emailController.text, value, value.user!.uid);
         await value.user!.sendEmailVerification().then((value) async {
           Get.snackbar(
             'success'.tr,
@@ -115,7 +115,7 @@ class RegisterAuthController extends GetxController {
       );
       await auth.signInWithCredential(credential).then((value) async {
         var id = value.user!.uid;
-        await storeUserData(value, id);
+        await storeUserData(value.user!.displayName!,'', value.user!.email!, value,  id);
       });
       isLoading.value = false;
       Get.offAllNamed('/auth/redeem');
@@ -137,11 +137,11 @@ class RegisterAuthController extends GetxController {
     }
   }
 
-  Future<void> storeUserData(UserCredential  _user, String _userUid) async {
+  Future<void> storeUserData(String name, String? username, String  email, UserCredential _user, String _userUid) async {
     await _firestore.collection('users').doc(_user.user!.uid).set({
-      'name': nameController.text.toLowerCase(),
-      'username': nameController.text.toLowerCase(),
-      'email': emailController.text.toLowerCase(),
+      'name': name.toLowerCase(),
+      'username': username?.toLowerCase(),
+      'email': email.toLowerCase(),
       'userDeviceToken': userDeviceToken,
       'userRole': 'user',
       'user_account_status': 'active',
@@ -160,10 +160,10 @@ class RegisterAuthController extends GetxController {
         'userCreationTime': _user.user!.metadata.creationTime,
         'userLastSignInTime': _user.user!.metadata.lastSignInTime,
       },
+      'profile_photo_url': 'data/images/defaults/avatar.png',
       'profile': {
         'is_profile_verified': false,
-        'profile_bio': '',
-        'profile_photo_url': 'data/images/defaults/avatar.png',
+        'profile_bio': '',       
       },
       'user_social_links': {
         'facebook': '',

@@ -9,11 +9,11 @@ class ProfileScreen extends GetWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-        init: Get.put(ProfileConntroller(), permanent: true),
+        init: Get.put(ProfileConntroller(), permanent: false),
         builder: (ctr) {
           return Scaffold(
             appBar: AppBar(
-              title:  Text('profile'.tr),
+              title: Text('profile'.tr),
               actions: [
                 IconButton(
                   onPressed: () {
@@ -23,7 +23,7 @@ class ProfileScreen extends GetWidget {
                 ),
               ],
             ),
-            body: Obx(()=> ctr.isLoading.value
+            body: Obx(() => ctr.isLoading.value
                 ? const Center(
                     child: CircularProgressIndicator(),
                   )
