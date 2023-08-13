@@ -15,9 +15,18 @@ migrate_working_dir/
 
 # ENVS
 .env
+.helpers
+
+/website/public/.well-known/assetlinks.json
 
 
 /android/app/google-services.json
+/android/app/upload-keystore.jks
+/android/key.properties
+
+
+
+
 # IntelliJ related
 *.iml
 *.ipr
