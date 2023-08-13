@@ -16,6 +16,11 @@ class FeedController extends GetxController {
   RxBool isPostsEmpty = false.obs;
   List<PostModel> posts = [];
 
+  // ignore: prefer_final_fields
+  int _perPage = 10;
+  RxBool isLoadingMore = false.obs;
+  DocumentSnapshot? _lastDocument;
+
   // Page content..
   final pageController = PageController();
 
@@ -33,7 +38,7 @@ class FeedController extends GetxController {
           .where('is_ready', isEqualTo: true)
           .where('audience', isEqualTo: 'public')
           .orderBy('createdAt', descending: true)
-          .limit(10)
+          .limit(_perPage)
           .get();
       if (kDebugMode) {
         print('=====================');
@@ -50,6 +55,7 @@ class FeedController extends GetxController {
           print('======================');
         }
       }
+      _lastDocument = postsDocs.docs.last;
       posts.isEmpty ? isPostsEmpty.value = true : isPostsEmpty.value = false;
 
       isLoading.value = false;
@@ -66,6 +72,55 @@ class FeedController extends GetxController {
         print(e);
         print('======================');
       }
+    }
+  }
+
+  Future<void> getMorePosts() async {
+    try {
+      isLoadingMore.value = true;
+      if (kDebugMode) {
+        print('=====================');
+        print('Start Loading more posts .......');
+        print('======================');
+      }
+      //
+      final data = await _firestore
+          .collection('pt')
+          .where('is_ready', isEqualTo: true)
+          .where('audience', isEqualTo: 'public')
+          .orderBy('createdAt', descending: true)
+          .startAfter([_lastDocument?['createdAt']])
+          .limit(_perPage)
+          .get();
+
+      for (var item in data.docs) {
+        if (kDebugMode) {
+          print('=====================');
+          print('Start passing  posts to model .......');
+          print('======================');
+        }
+        posts.add(await PostModel().fromDocSnapshot(doc: item));
+        _lastDocument = data.docs.last;
+        update();
+        if (kDebugMode) {
+          print('======== Lenght =============');
+          print(posts.length);
+          print('======================');
+        }
+      }
+      
+    } catch (e) {
+      if (kDebugMode) {
+        print('=====================');
+        print(e);
+        print('======================');
+      }
+      Get.snackbar(
+        'Error',
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+      );
     }
   }
 
@@ -105,8 +160,6 @@ class FeedController extends GetxController {
         post.isLiked = false;
         update();
       } else {
-
-
         await _firestore
             .collection('pt')
             .doc(post.id)

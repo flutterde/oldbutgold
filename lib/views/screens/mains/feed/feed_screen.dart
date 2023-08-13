@@ -30,6 +30,9 @@ class FeedScreen extends GetWidget {
                           controller: ctr.pageController,
                           itemCount: ctr.posts.length,
                           itemBuilder: (context, index) {
+                            if(index == ctr.posts.length - 3) {
+                              ctr.getMorePosts();
+                            }
                             var post = ctr.posts[index];
                             return Stack(
                               children: [

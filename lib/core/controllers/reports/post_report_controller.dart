@@ -16,9 +16,9 @@ class PostReportController extends GetxController {
       //
       var user = _auth.currentUser;
       var userId = user!.uid;
-      await _firestore.collection('posts').doc(postId).collection('reports').add({
+      await _firestore.collection('pt').doc(postId).collection('reports').doc(userId).set({
         'userId': userId,
-        'post': _firestore.collection('posts').doc(postId),
+        'post': _firestore.collection('pt').doc(postId),
         'user': _firestore.collection('users').doc(userId),
         'postId': postId,
         'createdAt': FieldValue.serverTimestamp(),
