@@ -50,7 +50,7 @@ class LoginController extends GetxController {
             backgroundColor: Colors.green,
             colorText: Colors.white,
           );
-        } else {
+        } else if(!value.user!.emailVerified){
           await value.user!.sendEmailVerification();
           await _auth.signOut();
           isLoading.value = false;
@@ -73,6 +73,7 @@ class LoginController extends GetxController {
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
           colorText: Colors.white,
+          duration: const Duration(seconds: 6),
         );
       } else if (e.code == 'wrong-password') {
         Get.snackbar(
@@ -81,14 +82,16 @@ class LoginController extends GetxController {
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
           colorText: Colors.white,
+          duration: const Duration(seconds: 6),
         );
       } else {
         Get.snackbar(
-          'Error',
+          'unknown_error'.tr,
           e.toString(),
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
           colorText: Colors.white,
+          duration: const Duration(seconds: 6),
         );
       }
     }

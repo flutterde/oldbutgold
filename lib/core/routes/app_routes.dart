@@ -9,6 +9,7 @@ import '../../views/screens/create/create_post_screen.dart';
 import '../../views/screens/mains/feed/feed_screen.dart';
 import '../../views/screens/mains/main_page.dart';
 import '../../views/screens/notifications/anouncements_screen.dart';
+import '../../views/screens/post/single_post_screen.dart';
 import '../../views/widgets/comments/comments_screen.dart';
 import '../../views/widgets/profile/edit_profile_screen.dart';
 import '../../views/widgets/profile/profile_actions_screen.dart';
@@ -30,7 +31,7 @@ var appRoutes = [
   GetPage(name: '/main/feed', page: ()=> const FeedScreen(), middlewares: [AuthMiddleware()]),
   GetPage(name: '/main/comments', page: ()=> const CommentsScreen(), middlewares: [AuthMiddleware()]),
 
-  GetPage(name: '/post/:id', page: ()=> const ProfileActionsScreen(), middlewares: [AuthMiddleware()]),
+  GetPage(name: '/post/:id', page: ()=> const SinglePostScreen(), middlewares: [AuthMiddleware()]),
   // notifications
   GetPage(name: '/notifications/announcement', page: ()=> const AnnouncementsScreen(), middlewares: [AuthMiddleware()]),
 

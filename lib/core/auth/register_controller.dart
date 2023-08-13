@@ -42,7 +42,9 @@ class RegisterAuthController extends GetxController {
   }
 
   @override
-  void onInit() {
+  void onInit() async{
+    await FirebaseAuth.instance.setLanguageCode(Get.locale?.languageCode ?? 'en');
+
     print('============== Time =======================');
     print('t');
     print('=====================================');
