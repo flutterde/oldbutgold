@@ -30,6 +30,7 @@ class SinglePostController extends GetxController {
         post = await PostModel().fromDocSnapshot(doc: data);
       } else {
         isPostsEmpty.value = true;
+        Get.snackbar('error'.tr, 'post_not_found'.tr);
       }
 
       isLoading.value = false;
@@ -41,7 +42,7 @@ class SinglePostController extends GetxController {
         print('=====================');
       }
 
-      Get.snackbar('error'.tr, 'error_in_update_user_data'.tr);
+      Get.snackbar('error'.tr, 'error_while_loading_post'.tr);
     }
   }
 
