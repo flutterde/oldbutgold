@@ -77,7 +77,7 @@ class CommentsScreen extends GetWidget {
                             onPressed: () {
                               FocusScope.of(context).unfocus();
                               createCtr.createcomment(Get.arguments['postId'],
-                                  createCtr.commentCtr.text);
+                                  createCtr.commentCtr.text, Get.arguments['postOwner']);
                             },
                             icon: Obx(() => createCtr.isLoading.value
                                 ? const Icon(

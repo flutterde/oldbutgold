@@ -109,7 +109,8 @@ class FeedScreen extends GetWidget {
                                                 onPressed: () => Get.toNamed(
                                                     '/main/comments',
                                                     arguments: {
-                                                      'postId': post.id
+                                                      'postId': post.id,
+                                                      'postOwner': post.user!.id,
                                                     }),
                                                 icon: const Icon(
                                                   Icons.message,

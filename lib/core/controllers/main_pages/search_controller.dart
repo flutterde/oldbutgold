@@ -23,8 +23,8 @@ class SearchScreenController extends GetxController {
       isLoading.value = true;
       await _firestore
           .collection('users')
-          .where('name', isGreaterThanOrEqualTo: searchCtr.text.toLowerCase())
-          .where('name', isLessThanOrEqualTo: searchCtr.text.toLowerCase())
+          .startAt([searchCtr.text.toLowerCase()])
+          .endAt(['${searchCtr.text.toLowerCase()}\uf8ff'])
           .get()
           .then((value) {
         for (var doc in value.docs) {

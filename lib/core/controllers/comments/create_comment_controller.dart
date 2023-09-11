@@ -15,11 +15,11 @@ class CreateCommentController extends GetxController{
 
 
 
-  Future<void> createcomment(String postId, String comment) async {
+  Future<void> createcomment(String postId, String comment, String postOwner) async {
    try{
     isLoading.toggle();
       //
-      await _firestore.collection('pt').doc(postId).collection('comments').add({
+      var comm = await _firestore.collection('pt').doc(postId).collection('comments').add({
         'comment': comment,
         'createdAt': FieldValue.serverTimestamp(),
         'user': _firestore.collection('users').doc(_auth.currentUser!.uid),
@@ -27,7 +27,7 @@ class CreateCommentController extends GetxController{
         'postId': postId,
         'post': _firestore.collection('posts').doc(postId),
       });
-
+      await createNotification(postId, comm.id, comment, _auth.currentUser!.uid, postOwner);
       commentCtr.clear();
       isLoading.toggle();
       Get.back();
@@ -37,10 +37,7 @@ class CreateCommentController extends GetxController{
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.green,
       );
-
-
     }  on FirebaseException catch(e){
-      //
       if(kDebugMode){
         isLoading.toggle();
         Get.snackbar(
@@ -56,6 +53,31 @@ class CreateCommentController extends GetxController{
     } 
   }
  
+
+ Future<void> createNotification(String postId, String commentId, String comment, String userId, String postOwnerId)
+ async {
+    try{
+     await _firestore.collection('pt').doc(postId).collection('comments')
+      .doc(commentId).collection('notifications').add({
+        'createdAt': FieldValue.serverTimestamp(),
+        'type': 'comment',
+        'comment': comment,
+        'commentId': commentId,
+        'postId': postId,
+        'post': _firestore.collection('pt').doc(postId),
+        'user': _firestore.collection('users').doc(userId),
+        'userId': userId,
+        'postOwnerId': postOwnerId,
+        'postOwner': _firestore.collection('users').doc(postOwnerId),
+      });
+    } on FirebaseException catch(e){
+      if(kDebugMode){
+        print('========= Error ==========');
+        print(e);
+        print('========= End Notification Error ==========');
+      }
+    }
+ }
   
 
 }

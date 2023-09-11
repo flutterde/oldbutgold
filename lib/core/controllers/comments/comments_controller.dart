@@ -1,5 +1,6 @@
+// ignore_for_file: unnecessary_overrides
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,19 +14,17 @@ class CommentsController extends GetxController {
   final RxBool isLoading = false.obs;
   final RxBool isCommentsEmpty = false.obs;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+
 
   List<CommentModel> comments = [];
   @override
   void onInit() {
-    // TODO: implement onInit
     loadComments(Get.arguments['postId']);
     super.onInit();
   }
 
   @override
   void onClose() {
-    // TODO: implement onClose
     super.onClose();
   }
 
@@ -47,7 +46,6 @@ class CommentsController extends GetxController {
           : isCommentsEmpty.value = false;
       isLoading.toggle();
     } on FirebaseException catch (e) {
-      //
       if (kDebugMode) {
         isLoading.toggle();
         Get.snackbar(
