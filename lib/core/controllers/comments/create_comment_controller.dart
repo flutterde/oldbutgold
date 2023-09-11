@@ -53,22 +53,22 @@ class CreateCommentController extends GetxController{
     } 
   }
  
-
  Future<void> createNotification(String postId, String commentId, String comment, String userId, String postOwnerId)
  async {
     try{
      await _firestore.collection('pt').doc(postId).collection('comments')
       .doc(commentId).collection('notifications').add({
-        'createdAt': FieldValue.serverTimestamp(),
+        'created_at': FieldValue.serverTimestamp(),
         'type': 'comment',
         'comment': comment,
         'commentId': commentId,
-        'postId': postId,
+        'is_read': false,
+        'post_id': postId,
         'post': _firestore.collection('pt').doc(postId),
         'user': _firestore.collection('users').doc(userId),
         'userId': userId,
-        'postOwnerId': postOwnerId,
-        'postOwner': _firestore.collection('users').doc(postOwnerId),
+        'post_owner_id': postOwnerId,
+        'post_owner': _firestore.collection('users').doc(postOwnerId),
       });
     } on FirebaseException catch(e){
       if(kDebugMode){
@@ -78,6 +78,4 @@ class CreateCommentController extends GetxController{
       }
     }
  }
-  
-
 }
