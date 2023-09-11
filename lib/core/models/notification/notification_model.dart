@@ -49,7 +49,7 @@ class NotificationModel {
         documentSnapshot: await userDoc.get(),
       ),
       postOwnerId: doc['post_owner_id'],
-      comment: doc['comment'],
+      comment: doc['comment'].toString().substring(0, 15),
       postId: doc['post_id'],
       type: NotificationType.values.firstWhere(
         (element) => element.toString() == doc['type'],

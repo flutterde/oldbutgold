@@ -27,7 +27,9 @@ class CreateCommentController extends GetxController{
         'postId': postId,
         'post': _firestore.collection('posts').doc(postId),
       });
-      await createNotification(postId, comm.id, comment, _auth.currentUser!.uid, postOwner);
+
+      (_auth.currentUser!.uid == postOwner) ? null : await createNotification(
+        postId, comm.id, comment, _auth.currentUser!.uid, postOwner);
       commentCtr.clear();
       isLoading.toggle();
       Get.back();
@@ -66,7 +68,7 @@ class CreateCommentController extends GetxController{
         'post_id': postId,
         'post': _firestore.collection('pt').doc(postId),
         'user': _firestore.collection('users').doc(userId),
-        'userId': userId,
+        'user_id': userId,
         'post_owner_id': postOwnerId,
         'post_owner': _firestore.collection('users').doc(postOwnerId),
       });
