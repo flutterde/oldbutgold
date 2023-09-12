@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:oldbutgold/core/models/post/post_model.dart';
 
@@ -95,7 +96,11 @@ Future<dynamic> morePostWidget(PostModel post) async {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.copy)),
+            IconButton(onPressed: () async{
+             // await Clipboard.setData(ClipboardData(text: "https://old-butgold.web.app/post/${post.id}"));
+              Get.back();
+              Get.snackbar('sorry'.tr, 'you_cannot_copy'.tr, backgroundColor: Colors.red);
+            }, icon: const Icon(Icons.copy)),
             const SizedBox(
               height: 10,
             ),

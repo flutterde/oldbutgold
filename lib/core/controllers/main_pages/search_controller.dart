@@ -12,6 +12,12 @@ class SearchScreenController extends GetxController {
   RxBool isUsersEmpty = false.obs;
   RxList<UserModel> users = <UserModel>[].obs;
 
+  void clearSearch() {
+    searchCtr.clear();
+    users.clear();
+    update();
+  }
+
   Future<void> search() async {
     try {
       isLoading.value = true;
@@ -22,13 +28,15 @@ class SearchScreenController extends GetxController {
           .endAt(['${searchCtr.text.toLowerCase()}\uf8ff'])
           .get()
           .then((value) {
-          users.clear();
-        for (var doc in value.docs) {
-          users.add(UserModel.fromDocumentSnapshot(documentSnapshot: doc));
-        }
-        users.isEmpty ? isUsersEmpty.value = true : isUsersEmpty.value = false;
-        isLoading.value = false;
-      });
+            users.clear();
+            for (var doc in value.docs) {
+              users.add(UserModel.fromDocumentSnapshot(documentSnapshot: doc));
+            }
+            users.isEmpty
+                ? isUsersEmpty.value = true
+                : isUsersEmpty.value = false;
+            isLoading.value = false;
+          });
     } catch (e) {
       isLoading.value = false;
 

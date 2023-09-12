@@ -56,4 +56,8 @@ const Map<String, String> id = {
   // Search
     'search_here': 'Cari di sini...',
   'search_for_a_friend': 'Cari teman',
+
+  // 12/09/2023
+  'no_notifications': 'Tidak ada notifikasi',
+  'commented_on_your_post': 'mengomentari postingan Anda',
 };

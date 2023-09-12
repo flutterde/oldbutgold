@@ -57,4 +57,8 @@ const Map<String, String> pt = {
   // Search
   'search_here': 'Pesquise aqui...',
   'search_for_a_friend': 'Pesquisar um amigo',
+
+  // 12/09/2023
+  'no_notifications': 'Nenhuma notificação',
+  'commented_on_your_post': 'comentou na sua postagem',
 };

@@ -14,7 +14,7 @@ class NotificationsScreenController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-   // fetchNotifications();
+    fetchNotifications();
   }
 
   Future<void> fetchNotifications() async {
@@ -22,7 +22,7 @@ class NotificationsScreenController extends GetxController {
       isLoading = true;
       final querySnapshot = await _firestore
           .collectionGroup('notifications')
-          //.where('user_id', isEqualTo: _auth.currentUser!.uid)
+          .where('post_owner_id', isEqualTo: _auth.currentUser!.uid)
           .orderBy('created_at', descending: true).limit(1)
           .get();
       for (var item in querySnapshot.docs) {

@@ -55,4 +55,8 @@ const Map<String, String> fr = {
     // search
   'search_here': 'Rechercher ici...',
   'search_for_a_friend': 'Rechercher un ami',
+
+  // 12/09/2023
+  'no_notification': 'Aucune notification',
+  'commented_on_your_post': 'a commenté votre publication',
 };

@@ -32,8 +32,9 @@ class RegisterAuthController extends GetxController {
   String? userIpAddress;
 
   String userDeviceToken = '';
+  RxString? gender = 'male'.obs;
 
-  //
+
   RxBool isLoading = false.obs;
 
   @override
@@ -42,8 +43,9 @@ class RegisterAuthController extends GetxController {
   }
 
   @override
-  void onInit() async{
-    await FirebaseAuth.instance.setLanguageCode(Get.locale?.languageCode ?? 'en');
+  void onInit() async {
+    await FirebaseAuth.instance
+        .setLanguageCode(Get.locale?.languageCode ?? 'en');
     _getUserDevToken();
     getUserLocation();
     super.onInit();
@@ -54,16 +56,15 @@ class RegisterAuthController extends GetxController {
     super.onReady();
   }
 
-  // register user
   Future<void> registerNewUser() async {
-    // time
     try {
       isLoading.value = true;
       await _auth
           .createUserWithEmailAndPassword(
               email: emailController.text, password: passwordController.text)
           .then((value) async {
-        await storeUserData(nameController.text, '', emailController.text, value, value.user!.uid);
+        await storeUserData(nameController.text, '', emailController.text,
+            value, value.user!.uid, gender!.value);
         await value.user!.sendEmailVerification().then((value) async {
           Get.snackbar(
             'success'.tr,
@@ -97,9 +98,7 @@ class RegisterAuthController extends GetxController {
     }
   }
 
-
-
-    Future<void> registerWithGoogle() async {
+  Future<void> registerWithGoogle() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     try {
       //
@@ -112,7 +111,8 @@ class RegisterAuthController extends GetxController {
       );
       await auth.signInWithCredential(credential).then((value) async {
         var id = value.user!.uid;
-        await storeUserData(value.user!.displayName!,'', value.user!.email!, value,  id);
+        await storeUserData(
+            value.user!.displayName!, '', value.user!.email!, value, id, '');
       });
       isLoading.value = false;
       Get.offAllNamed('/auth/redeem');
@@ -134,7 +134,8 @@ class RegisterAuthController extends GetxController {
     }
   }
 
-  Future<void> storeUserData(String name, String? username, String  email, UserCredential _user, String _userUid) async {
+  Future<void> storeUserData(String name, String? username, String email,
+      UserCredential _user, String _userUid, String userGender) async {
     await _firestore.collection('users').doc(_user.user!.uid).set({
       'name': name.toLowerCase(),
       'username': username?.toLowerCase(),
@@ -160,7 +161,7 @@ class RegisterAuthController extends GetxController {
       'profile_photo_url': 'data/images/defaults/avatar.png',
       'profile': {
         'is_profile_verified': false,
-        'profile_bio': '',       
+        'profile_bio': '',
       },
       'user_social_links': {
         'facebook': '',

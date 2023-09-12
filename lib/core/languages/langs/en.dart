@@ -104,5 +104,9 @@ const Map<String, String> en = {
   'error_in_update_user_data': 'Error in update user data',
   'post_not_found': 'Post not found',
   'error_while_loading_post': 'Error while loading post',
+
+// 12/09/2023
+'no_notifications': 'No notifications',
+'commented_on_your_post': 'commented on your post',
   
 };

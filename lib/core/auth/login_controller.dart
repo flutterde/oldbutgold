@@ -127,6 +127,7 @@ class LoginController extends GetxController {
             value.user!.email!,
             value,
             value.user!.uid,
+            '',
           );
           isLoading.value = false;
           Get.offAllNamed('/auth/redeem');

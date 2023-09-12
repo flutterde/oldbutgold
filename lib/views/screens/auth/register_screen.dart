@@ -55,6 +55,41 @@ class RegisterUserScreen extends GetWidget {
                                       return null;
                                     },
                                   ),
+                                  const SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text(
+                                    'gender'.tr,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Obx(() {
+                                    return Column(
+                                      children: [
+                                        ListTile(
+                                          title: const Text('Male'),
+                                          leading: Radio<String>(
+                                            value: 'male',
+                                            groupValue: ctr.gender!.value,
+                                            onChanged: (value) {
+                                              //
+                                              ctr.gender!.value = value!;
+                                            },
+                                          ),
+                                        ),
+                                        ListTile(
+                                          title: const Text('Female'),
+                                          leading: Radio<String>(
+                                            value: 'female',
+                                            groupValue: ctr.gender!.value,
+                                            onChanged: (value) {
+                                              ctr.gender!.value = value!;
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }),
                                   TextFormField(
                                     controller: ctr.passwordController,
                                     decoration: InputDecoration(

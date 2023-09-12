@@ -25,38 +25,37 @@ class NotificationsScreen extends GetWidget {
                             )
                           : Column(
                               children: [
-                                Container(
-                                  height: 50,
-                                  width: double.infinity,
-                                  color: Colors.purple,
-                                  child: const Center(
-                                    child: Text(
-                                      'Mark all as read',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                                // Container(
+                                //   height: 50,
+                                //   width: double.infinity,
+                                //   color: Colors.purple,
+                                //   child: const Center(
+                                //     child: Text(
+                                //       'Mark all as read',
+                                //       style: TextStyle(
+                                //         color: Colors.white,
+                                //         fontWeight: FontWeight.bold,
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
                                 ListView.separated(
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: 34 /*ctr.notifications.length*/,
+                                  itemCount:  ctr.notifications.length,
                                   itemBuilder: (context, index) {
-                                    // final notification = ctr.notifications[index];
+                                    final notification = ctr.notifications[index];
                                     return ListTile(
-                                      leading: const CircleAvatar(
-                                          // backgroundImage: NetworkImage(
-                                          //   /*notification.user!.profilePic! */,
-                                          // ),
+                                      leading: CircleAvatar(
+                                          backgroundImage: NetworkImage(
+                                            notification.user!.profilePic! ,
+                                          ),
                                           ),
                                       title: Text(
-                                          'User name ${index + 1}' /*notification.user!.username! */),
-                                      subtitle: const Text(
-                                          'hfd hdgh dgh sd' /*notification.comment! */),
-                                      trailing: index % 2 ==
-                                              0 /*notification.isRead! */
+                                          '${notification.user!.username!} ${'commented_on_your_post'.tr}'),
+                                      subtitle: Text(
+                                          notification.comment!),
+                                      trailing: notification.isRead!
                                           ? const SizedBox.shrink()
                                           : Container(
                                               height: 10,

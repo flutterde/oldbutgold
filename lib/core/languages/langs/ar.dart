@@ -57,4 +57,8 @@ const Map<String, String> ar = {
     // Search
   'search_here': 'ابحث هنا...',
   'search_for_a_friend': 'ابحث عن صديق',
+
+  // 12/09/2023
+  'no_notifications': 'لا يوجد إشعارات',
+  'commented_on_your_post': 'علق على منشورك',
 };

@@ -57,4 +57,8 @@ const Map<String, String> ru = {
   // search
   'search_here': 'Искать здесь...',
   'search_for_a_friend': 'Искать друга',
+
+  // 12/09/2023
+  'no_notifications': 'Нет уведомлений',
+  'commented_on_your_post': 'прокомментировал ваш пост',
 };

@@ -25,7 +25,6 @@ class SearchScreen extends GetWidget {
                     border: InputBorder.none,
                   ),
                   onFieldSubmitted: (value) {
-                    
                     ctr.search();
                   },
                 ),

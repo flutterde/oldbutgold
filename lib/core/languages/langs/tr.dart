@@ -57,4 +57,8 @@ const Map<String, String> tr = {
   // search
   'search_here': 'Burada ara...',
   'search_for_a_friend': 'Arkadaş ara',
+
+  // 12/09/2023
+  'no_notifications': 'Bildirim yok',
+  'commented_on_your_post': 'gönderinize yorum yaptı',
 };
