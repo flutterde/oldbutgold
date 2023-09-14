@@ -151,7 +151,7 @@ class CreatePostController extends GetxController {
         }
         var sizeInMb = videMetaData.size! / 1024 / 1024;
 
-        await _firestore.collection('pt').doc(postId).set({
+        await _firestore.collection('posts').doc(postId).set({
           'id': postId,
           'user': _firestore.collection('users').doc(_auth.currentUser!.uid),
           'user_id': _auth.currentUser!.uid,

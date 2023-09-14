@@ -16,7 +16,7 @@ const Map<String, String> ar = {
   'bio': 'السيرة الذاتية',
   'please_enter_your_bio': 'الرجاء إدخال السيرة الذاتية الخاصة بك',
   'update_profile': 'تحديث الملف الشخصي',
-  'feed': 'التغذية',
+  'feed': 'الرئيسية',
   'no_post_to_display': 'لا يوجد منشور لعرضه',
   'success': 'نجاح',
   'video_downloaded_successfully': 'تم تحميل الفيديو بنجاح',
@@ -54,11 +54,57 @@ const Map<String, String> ar = {
   'notifications': 'الإشعارات',
 
 
-    // Search
+  // Search
   'search_here': 'ابحث هنا...',
   'search_for_a_friend': 'ابحث عن صديق',
+
+  // 07/08/2023
+  'loading': 'جار التحميل...',
+  'or': 'أو',
+  'verify_email': 'تحقق من البريد الإلكتروني',
+  'please_check_your_email_to_verify_your_account':
+      'يرجى التحقق من بريدك الإلكتروني للتحقق من حسابك',
+   'no_user_found_for_that_email': 'لم يتم العثور على مستخدم لهذا البريد الإلكتروني.',
+   'wrong_password_provided_for_that_user': 'تم تقديم كلمة مرور خاطئة لهذا المستخدم.',
+   'continue_with_google': 'الاستمرار باستخدام جوجل',
+   'reset_password': 'إعادة تعيين كلمة المرور',
+   'forgot_password': 'هل نسيت كلمة المرور؟',
+   'already_have_an_account': 'هل لديك حساب؟',
+   'please_check_your_email_to_reset_your_password':
+       'يرجى التحقق من بريدك الإلكتروني لإعادة تعيين كلمة المرور الخاصة بك',
+    'dont_have_an_account': 'ليس لديك حساب؟',
+
+  // Post Categories
+  'music': 'موسيقى',
+  'comedy': 'كوميديا',
+  'gaming': 'ألعاب الفيديو',
+  'news': 'أخبار',
+  'entertainment': 'ترفيه',
+  'education': 'تعليم',
+  'people': 'الناس',
+  'animals': 'الحيوانات',
+  'travel': 'السفر',
+  'sports': 'رياضة',
+  'film': 'فيلم',
+  'series': 'مسلسل',
+  'history': 'تاريخ',
+  'art': 'فن',
+  'food': 'طعام',
+  'fashion': 'موضة',
+  'war': 'حرب',
+
+  // Reports
+  'post_reported_successfully': 'تم الإبلاغ عن المنشور بنجاح',
+  'something_went_wrong_try_again_later':
+      'حدث خطأ ما. حاول مرة اخرى في وقت لاحق',
+  'error_in_update_user_data': 'حدث خطأ أثناء تحديث بيانات المستخدم',
+  'post_not_found': 'المنشور غير موجود',
+  'error_while_loading_post': 'حدث خطأ أثناء تحميل المنشور',
+
+
 
   // 12/09/2023
   'no_notifications': 'لا يوجد إشعارات',
   'commented_on_your_post': 'علق على منشورك',
+  'from': 'من',
 };

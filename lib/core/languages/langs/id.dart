@@ -57,7 +57,68 @@ const Map<String, String> id = {
     'search_here': 'Cari di sini...',
   'search_for_a_friend': 'Cari teman',
 
+
+
+
+  // 07/08/2023
+  'loading': 'Memuat...',
+  'or': 'Atau',
+  'verify_email': 'Verifikasi Email',
+  'please_check_your_email_to_verify_your_account':
+      'Silakan cek email Anda untuk memverifikasi akun Anda',
+  'no_user_found_for_that_email': 'Tidak ada pengguna yang ditemukan untuk email tersebut.',
+  'wrong_password_provided_for_that_user':
+      'Kata sandi yang salah diberikan untuk pengguna tersebut',
+  'continue_with_google': 'Lanjutkan dengan Google',
+  'reset_password': 'Atur ulang kata sandi',
+  'forgot_password': 'Lupa kata sandi?',
+  'already_have_an_account': 'Sudah punya akun?',
+  'please_check_your_email_to_reset_your_password': 'Silakan cek email Anda untuk mengatur ulang kata sandi Anda',
+  'dont_have_an_account': 'Belum punya akun?',
+
+  // Post Categories
+  'music': 'Musik',
+  'comedy': 'Komedi',
+  'gaming': 'Gaming',
+  'news': 'Berita',
+  'entertainment': 'Hiburan',
+  'education': 'Pendidikan',
+  'people': 'Orang',
+  'animals': 'Hewan',
+  'travel': 'Perjalanan',
+  'sports': 'Olahraga',
+  'film': 'Film',
+  'series': 'Seri',
+  'history': 'Sejarah',
+  'art': 'Seni',
+  'food': 'Makanan',
+  'fashion': 'Mode',
+  'war': 'Perang',
+
+  // Reports
+  'post_reported_successfully': 'Postingan dilaporkan berhasil',
+  'something_went_wrong_try_again_later':
+      'Ada yang salah, coba lagi nanti',
+  'error_in_update_user_data': 'Kesalahan dalam memperbarui data pengguna',
+  'post_not_found': 'Postingan tidak ditemukan',
+  'error_while_loading_post': 'Kesalahan saat memuat postingan',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // 12/09/2023
   'no_notifications': 'Tidak ada notifikasi',
   'commented_on_your_post': 'mengomentari postingan Anda',
+  'from': 'dari',
 };

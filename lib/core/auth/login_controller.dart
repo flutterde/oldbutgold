@@ -22,11 +22,14 @@ class LoginController extends GetxController {
 
   //
   RxBool isLoading = false.obs;
+  RxBool isPasswordVisible = false.obs;
 
 
   
   // user Device token
   String deviceToken = '';
+
+  
 
   // login user
   Future<void> loginUser() async {

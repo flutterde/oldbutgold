@@ -21,7 +21,7 @@ class CommentsScreen extends GetWidget {
                 Obx(
                   () => ctr.isLoading.value
                       ? const Center(child: CircularProgressIndicator())
-                      : ctr.isCommentsEmpty.value
+                      : (ctr.comments.isEmpty && !ctr.isLoading.value)
                           ? const Center(
                               child: Text('No Comments to display'),
                             )
@@ -58,11 +58,13 @@ class CommentsScreen extends GetWidget {
                     right: 0,
                     child: Container(
                       padding: const EdgeInsets.all(8.0),
+                      color: Colors.white,
                       child: Row(
                         children: [
                           Expanded(
                             child: TextField(
                               controller: createCtr.commentCtr,
+                              maxLength: 120,
                               decoration: const InputDecoration(
                                 hintText: 'Write a comment',
                                 border: OutlineInputBorder(

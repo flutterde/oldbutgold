@@ -21,12 +21,14 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
+bool? seenOnboard;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
 
   // shared preferences
   SharedPreferences pref = await SharedPreferences.getInstance();
+  seenOnboard = pref.getBool('onboardingshowed') ?? false;
 
   // firebase
   await Firebase.initializeApp();
@@ -59,7 +61,7 @@ class MyApp extends StatelessWidget {
       locale: const Locale('en'),
       fallbackLocale: const Locale('en'),
       translations: AppLocal(),
-      initialRoute: '/',
+      initialRoute: '/splash',
       debugShowCheckedModeBanner: false,
       initialBinding: InitialBinding(),
     );

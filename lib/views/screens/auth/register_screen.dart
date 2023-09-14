@@ -45,6 +45,7 @@ class RegisterUserScreen extends GetWidget {
                                   ),
                                   TextFormField(
                                     controller: ctr.emailController,
+                                    keyboardType: TextInputType.emailAddress,
                                     decoration: InputDecoration(
                                       hintText: 'enter_your_email'.tr,
                                     ),
@@ -60,6 +61,7 @@ class RegisterUserScreen extends GetWidget {
                                   ),
                                   Text(
                                     'gender'.tr,
+                                    textAlign: TextAlign.start,
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -90,10 +92,23 @@ class RegisterUserScreen extends GetWidget {
                                       ],
                                     );
                                   }),
+                                  Obx(() => 
                                   TextFormField(
                                     controller: ctr.passwordController,
+                                    obscureText:
+                                        !ctr.isPasswordVisible.value,
                                     decoration: InputDecoration(
                                       hintText: 'enter_your_password'.tr,
+                                      suffixIcon: IconButton(
+                                        onPressed: () {
+                                          ctr.isPasswordVisible.value =
+                                              !ctr.isPasswordVisible.value;
+                                        },
+                                        icon: ctr.isPasswordVisible.value
+                                            ? const Icon(Icons.visibility)
+                                            : const Icon(
+                                                Icons.visibility_off),
+                                      ),
                                     ),
                                     validator: (value) {
                                       if (value!.isEmpty ||
@@ -103,7 +118,7 @@ class RegisterUserScreen extends GetWidget {
                                       }
                                       return null;
                                     },
-                                  ),
+                                  )),
                                   const SizedBox(
                                     height: 20,
                                   ),

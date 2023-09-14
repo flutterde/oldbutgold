@@ -75,8 +75,7 @@ const Map<String, String> en = {
   'please_check_your_email_to_reset_your_password': 'Please check your email to reset your password',
   'dont_have_an_account': 'Don\'t have an account?',
 
-// Post Categories
-
+  // Post Categories
   'music': 'Music',
   'comedy': 'Comedy',
   'gaming': 'Gaming',
@@ -95,12 +94,10 @@ const Map<String, String> en = {
   'fashion': 'Fashion',
   'war': 'War',
 
-// Reports
+  // Reports
   'post_reported_successfully': 'Post reported successfully',
   'something_went_wrong_try_again_later':
       'Something went wrong, try again later',
-
-
   'error_in_update_user_data': 'Error in update user data',
   'post_not_found': 'Post not found',
   'error_while_loading_post': 'Error while loading post',
@@ -108,5 +105,6 @@ const Map<String, String> en = {
 // 12/09/2023
 'no_notifications': 'No notifications',
 'commented_on_your_post': 'commented on your post',
+'from': 'from',
   
 };

@@ -52,6 +52,7 @@ dependencies:
   permission_handler: ^10.4.3
   google_sign_in: ^6.1.4
   flutter_signin_button: ^2.0.0
+  lottie: ^2.6.0
 
 dev_dependencies:
   flutter_launcher_icons: "^0.13.1"
@@ -91,6 +92,8 @@ flutter:
   assets:
     - .env
     - assets/images/flags/
+    - assets/animations/
+    - assets/images/onboarding/
   #   - images/a_dot_ham.jpeg
 
 

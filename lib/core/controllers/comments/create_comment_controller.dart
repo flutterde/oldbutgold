@@ -19,7 +19,7 @@ class CreateCommentController extends GetxController{
    try{
     isLoading.toggle();
       //
-      var comm = await _firestore.collection('pt').doc(postId).collection('comments').add({
+      var comm = await _firestore.collection('posts').doc(postId).collection('comments').add({
         'comment': comment,
         'createdAt': FieldValue.serverTimestamp(),
         'user': _firestore.collection('users').doc(_auth.currentUser!.uid),
@@ -58,7 +58,7 @@ class CreateCommentController extends GetxController{
  Future<void> createNotification(String postId, String commentId, String comment, String userId, String postOwnerId)
  async {
     try{
-     await _firestore.collection('pt').doc(postId).collection('comments')
+     await _firestore.collection('posts').doc(postId).collection('comments')
       .doc(commentId).collection('notifications').add({
         'created_at': FieldValue.serverTimestamp(),
         'type': 'comment',
@@ -66,7 +66,7 @@ class CreateCommentController extends GetxController{
         'commentId': commentId,
         'is_read': false,
         'post_id': postId,
-        'post': _firestore.collection('pt').doc(postId),
+        'post': _firestore.collection('posts').doc(postId),
         'user': _firestore.collection('users').doc(userId),
         'user_id': userId,
         'post_owner_id': postOwnerId,

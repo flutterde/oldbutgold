@@ -36,6 +36,7 @@ class RegisterAuthController extends GetxController {
 
 
   RxBool isLoading = false.obs;
+  RxBool isPasswordVisible = false.obs;
 
   @override
   void onClose() {
@@ -72,9 +73,10 @@ class RegisterAuthController extends GetxController {
             backgroundColor: Colors.green,
             colorText: Colors.white,
             snackPosition: SnackPosition.BOTTOM,
-            duration: const Duration(seconds: 4),
+            duration: const Duration(seconds: 6),
           );
           await _auth.signOut();
+          Get.toNamed('/auth/login');
         });
       });
       isLoading.value = false;
@@ -94,14 +96,13 @@ class RegisterAuthController extends GetxController {
         backgroundColor: Colors.red,
         colorText: Colors.white,
         snackPosition: SnackPosition.BOTTOM,
-      );
-    }
+    );
   }
+}
 
   Future<void> registerWithGoogle() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     try {
-      //
       isLoading.value = true;
       GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
@@ -144,6 +145,7 @@ class RegisterAuthController extends GetxController {
       'userRole': 'user',
       'user_account_status': 'active',
       'created_at': FieldValue.serverTimestamp(),
+      'user_gender': userGender.toLowerCase(),
       'user_data': {
         'countryName': countryName,
         'countryCode': countryCode,
@@ -152,7 +154,6 @@ class RegisterAuthController extends GetxController {
         'userIpAddress': userIpAddress,
         'userProviderId': _user.user!.providerData[0].providerId,
         'userUid': _user.user!.uid,
-        // 'userEmailVerified': value.user!.emailVerified,
         'userPhoneNumber': _user.user!.phoneNumber,
         'userPhotoUrl': _user.user!.photoURL,
         'userCreationTime': _user.user!.metadata.creationTime,
@@ -208,7 +209,6 @@ class RegisterAuthController extends GetxController {
     }
   }
 
-  // get country name and country code from api using dio package
   Future<void> getUserLocation() async {
     try {
       Dio dio = Dio();
@@ -223,7 +223,6 @@ class RegisterAuthController extends GetxController {
             update();
           });
         } else {
-          //
           countryName = value.data['countryName'] ?? 'null';
           countryCode = value.data['countryCode'] ?? 'null';
           city = value.data['cityName'] ?? 'null';
@@ -243,12 +242,10 @@ class RegisterAuthController extends GetxController {
 
   Future<void> policyAgree() async {
     var policyUrl =
-        Uri.parse('https://plf-app.blogspot.com/p/privecy-policy.html');
-    // open webview using url launcher
+        Uri.parse('https://old-butgold.web.app/p/privacy-policy.html');
     await launchUrl(policyUrl);
   }
 
-  // Get the token, of the current user
   _getUserDevToken() async {
     await _firebaseMessaging.getToken().then((token) {
       userDeviceToken = token.toString();

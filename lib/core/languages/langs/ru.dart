@@ -58,7 +58,69 @@ const Map<String, String> ru = {
   'search_here': 'Искать здесь...',
   'search_for_a_friend': 'Искать друга',
 
+
+
+
+
+
+  // 07/08/2023
+  'loading': 'Загрузка...',
+  'or': 'Или',
+  'verify_email': 'Подтвердите адрес электронной почты',
+  'please_check_your_email_to_verify_your_account':
+      'Пожалуйста, проверьте свою электронную почту\n, чтобы подтвердить свою учетную запись',
+  'no_user_found_for_that_email': 'Пользователь с таким адресом электронной почты не найден.',
+  'wrong_password_provided_for_that_user':
+      'Неправильный пароль для этого пользователя.',
+  'continue_with_google': 'Продолжить с Google',
+  'reset_password': 'Сбросить пароль',
+  'forgot_password': 'Забыли пароль?',
+  'already_have_an_account': 'Уже есть аккаунт?',
+  'please_check_your_email_to_reset_your_password': 'Пожалуйста, проверьте свою электронную почту\n, чтобы сбросить пароль',
+  'dont_have_an_account': 'Нет аккаунта?',
+
+  // Post Categories
+  'music': 'Музыка',
+  'comedy': 'Комедия',
+  'gaming': 'Игры',
+  'news': 'Новости',
+  'entertainment': 'Развлечения',
+  'education': 'Образование',
+  'people': 'Люди',
+  'animals': 'Животные',
+  'travel': 'Путешествия',
+  'sports': 'Спорт',
+  'film': 'Фильм',
+  'series': 'Сериалы',
+  'history': 'История',
+  'art': 'Искусство',
+  'food': 'Еда',
+  'fashion': 'Мода',
+  'war': 'Война',
+
+  // Reports
+  'post_reported_successfully': 'Пост успешно сообщен',
+  'something_went_wrong_try_again_later':
+      'Что-то пошло не так, попробуйте позже',
+  'error_in_update_user_data': 'Ошибка при обновлении данных пользователя',
+  'post_not_found': 'Пост не найден',
+  'error_while_loading_post': 'Ошибка при загрузке поста',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // 12/09/2023
   'no_notifications': 'Нет уведомлений',
   'commented_on_your_post': 'прокомментировал ваш пост',
+  'from': 'от',
 };

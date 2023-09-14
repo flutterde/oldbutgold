@@ -32,7 +32,7 @@ class CommentsController extends GetxController {
     try {
       isLoading.toggle();
       final commentsDocs = await _firestore
-          .collection('pt')
+          .collection('posts')
           .doc(postId)
           .collection('comments')
           .orderBy('createdAt', descending: true)

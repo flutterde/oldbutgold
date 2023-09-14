@@ -58,8 +58,69 @@ const Map<String, String> it = {
   'search_here': 'Cerca qui...',
   'search_for_a_friend': 'Cerca un amico',
 
+
+
+
+
+
+  // 07/08/2023
+  'loading': 'Caricamento in corso...',
+  'or': 'O',
+  'verify_email': 'Verifica email',
+  'please_check_your_email_to_verify_your_account':
+      'Controlla la tua email per verificare il tuo account',
+  'no_user_found_for_that_email': 'Nessun utente trovato per quella email.',
+  'wrong_password_provided_for_that_user':
+      'Password errata fornita per quell\'utente.',
+  'continue_with_google': 'Continua con Google',
+  'reset_password': 'Resetta password',
+  'forgot_password': 'Password dimenticata?',
+  'already_have_an_account': 'Hai già un account?',
+  'please_check_your_email_to_reset_your_password': 'Controlla la tua email per reimpostare la password',
+  'dont_have_an_account': 'Non hai un account?',
+
+  // Post Categories
+  'music': 'Musica',
+  'comedy': 'Commedia',
+  'gaming': 'Gaming',
+  'news': 'Notizie',
+  'entertainment': 'Intrattenimento',
+  'education': 'Educazione',
+  'people': 'Persone',
+  'animals': 'Animali',
+  'travel': 'Viaggi',
+  'sports': 'Sport',
+  'film': 'Film',
+  'series': 'Serie',
+  'history': 'Storia',
+  'art': 'Arte',
+  'food': 'Cibo',
+  'fashion': 'Moda',
+  'war': 'Guerra',
+
+  // Reports
+  'post_reported_successfully': 'Post segnalato con successo',
+  'something_went_wrong_try_again_later':
+      'Qualcosa è andato storto, riprova più tardi',
+  'error_in_update_user_data': 'Errore nell\'aggiornamento dei dati utente',
+  'post_not_found': 'Post non trovato',
+  'error_while_loading_post': 'Errore durante il caricamento del post',
+
+
+
+
+
+
+
+
+
+
+
+
+
   // 12/09/2023
   'no_notification': 'Nessuna notifica',
   'commented_on_your_post': 'ha commentato il tuo post',
+  'from': 'da',
 
 };

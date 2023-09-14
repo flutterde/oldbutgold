@@ -56,7 +56,56 @@ const Map<String, String> fr = {
   'search_here': 'Rechercher ici...',
   'search_for_a_friend': 'Rechercher un ami',
 
+
+
+
+
+  // 07/08/2023
+  'loading': 'Chargement...',
+  'or': 'Ou',
+  'verify_email': 'Vérifier l\'adresse e-mail',
+  'please_check_your_email_to_verify_your_account':
+      'Veuillez vérifier votre adresse e-mail pour vérifier votre compte',
+  'no_user_found_for_that_email': 'Aucun utilisateur trouvé pour cet e-mail.',
+  'wrong_password_provided_for_that_user':
+      'Mauvais mot de passe fourni pour cet utilisateur.',
+  'continue_with_google': 'Continuer avec Google',
+  'reset_password': 'Réinitialiser le mot de passe',
+  'forgot_password': 'Mot de passe oublié ?',
+  'already_have_an_account': 'Vous avez déjà un compte ?',
+  'please_check_your_email_to_reset_your_password': 'Veuillez vérifier votre e-mail pour réinitialiser votre mot de passe',
+  'dont_have_an_account': 'Vous n\'avez pas de compte ?',
+
+  // Post Categories
+  'music': 'Musique',
+  'comedy': 'Comédie',
+  'gaming': 'Jeux',
+  'news': 'Nouvelles',
+  'entertainment': 'Divertissement',
+  'education': 'Éducation',
+  'people': 'Personnes',
+  'animals': 'Animaux',
+  'travel': 'Voyage',
+  'sports': 'Sports',
+  'film': 'Film',
+  'series': 'Séries',
+  'history': 'Histoire',
+  'art': 'Art',
+  'food': 'Nourriture',
+  'fashion': 'Mode',
+  'war': 'Guerre',
+
+  // Reports
+  'post_reported_successfully': 'Post signalé avec succès',
+  'something_went_wrong_try_again_later':
+      'Quelque chose s\'est mal passé, réessayez plus tard',
+  'error_in_update_user_data': 'Erreur dans la mise à jour des données utilisateur',
+  'post_not_found': 'Post introuvable',
+  'error_while_loading_post': 'Erreur lors du chargement du post',
+
+
   // 12/09/2023
   'no_notification': 'Aucune notification',
   'commented_on_your_post': 'a commenté votre publication',
+  'from': 'de',
 };

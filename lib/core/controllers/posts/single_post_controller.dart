@@ -18,7 +18,7 @@ class SinglePostController extends GetxController {
     print('=================================');
     print(Get.parameters['id']);
     print('=================================');
-    loadPost('xxA7ccSys9mJaMVKgwH7mzCCzEO2fG');
+    loadPost(Get.parameters['id'] ?? '');
     super.onInit();
   }
 
@@ -59,7 +59,7 @@ class SinglePostController extends GetxController {
     try {
       if (post.isLiked! == true) {
         await _firestore
-            .collection('pt')
+            .collection('posts')
             .doc(post.id)
             .collection('likes')
             .doc(_auth.currentUser!.uid)
@@ -69,7 +69,7 @@ class SinglePostController extends GetxController {
         update();
       } else {
         await _firestore
-            .collection('pt')
+            .collection('posts')
             .doc(post.id)
             .collection('likes')
             .doc(_auth.currentUser!.uid)
@@ -77,7 +77,7 @@ class SinglePostController extends GetxController {
           'user_id': _auth.currentUser!.uid,
           'user': _firestore.collection('users').doc(_auth.currentUser!.uid),
           'post_id': post.id,
-          'post': _firestore.collection('pt').doc(post.id),
+          'post': _firestore.collection('posts').doc(post.id),
           'createdAt': FieldValue.serverTimestamp(),
           'type': 'like',
         });

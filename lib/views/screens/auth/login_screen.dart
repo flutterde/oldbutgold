@@ -29,6 +29,7 @@ class LoginUserScreen extends GetWidget {
                           children: [
                             TextFormField(
                               controller: ctr.emailController,
+                              keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
                                 hintText: 'enter_your_email'.tr,
                               ),
@@ -39,10 +40,21 @@ class LoginUserScreen extends GetWidget {
                                 return null;
                               },
                             ),
+                            Obx(()=>
                             TextFormField(
                               controller: ctr.passwordController,
+                              obscureText: !ctr.isPasswordVisible.value,
                               decoration: InputDecoration(
                                 hintText: 'enter_your_password'.tr,
+                                suffixIcon: IconButton(
+                                  onPressed: () {
+                                    ctr.isPasswordVisible.value =
+                                        !ctr.isPasswordVisible.value;
+                                  },
+                                  icon: ctr.isPasswordVisible.value
+                                      ? const Icon(Icons.visibility)
+                                      : const Icon(Icons.visibility_off),
+                                ),
                               ),
                               validator: (value) {
                                 if (value!.isEmpty || value.trim().length < 6) {
@@ -50,7 +62,7 @@ class LoginUserScreen extends GetWidget {
                                 }
                                 return null;
                               },
-                            ),
+                            )),
                             const SizedBox(
                               height: 10,
                             ),

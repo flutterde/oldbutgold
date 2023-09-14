@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:oldbutgold/core/models/post/post_model.dart';
-
 import '../../reports/post_report_controller.dart';
 
 class FeedController extends GetxController {
@@ -30,11 +29,10 @@ class FeedController extends GetxController {
       print('fetching posts.......');
       print('======================');
     }
-
     try {
       isLoading.value = true;
       final postsDocs = await _firestore
-          .collection('pt')
+          .collection('posts')
           .where('is_ready', isEqualTo: true)
           .where('audience', isEqualTo: 'public')
           .orderBy('createdAt', descending: true)
@@ -85,7 +83,7 @@ class FeedController extends GetxController {
       }
       //
       final data = await _firestore
-          .collection('pt')
+          .collection('posts')
           .where('is_ready', isEqualTo: true)
           .where('audience', isEqualTo: 'public')
           .orderBy('createdAt', descending: true)
@@ -143,14 +141,11 @@ class FeedController extends GetxController {
         );
   }
 
-// Todo: Add like post functionality 'test version'
-
   Future<void> likePost(PostModel post) async {
     try {
-      //
       if (post.isLiked! == true) {
         await _firestore
-            .collection('pt')
+            .collection('posts')
             .doc(post.id)
             .collection('likes')
             .doc(_auth.currentUser!.uid)
@@ -161,7 +156,7 @@ class FeedController extends GetxController {
         update();
       } else {
         await _firestore
-            .collection('pt')
+            .collection('posts')
             .doc(post.id)
             .collection('likes')
             .doc(_auth.currentUser!.uid)
@@ -169,7 +164,7 @@ class FeedController extends GetxController {
           'user_id': _auth.currentUser!.uid,
           'user': _firestore.collection('users').doc(_auth.currentUser!.uid),
           'post_id': post.id,
-          'post': _firestore.collection('pt').doc(post.id),
+          'post': _firestore.collection('posts').doc(post.id),
           'createdAt': FieldValue.serverTimestamp(),
           'type': 'like',
         });

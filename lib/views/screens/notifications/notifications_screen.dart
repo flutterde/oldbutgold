@@ -19,7 +19,7 @@ class NotificationsScreen extends GetWidget {
                       ? const Center(
                           child: CircularProgressIndicator(),
                         )
-                      : ctr.notifications.isNotEmpty
+                      : ctr.notifications.isEmpty
                           ? Center(
                               child: Text('no_notifications'.tr),
                             )

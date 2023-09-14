@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../core/controllers/posts/single_post_controller.dart';
-import '../../widgets/posts/more_post_widget.dart';
-import '../../widgets/video_player_widget.dart';
+
 
 class SinglePostScreen extends GetWidget<SinglePostController> {
-  const SinglePostScreen();
+  const SinglePostScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
