@@ -15,11 +15,11 @@ class NotificationsScreen extends GetWidget {
                 title: Text('notifications'.tr),
               ),
               body: SingleChildScrollView(
-                  child: ctr.isLoading
+                  child: Obx(()=> ctr.isLoading.value
                       ? const Center(
                           child: CircularProgressIndicator(),
                         )
-                      : ctr.notifications.isEmpty
+                      : (ctr.notifications.isEmpty && !ctr.isLoading.value)
                           ? Center(
                               child: Text('no_notifications'.tr),
                             )
@@ -71,7 +71,7 @@ class NotificationsScreen extends GetWidget {
                                       const Divider(),
                                 ),
                               ],
-                            )),
+                            )),),
             ));
   }
 }

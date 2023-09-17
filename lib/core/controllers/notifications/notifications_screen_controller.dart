@@ -9,7 +9,7 @@ class NotificationsScreenController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   List<NotificationModel> notifications = [];
-  bool isLoading = false;
+  RxBool isLoading = false.obs;
 
   @override
   void onInit() {
@@ -19,11 +19,11 @@ class NotificationsScreenController extends GetxController {
 
   Future<void> fetchNotifications() async {
     try {
-      isLoading = true;
+      isLoading.value = true;
       final querySnapshot = await _firestore
           .collectionGroup('notifications')
           .where('post_owner_id', isEqualTo: _auth.currentUser!.uid)
-          .orderBy('created_at', descending: true).limit(1)
+          .orderBy('created_at', descending: true).limit(10)
           .get();
       for (var item in querySnapshot.docs) {
               if (kDebugMode)
@@ -34,10 +34,10 @@ class NotificationsScreenController extends GetxController {
       }
         notifications.add(await NotificationModel().fromDocSnapshot(doc: item));
       }
-      isLoading = false;
+      isLoading.value = false;
       update();
     } catch (e) {
-      isLoading = false;
+      isLoading.value = false;
       update();
       if (kDebugMode)
       {

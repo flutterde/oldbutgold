@@ -93,14 +93,14 @@ class CreatePostController extends GetxController {
       isLoading.value = true;
       if (pickedVideoFile == null) {
         Get.snackbar(
-          'Error',
+          'error'.tr,
           'Video is required',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
         );
-      } else if (videoDuration < 4 || videoDuration > 120) {
+      } else if (videoDuration < 45 || videoDuration >= 120) {
         Get.snackbar(
-          'Error',
+          'error'.tr,
           'Video duration chould be between 45 seconds to 2 minutes',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,

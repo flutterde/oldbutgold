@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../core/controllers/comments/comments_controller.dart';
+import 'last_comment_widget.dart';
 
 class CommentsScreen extends GetWidget {
   const CommentsScreen({super.key});
@@ -29,6 +29,10 @@ class CommentsScreen extends GetWidget {
                               itemCount: ctr.comments.length,
                               itemBuilder: (context, index) {
                                 var comment = ctr.comments[index];
+
+                                if (index == (ctr.comments.length - 1)) {
+                                  return lastCommentWidget(comment, ctr);
+                                }
                                 return ListTile(
                                   title: Text(comment.content!),
                                   subtitle: Row(
@@ -48,6 +52,20 @@ class CommentsScreen extends GetWidget {
                                       ),
                                     ],
                                   ),
+                                  trailing: ((comment.user!.id ==
+                                              ctr.currentUserId) ||
+                                          (comment.post!.user!.id ==
+                                              ctr.currentUserId))
+                                      ? IconButton(
+                                          onPressed: () {
+                                            ctr.deleteComment(
+                                                comment.id!, comment.post!.id!);
+                                          },
+                                          icon: const Icon(
+                                            Icons.delete_outline_rounded,
+                                          ),
+                                        )
+                                      : const SizedBox(),
                                 );
                               },
                             ),
@@ -64,7 +82,7 @@ class CommentsScreen extends GetWidget {
                           Expanded(
                             child: TextField(
                               controller: createCtr.commentCtr,
-                              maxLength: 120,
+                              maxLength: 90,
                               decoration: const InputDecoration(
                                 hintText: 'Write a comment',
                                 border: OutlineInputBorder(
@@ -78,12 +96,13 @@ class CommentsScreen extends GetWidget {
                           IconButton(
                             onPressed: () {
                               FocusScope.of(context).unfocus();
-                              createCtr.createcomment(Get.arguments['postId'],
-                                  createCtr.commentCtr.text, Get.arguments['postOwner']);
+                              createCtr.createcomment(
+                                  Get.arguments['postId'],
+                                  createCtr.commentCtr.text,
+                                  Get.arguments['postOwner']);
                             },
                             icon: Obx(() => createCtr.isLoading.value
-                                ? const Icon(
-                                    Icons.settings_input_antenna_rounded)
+                                ? const Icon(Icons.trending_up)
                                 : const Icon(Icons.send)),
                           ),
                         ],

@@ -166,7 +166,7 @@ class FeedController extends GetxController {
           'post_id': post.id,
           'post': _firestore.collection('posts').doc(post.id),
           'createdAt': FieldValue.serverTimestamp(),
-          'type': 'like',
+          'type': 'post',
         });
         post.likesCount = post.likesCount! + 1;
         post.isLiked = true;

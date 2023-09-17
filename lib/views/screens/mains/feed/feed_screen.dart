@@ -30,7 +30,7 @@ class FeedScreen extends GetWidget {
                           controller: ctr.pageController,
                           itemCount: ctr.posts.length,
                           itemBuilder: (context, index) {
-                            if(index == ctr.posts.length - 3) {
+                            if (index == ctr.posts.length - 3) {
                               ctr.getMorePosts();
                             }
                             var post = ctr.posts[index];
@@ -52,6 +52,7 @@ class FeedScreen extends GetWidget {
                                       style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
+                                        color: Colors.white,
                                       ),
                                     ),
                                     Padding(
@@ -60,6 +61,11 @@ class FeedScreen extends GetWidget {
                                         post.description!,
                                         maxLines: 3,
                                         overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -92,7 +98,7 @@ class FeedScreen extends GetWidget {
                                                   size: 38,
                                                   color: post.isLiked!
                                                       ? Colors.red
-                                                      : Colors.grey,
+                                                      : Colors.white,
                                                 ),
                                               ),
                                               Text(
@@ -100,6 +106,7 @@ class FeedScreen extends GetWidget {
                                                 style: const TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
                                                 ),
                                               ),
                                               SizedBox(
@@ -110,12 +117,13 @@ class FeedScreen extends GetWidget {
                                                     '/main/comments',
                                                     arguments: {
                                                       'postId': post.id,
-                                                      'postOwner': post.user!.id,
+                                                      'postOwner':
+                                                          post.user!.id,
                                                     }),
                                                 icon: const Icon(
                                                   Icons.message,
                                                   size: 38,
-                                                  color: Colors.grey,
+                                                  color: Colors.white,
                                                 ),
                                               ),
                                               Text(
@@ -123,6 +131,7 @@ class FeedScreen extends GetWidget {
                                                 style: const TextStyle(
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
                                                 ),
                                               ),
                                               SizedBox(
@@ -137,7 +146,7 @@ class FeedScreen extends GetWidget {
                                                 icon: const Icon(
                                                   Icons.more_horiz,
                                                   size: 38,
-                                                  color: Colors.grey,
+                                                  color: Colors.white,
                                                 ),
                                               ),
                                               const Icon(
@@ -150,7 +159,7 @@ class FeedScreen extends GetWidget {
                                                 style: const TextStyle(
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.normal,
-                                                  color: Colors.grey,
+                                                  color: Colors.white,
                                                 ),
                                               ),
                                             ],
