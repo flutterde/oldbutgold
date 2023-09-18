@@ -80,16 +80,28 @@ class CommentsScreen extends GetWidget {
                       child: Row(
                         children: [
                           Expanded(
-                            child: TextField(
-                              controller: createCtr.commentCtr,
-                              maxLength: 90,
-                              decoration: const InputDecoration(
-                                hintText: 'Write a comment',
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(10),
+                            child: Form(
+                              child: Column(
+                                children: [
+                                  TextFormField(
+                                    controller: createCtr.commentCtr,
+                                    maxLength: 90,
+                                    decoration: const InputDecoration(
+                                      hintText: 'Write a comment',
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10),
+                                        ),
+                                      ),
+                                    ),
+                                    validator: (value) {
+                                      if (value!.trim().isEmpty) {
+                                        return 'Please enter a comment';
+                                      }
+                                      return null;
+                                    },
                                   ),
-                                ),
+                                ],
                               ),
                             ),
                           ),

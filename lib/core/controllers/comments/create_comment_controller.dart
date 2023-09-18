@@ -4,22 +4,24 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CreateCommentController extends GetxController{
+class CreateCommentController extends GetxController {
   RxBool isLoading = false.obs;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-
   final TextEditingController commentCtr = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
-
-
-  Future<void> createcomment(String postId, String comment, String postOwner) async {
-   try{
-    isLoading.toggle();
+  Future<void> createcomment(
+      String postId, String comment, String postOwner) async {
+    try {
+      isLoading.toggle();
       //
-      var comm = await _firestore.collection('posts').doc(postId).collection('comments').add({
+      var comm = await _firestore
+          .collection('posts')
+          .doc(postId)
+          .collection('comments')
+          .add({
         'comment': comment,
         'createdAt': FieldValue.serverTimestamp(),
         'user': _firestore.collection('users').doc(_auth.currentUser!.uid),
@@ -28,8 +30,10 @@ class CreateCommentController extends GetxController{
         'post': _firestore.collection('posts').doc(postId),
       });
 
-      (_auth.currentUser!.uid == postOwner) ? null : await createNotification(
-        postId, comm.id, comment, _auth.currentUser!.uid, postOwner);
+      (_auth.currentUser!.uid == postOwner)
+          ? null
+          : await createNotification(
+              postId, comm.id, comment, _auth.currentUser!.uid, postOwner);
       commentCtr.clear();
       isLoading.toggle();
       Get.back();
@@ -39,8 +43,8 @@ class CreateCommentController extends GetxController{
         snackPosition: SnackPosition.TOP,
         backgroundColor: Colors.green,
       );
-    }  on FirebaseException catch(e){
-      if(kDebugMode){
+    } on FirebaseException catch (e) {
+      if (kDebugMode) {
         isLoading.toggle();
         Get.snackbar(
           'Error',
@@ -50,16 +54,21 @@ class CreateCommentController extends GetxController{
         );
         print('========= Error ==========');
         print(e);
-        print('========= End Report Error ==========');
+        print('========= End Create Comment Error ==========');
       }
-    } 
+    }
   }
- 
- Future<void> createNotification(String postId, String commentId, String comment, String userId, String postOwnerId)
- async {
-    try{
-     await _firestore.collection('posts').doc(postId).collection('comments')
-      .doc(commentId).collection('notifications').add({
+
+  Future<void> createNotification(String postId, String commentId,
+      String comment, String userId, String postOwnerId) async {
+    try {
+      await _firestore
+          .collection('posts')
+          .doc(postId)
+          .collection('comments')
+          .doc(commentId)
+          .collection('notifications')
+          .add({
         'created_at': FieldValue.serverTimestamp(),
         'type': 'comment',
         'comment': comment,
@@ -72,12 +81,12 @@ class CreateCommentController extends GetxController{
         'post_owner_id': postOwnerId,
         'post_owner': _firestore.collection('users').doc(postOwnerId),
       });
-    } on FirebaseException catch(e){
-      if(kDebugMode){
+    } on FirebaseException catch (e) {
+      if (kDebugMode) {
         print('========= Error ==========');
         print(e);
         print('========= End Notification Error ==========');
       }
     }
- }
+  }
 }

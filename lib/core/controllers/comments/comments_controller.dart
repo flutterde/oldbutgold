@@ -78,24 +78,56 @@ class CommentsController extends GetxController {
           onPressed: () async {
             try {
               isDeleting.toggle();
-              await _firestore
+
+              // Create a batch
+              WriteBatch batch = FirebaseFirestore.instance.batch();
+
+              // Reference to the parent comment document
+              DocumentReference commentDocRef = FirebaseFirestore.instance
                   .collection('posts')
                   .doc(postId)
                   .collection('comments')
-                  .doc(commentId)
-                  .delete()
-                  .then((value) {
-                Get.back();
-                isDeleting.toggle();
-                Get.snackbar(
-                  'success'.tr,
-                  'Comment deleted successfully',
-                  snackPosition: SnackPosition.BOTTOM,
-                  backgroundColor: Colors.green,
-                );
-                comments.removeWhere((element) => element.id == commentId);
-                update();
+                  .doc(commentId);
+
+              // Reference to the subcollection
+              CollectionReference subcollectionRef =
+                  commentDocRef.collection('notifications');
+              CollectionReference subcollectionRef2 =
+                  commentDocRef.collection('ctsts');
+
+              // Delete all documents in the subcollection
+              QuerySnapshot subcollectionSnapshot =
+                  await subcollectionRef.get();
+              QuerySnapshot subcollectionSnapshot2 =
+                  await subcollectionRef2.get();
+              // ignore: avoid_function_literals_in_foreach_calls
+              subcollectionSnapshot.docs.forEach((doc) {
+                batch.delete(subcollectionRef.doc(doc.id));
               });
+
+              // ignore: avoid_function_literals_in_foreach_calls
+              subcollectionSnapshot2.docs.forEach((doc) {
+                batch.delete(subcollectionRef2.doc(doc.id));
+              });
+
+              // Delete the parent comment document
+              batch.delete(commentDocRef);
+
+              // Commit the batch
+              await batch.commit();
+
+              Get.back();
+              isDeleting.toggle();
+              Get.snackbar(
+                'success'.tr,
+                'Comment deleted successfully',
+                snackPosition: SnackPosition.BOTTOM,
+                backgroundColor: Colors.green,
+              );
+
+              // Assuming 'comments' is a list containing comment data
+              comments.removeWhere((element) => element.id == commentId);
+              update();
             } on FirebaseException catch (e) {
               Get.back();
               Get.snackbar(
