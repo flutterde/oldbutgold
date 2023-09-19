@@ -47,11 +47,6 @@ class FeedController extends GetxController {
       posts.clear();
       for (var post in postsDocs.docs) {
         posts.add(await PostModel().fromDocSnapshot(doc: post));
-        if (kDebugMode) {
-          print('======== Lenght =============');
-          print(posts.length);
-          print('======================');
-        }
       }
       _lastDocument = postsDocs.docs.last;
       posts.isEmpty ? isPostsEmpty.value = true : isPostsEmpty.value = false;

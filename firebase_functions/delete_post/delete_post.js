@@ -20,12 +20,9 @@ exports.deletePost = async (event, context) => {
     const userLang = documentData.user_lang_code.stringValue;
     const fcmToken = documentData.fcmToken.stringValue;
     const userID = documentData.user_id.stringValue;
-
     const r2BucketName = 'oldbutgold';
 
-
     try {
-        //
         const db = admin.firestore().collection('posts');
         await db.doc(postId).get().then(async (doc) => {
             const data = doc.data();
@@ -46,7 +43,6 @@ exports.deletePost = async (event, context) => {
                 // Delete the post from delete_post collection
                 await admin.firestore().collection('delete_post').doc(postId).delete();
                 console.log('Delete-post document deleted from Firestore');
-
             } else {
                 console.log('User not authorized to delete this post');
             }

@@ -7,7 +7,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../user/user_model.dart';
 
 class PostModel {
-  
   String backetCdnUrl = dotenv.get('CF_R_DOMAIN');
   String? id;
   UserModel? user;
@@ -40,7 +39,6 @@ class PostModel {
     this.viewsCount,
     this.videoExtension,
   });
-
 
   /*
 
@@ -76,52 +74,35 @@ class PostModel {
   }
 
   Future<int> getPostCommentsCount({required String postId}) async {
-    print('================== Start Counts ===================');
     AggregateQuerySnapshot query = await FirebaseFirestore.instance
         .collection('posts')
         .doc(postId)
         .collection('comments')
         .count()
         .get();
-    print('================== Counts ===================');
-    print(query.count);
-    print('================== Counts ===================');
     return query.count;
   }
 
-
   Future<int> getPostLikesCount({required String postId}) async {
-    print('================== Start Counts ===================');
     AggregateQuerySnapshot query = await FirebaseFirestore.instance
         .collection('posts')
         .doc(postId)
         .collection('likes')
         .count()
         .get();
-    print('================== Counts ===================');
-    print(query.count);
-    print('================== Counts ===================');
     return query.count;
   }
-
 
   Future<bool> getIsPostLiked({required String postId}) async {
     final FirebaseAuth auth = FirebaseAuth.instance;
     bool isLiked = false;
-    print('================== Start isPost Likes ===================');
     final query = await FirebaseFirestore.instance
         .collection('posts')
         .doc(postId)
         .collection('likes')
         .doc(auth.currentUser!.uid)
         .get();
-
-        query.exists ? isLiked = true : isLiked = false;
-
-      
-    print('================== isPost Likes ===================');
-    print(isLiked);
-    print('================== isPost Likes ===================');
+    query.exists ? isLiked = true : isLiked = false;
     return isLiked;
   }
 
@@ -129,26 +110,18 @@ class PostModel {
   Future<int?> getPostViewsCount({required String postId}) async {
     final dbPostsRef = FirebaseDatabase.instance.ref().child('posts');
     int? viewsCount = 0;
-    try{
-      //
+    try {
       await dbPostsRef.child(postId).once().then((DatabaseEvent snapshot) {
-         viewsCount = (snapshot.snapshot.value as Map<dynamic, dynamic>)['views'] as int?;
-       
-        
-        print('================== Views Count ===================');
-        print(viewsCount);
-        print('================== Views Count ===================');
-
-       
+        viewsCount =
+            (snapshot.snapshot.value as Map<dynamic, dynamic>)['views'] as int?;
       });
-
     } catch (e) {
-      print('======== Error in getPostViewsCount =========');
-      print(e);
-      print('======== End Error in getPostViewsCount =========');
+      if (kDebugMode) {
+        print('======== Error in getPostViewsCount =========');
+        print(e);
+        print('======== End Error in getPostViewsCount =========');
+      }
     }
     return viewsCount;
   }
-
-
 }

@@ -15,7 +15,9 @@ class NotificationsScreen extends GetWidget {
                 title: Text('notifications'.tr),
               ),
               body: SingleChildScrollView(
-                  child: Obx(()=> ctr.isLoading.value
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Obx(() => ctr.isLoading.value
                       ? const Center(
                           child: CircularProgressIndicator(),
                         )
@@ -42,19 +44,19 @@ class NotificationsScreen extends GetWidget {
                                 ListView.separated(
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
-                                  itemCount:  ctr.notifications.length,
+                                  itemCount: ctr.notifications.length,
                                   itemBuilder: (context, index) {
                                     final notification = ctr.notifications[index];
                                     return ListTile(
                                       leading: CircleAvatar(
-                                          backgroundImage: NetworkImage(
-                                            notification.user!.profilePic! ,
-                                          ),
-                                          ),
+                                        backgroundImage: NetworkImage(
+                                          notification.user!.profilePic!,
+                                        ),
+                                      ),
                                       title: Text(
-                                          '${notification.user!.username!} ${'commented_on_your_post'.tr}'),
-                                      subtitle: Text(
-                                          notification.comment!),
+                                          '${notification.user!.name!} ${'commented_on_your_post'.tr}:'),
+                                      subtitle:
+                                          Text("''${notification.comment}...''"),
                                       trailing: notification.isRead!
                                           ? const SizedBox.shrink()
                                           : Container(
@@ -71,7 +73,9 @@ class NotificationsScreen extends GetWidget {
                                       const Divider(),
                                 ),
                               ],
-                            )),),
+                            )),
+                ),
+              ),
             ));
   }
 }
