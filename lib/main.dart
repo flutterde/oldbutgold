@@ -1,11 +1,9 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'core/apis/firebase_api.dart';
 import 'core/bindings/initial_binding.dart';
 import 'core/languages/local.dart';
@@ -25,21 +23,12 @@ bool? seenOnboard;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
-
-  // shared preferences
   SharedPreferences pref = await SharedPreferences.getInstance();
   seenOnboard = pref.getBool('onboardingshowed') ?? false;
-
-  // firebase
   await Firebase.initializeApp();
-
-  // notifications
   await FirebaseApi().initNotifications();
-
   HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
-
-  
 }
 
 class MyApp extends StatelessWidget {
@@ -48,16 +37,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     Get.put(AppLocalController());
     return GetMaterialApp(
-      
       title: 'Old But Gold',
       getPages: appRoutes,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      theme: ThemeData.dark().copyWith(
         useMaterial3: true,
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.deepPurple,
+          brightness: Brightness.dark,
+        ),
       ),
+      themeMode: ThemeMode.dark,
       locale: const Locale('en'),
       fallbackLocale: const Locale('en'),
       translations: AppLocal(),

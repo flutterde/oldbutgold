@@ -46,27 +46,40 @@ class NotificationsScreen extends GetWidget {
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemCount: ctr.notifications.length,
                                   itemBuilder: (context, index) {
-                                    final notification = ctr.notifications[index];
-                                    return ListTile(
-                                      leading: CircleAvatar(
-                                        backgroundImage: NetworkImage(
-                                          notification.user!.profilePic!,
+                                    final notification =
+                                        ctr.notifications[index];
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Get.toNamed('/main/comments',
+                                            arguments: {
+                                              'postId': notification.postId!,
+                                              'postOwner':
+                                                  notification.postOwnerId!,
+                                            });
+                                        ctr.updateNotificationStatus(
+                                            notification: notification);
+                                      },
+                                      child: ListTile(
+                                        leading: CircleAvatar(
+                                          backgroundImage: NetworkImage(
+                                            notification.user!.profilePic!,
+                                          ),
                                         ),
-                                      ),
-                                      title: Text(
-                                          '${notification.user!.name!} ${'commented_on_your_post'.tr}:'),
-                                      subtitle:
-                                          Text("''${notification.comment}...''"),
-                                      trailing: notification.isRead!
-                                          ? const SizedBox.shrink()
-                                          : Container(
-                                              height: 10,
-                                              width: 10,
-                                              decoration: const BoxDecoration(
-                                                color: Colors.red,
-                                                shape: BoxShape.circle,
+                                        title: Text(
+                                            '${notification.user!.name!} ${'commented_on_your_post'.tr}:'),
+                                        subtitle: Text(
+                                            "''${notification.comment!.substring(0, notification.comment!.length < 20 ? notification.comment!.length : 20)}...''"),
+                                        trailing: notification.isRead!
+                                            ? const SizedBox.shrink()
+                                            : Container(
+                                                height: 10,
+                                                width: 10,
+                                                decoration: const BoxDecoration(
+                                                  color: Colors.red,
+                                                  shape: BoxShape.circle,
+                                                ),
                                               ),
-                                            ),
+                                      ),
                                     );
                                   },
                                   separatorBuilder: (context, index) =>

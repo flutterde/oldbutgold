@@ -30,7 +30,6 @@ var appRoutes = [
   GetPage(name: '/auth/reset', page: ()=> const ResetPasswordScreen(), middlewares: [AuthRedirectMiddleware()]),
 
   // main screens
-
   GetPage(name: '/', page: ()=> const MainPage(), middlewares: [AuthMiddleware()]),
   GetPage(name: '/main/feed', page: ()=> const FeedScreen(), middlewares: [AuthMiddleware()]),
   GetPage(name: '/main/comments', page: ()=> const CommentsScreen(), middlewares: [AuthMiddleware()]),

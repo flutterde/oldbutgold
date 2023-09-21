@@ -49,7 +49,7 @@ class ProfileConntroller extends GetxController {
   }
 
   Future<void> fetchUserPosts() async {
-    try{
+    try {
       isPostsLoading.value = true;
       final postsDocs = await _firestore
           .collection('posts')
@@ -59,10 +59,12 @@ class ProfileConntroller extends GetxController {
           .limit(_perPage)
           .get();
       posts.clear();
-      for (var post in postsDocs.docs) {
-        posts.add(await PostModel().fromDocSnapshot(doc: post));
+      if (postsDocs.docs.isNotEmpty) {
+        for (var post in postsDocs.docs) {
+          posts.add(await PostModel().fromDocSnapshot(doc: post));
+        }
+        _lastDocument = postsDocs.docs.last;
       }
-      _lastDocument = postsDocs.docs.last;
       isPostsLoading.value = false;
     } catch (e) {
       isPostsLoading.value = false;
@@ -80,7 +82,7 @@ class ProfileConntroller extends GetxController {
     }
   }
 
-    Future<void> getMoreUserPosts() async {
+  Future<void> getMoreUserPosts() async {
     try {
       isLoadingMore.value = true;
       final data = await _firestore

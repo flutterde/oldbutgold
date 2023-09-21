@@ -76,7 +76,7 @@ class CommentsScreen extends GetWidget {
                     right: 0,
                     child: Container(
                       padding: const EdgeInsets.all(8.0),
-                      color: Colors.white,
+                      color: Colors.grey[800],
                       child: Row(
                         children: [
                           Expanded(
@@ -95,7 +95,8 @@ class CommentsScreen extends GetWidget {
                                       ),
                                     ),
                                     validator: (value) {
-                                      if (value!.trim().isEmpty) {
+                                      if (value!.isEmpty ||
+                                          value.trim().isEmpty) {
                                         return 'Please enter a comment';
                                       }
                                       return null;
@@ -105,18 +106,20 @@ class CommentsScreen extends GetWidget {
                               ),
                             ),
                           ),
-                          IconButton(
-                            onPressed: () {
-                              FocusScope.of(context).unfocus();
-                              createCtr.createcomment(
-                                  Get.arguments['postId'],
-                                  createCtr.commentCtr.text,
-                                  Get.arguments['postOwner']);
-                            },
-                            icon: Obx(() => createCtr.isLoading.value
-                                ? const Icon(Icons.trending_up)
-                                : const Icon(Icons.send)),
-                          ),
+                          Obx(() => ctr.isLoading.value
+                              ? const Center(
+                                  child: CircularProgressIndicator(),
+                                )
+                              : IconButton(
+                                  onPressed: () {
+                                    FocusScope.of(context).unfocus();
+                                    createCtr.createcomment(
+                                        Get.arguments['postId'],
+                                        createCtr.commentCtr.text,
+                                        Get.arguments['postOwner']);
+                                  },
+                                  icon: const Icon(Icons.send),
+                                )),
                         ],
                       ),
                     )),

@@ -95,6 +95,7 @@ class CreatePostScreen extends GetWidget {
                             ),
                             TextFormField(
                               controller: ctr.videoDescriptionCtr,
+                              maxLength: 90,
                               decoration: InputDecoration(
                                 labelText: 'video_description'.tr,
                               ),
