@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:oldbutgold/core/models/post/post_model.dart';
-
 import '../../../core/controllers/downloads/download_post_controller.dart';
 import '../../../core/controllers/reports/post_report_controller.dart';
 
@@ -13,15 +11,15 @@ Future<dynamic> morePostWidget(PostModel post) async {
   return await Get.bottomSheet(
     Container(
       height: Get.height * 0.25,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        color: Colors.grey[700],
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(10),
           topRight: Radius.circular(10),
         ),
-        boxShadow: [
+        boxShadow: const [
           BoxShadow(
-            color: Colors.black,
+            color: Colors.white,
             blurRadius: 5,
             spreadRadius: 0.5,
             offset: Offset(0.7, 0.7),
@@ -96,11 +94,14 @@ Future<dynamic> morePostWidget(PostModel post) async {
             child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            IconButton(onPressed: () async{
-             // await Clipboard.setData(ClipboardData(text: "https://old-butgold.web.app/post/${post.id}"));
-              Get.back();
-              Get.snackbar('sorry'.tr, 'you_cannot_copy'.tr, backgroundColor: Colors.red);
-            }, icon: const Icon(Icons.copy)),
+            IconButton(
+                onPressed: () async {
+                  // await Clipboard.setData(ClipboardData(text: "https://old-butgold.web.app/post/${post.id}"));
+                  Get.back();
+                  Get.snackbar('sorry'.tr, 'you_cannot_copy'.tr,
+                      backgroundColor: Colors.red);
+                },
+                icon: const Icon(Icons.copy)),
             const SizedBox(
               height: 10,
             ),

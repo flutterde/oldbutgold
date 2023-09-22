@@ -62,6 +62,7 @@ class EditProfileScreen extends GetWidget {
                         decoration: InputDecoration(
                           labelText: 'name'.tr,
                         ),
+                        maxLength: 20,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'please_enter_your_name'.tr;
@@ -77,6 +78,9 @@ class EditProfileScreen extends GetWidget {
                         decoration: InputDecoration(
                           labelText: 'bio'.tr,
                         ),
+                        maxLength: 70,
+                        minLines: 2,
+                        maxLines: 5,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'please_enter_your_bio'.tr;

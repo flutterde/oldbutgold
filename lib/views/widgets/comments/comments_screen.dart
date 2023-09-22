@@ -35,22 +35,35 @@ class CommentsScreen extends GetWidget {
                                 }
                                 return ListTile(
                                   title: Text(comment.content!),
-                                  subtitle: Row(
-                                    children: [
-                                      CircleAvatar(
-                                        radius: 10,
-                                        backgroundImage: NetworkImage(
-                                          comment.user!.profilePic!,
+                                  subtitle: GestureDetector(
+                                    onTap: () {
+                                      (comment.user!.id == ctr.currentUserId)
+                                          ? Get.toNamed('/profile')
+                                          : Get.toNamed(
+                                              '/users/profile',
+                                              arguments: {
+                                                'user': comment.user,
+                                                'carrentUser': ctr.currentUserId
+                                              },
+                                            );
+                                    },
+                                    child: Row(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 10,
+                                          backgroundImage: NetworkImage(
+                                            comment.user!.profilePic!,
+                                          ),
                                         ),
-                                      ),
-                                      const SizedBox(width: 5),
-                                      Text(
-                                        comment.user!.name!,
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.grey[600]),
-                                      ),
-                                    ],
+                                        const SizedBox(width: 5),
+                                        Text(
+                                          comment.user!.name!,
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.grey[600]),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                   trailing: ((comment.user!.id ==
                                               ctr.currentUserId) ||
@@ -106,7 +119,7 @@ class CommentsScreen extends GetWidget {
                               ),
                             ),
                           ),
-                          Obx(() => ctr.isLoading.value
+                          Obx(() => createCtr.isLoading.value
                               ? const Center(
                                   child: CircularProgressIndicator(),
                                 )

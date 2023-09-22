@@ -11,8 +11,10 @@ class UserModel {
   String? country;
   String? profilePic;
   String? bio;
-  DateTime? createdAt;
+  Timestamp? createdAt;
   bool? isVerified;
+  int? followersCount;
+  int? followingCount;
 
   UserModel({
     this.id,
@@ -23,6 +25,8 @@ class UserModel {
     this.bio,
     // this.createdAt,
     this.isVerified,
+    this.followersCount,
+    this.followingCount,
   });
 
   UserModel.fromDocumentSnapshot({required DocumentSnapshot documentSnapshot}) {
@@ -39,7 +43,9 @@ class UserModel {
     profilePic = '$backetCdnUrl${documentSnapshot['profile_photo_url']}';
     bio = documentSnapshot['profile']['profile_bio'] ?? '';
     isVerified = documentSnapshot['profile']['is_profile_verified'] ?? false;
-    // createdAt = documentSnapshot['created_at'];
+    createdAt = documentSnapshot['created_at'];
+    followersCount = 10;
+    followingCount = 10;
     if (kDebugMode) {
       print('Out User Model.......');
       print('======================');

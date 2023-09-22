@@ -15,7 +15,9 @@ import '../../views/screens/notifications/anouncements_screen.dart';
 import '../../views/screens/post/single_post_screen.dart';
 import '../../views/widgets/comments/comments_screen.dart';
 import '../../views/widgets/profile/edit_profile_screen.dart';
+import '../../views/widgets/profile/other_users_profile.dart';
 import '../../views/widgets/profile/profile_actions_screen.dart';
+import '../../views/widgets/profile/profile_screen.dart';
 import '../middlewares/auth_middlewares.dart';
 
 var appRoutes = [
@@ -48,4 +50,7 @@ var appRoutes = [
   // profile
   GetPage(name: '/edit-profile', page: ()=> const EditProfileScreen(), middlewares: [AuthMiddleware()]),
   GetPage(name: '/profile/actions', page: ()=> const ProfileActionsScreen(), middlewares: [AuthMiddleware()]),
+  GetPage(name: '/profile', page: ()=> const ProfileScreen(), middlewares: [AuthMiddleware()]),
+  GetPage(name: '/users/profile', page: ()=> const OtherUsersProfile(), middlewares: [AuthMiddleware()]),
+  GetPage(name: '/users/profile/:id', page: ()=> const OtherUsersProfile(), middlewares: [AuthMiddleware()]),
 ];
