@@ -34,8 +34,8 @@ class ProfileConntroller extends GetxController {
           .collection('users')
           .doc(_auth.currentUser!.uid)
           .get()
-          .then((value) {
-        user = UserModel.fromDocumentSnapshot(documentSnapshot: value);
+          .then((value) async{
+        user = await UserModel().fromDocumentSnapshot(documentSnapshot: value);
       });
       isLoading.value = false;
     } catch (e) {

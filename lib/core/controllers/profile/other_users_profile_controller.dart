@@ -32,7 +32,7 @@ class OtherUsersProfileController extends GetxController {
     try {
       isLoading.value = true;
       DocumentSnapshot doc = await _firestore.collection('users').doc(uid).get();
-      user = UserModel.fromDocumentSnapshot(documentSnapshot: doc);
+      user = await UserModel().fromDocumentSnapshot(documentSnapshot: doc);
       isLoading.value = false;
     } catch (e) {
       isLoading.value = false;

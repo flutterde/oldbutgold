@@ -55,7 +55,7 @@ class PostModel {
     final postUser = doc['user'] as DocumentReference;
     return PostModel(
       id: doc.id,
-      user: UserModel.fromDocumentSnapshot(
+      user: await UserModel().fromDocumentSnapshot(
         documentSnapshot: await postUser.get(),
       ),
       description: doc['videoDescription'],

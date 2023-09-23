@@ -160,7 +160,7 @@ class CreatePostScreen extends GetWidget {
                               () => Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  color: Colors.grey[200],
+                                  color: Colors.grey[800],
                                 ),
                                 height: 150,
                                 width: double.infinity,

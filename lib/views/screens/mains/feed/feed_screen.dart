@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../../core/controllers/main_pages/feed/feed_controller.dart';
 import '../../../widgets/posts/more_post_widget.dart';
 import '../../../widgets/video_player_widget.dart';
@@ -82,12 +81,27 @@ class FeedScreen extends GetWidget {
                                           ),
                                           child: Column(
                                             children: [
-                                              CircleAvatar(
-                                                radius: 25,
-                                                backgroundImage: NetworkImage(
-                                                  post.user!.profilePic!,
+                                              GestureDetector(
+                                                onTap: () {
+                                                  (post.user!.id ==
+                                                          ctr.currentUserId)
+                                                      ? Get.toNamed('/profile')
+                                                      : Get.toNamed(
+                                                          '/users/profile',
+                                                          arguments: {
+                                                            'user': post.user,
+                                                            'carrentUser': ctr
+                                                                .currentUserId
+                                                          },
+                                                        );
+                                                },
+                                                child: CircleAvatar(
+                                                  radius: 25,
+                                                  backgroundImage: NetworkImage(
+                                                    post.user!.profilePic!,
+                                                  ),
+                                                  backgroundColor: Colors.grey,
                                                 ),
-                                                backgroundColor: Colors.grey,
                                               ),
                                               IconButton(
                                                 onPressed: () {

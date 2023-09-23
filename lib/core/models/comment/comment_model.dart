@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:oldbutgold/core/models/post/post_model.dart';
 import '../user/user_model.dart';
 
@@ -22,15 +21,11 @@ class CommentModel {
 
   Future<CommentModel> fromDocSnapshot({required DocumentSnapshot doc}) async {
     final postDoc = doc['post'] as DocumentReference;
-    if (kDebugMode) {
-      print('=====================');
-      print('in Post Model.......');
-      print('======================');
-    }
+
     final postUser = doc['user'] as DocumentReference;
     return CommentModel(
       id: doc.id,
-      user: UserModel.fromDocumentSnapshot(
+      user: await UserModel().fromDocumentSnapshot(
         documentSnapshot: await postUser.get(),
       ),
       content: doc['comment'],

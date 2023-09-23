@@ -45,7 +45,7 @@ class NotificationModel {
     return NotificationModel(
       id: doc.id,
       post: await PostModel().fromDocSnapshot(doc: await postDoc.get()),
-      user: UserModel.fromDocumentSnapshot(
+      user: await UserModel().fromDocumentSnapshot(
         documentSnapshot: await userDoc.get(),
       ),
       postOwnerId: doc['post_owner_id'],

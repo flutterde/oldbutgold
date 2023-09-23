@@ -31,10 +31,11 @@ class SearchScreenController extends GetxController {
           .endAt(['${searchCtr.text.toLowerCase()}\uf8ff'])
           .limit(10)
           .get()
-          .then((value) {
+          .then((value) async {
             users.clear();
             for (var doc in value.docs) {
-              users.add(UserModel.fromDocumentSnapshot(documentSnapshot: doc));
+              users.add(await UserModel()
+                  .fromDocumentSnapshot(documentSnapshot: doc));
             }
             users.isEmpty
                 ? isUsersEmpty.value = true

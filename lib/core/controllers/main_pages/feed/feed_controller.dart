@@ -11,6 +11,7 @@ class FeedController extends GetxController {
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  String get currentUserId => _auth.currentUser!.uid;
   RxBool isLoading = false.obs;
   RxBool isPostsEmpty = false.obs;
   List<PostModel> posts = [];
