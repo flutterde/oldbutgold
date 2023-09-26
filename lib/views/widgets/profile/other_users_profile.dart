@@ -30,7 +30,7 @@ class OtherUsersProfile extends GetWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              otherUserProfileCard(ctr.user!),
+                              otherUserProfileCard(ctr.user!, ctr),
                               const SizedBox(height: 10),
                               const Divider(),
                               const SizedBox(height: 10),
@@ -49,7 +49,8 @@ class OtherUsersProfile extends GetWidget {
   }
 }
 
-Widget otherUserProfileCard(UserModel user) {
+Widget otherUserProfileCard(UserModel user, OtherUsersProfileController ctr) {
+  final fCtr = ctr.followCtr;
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Column(
@@ -65,10 +66,12 @@ Widget otherUserProfileCard(UserModel user) {
             const SizedBox(
               width: 10,
             ),
-            followesFollowingWidget(
-              followersCount: user.followersCount!,
-              followingCount: user.followingCount!,
-            ),
+            Obx(() => (!fCtr.isLoading.value)
+                ? followesFollowingWidget(
+                    followersCount: user.followersCount!,
+                    followingCount: user.followingCount!,
+                  )
+                : const CircularProgressIndicator()),
           ],
         ),
         const SizedBox(
@@ -96,13 +99,30 @@ Widget otherUserProfileCard(UserModel user) {
           height: 10,
         ),
         ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              (!fCtr.isLoading.value)
+                  ? fCtr.handleFollowUser(
+                      user: user,
+                      isFollow: user.isFollowing!,
+                    )
+                  : null;
+            },
+            style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(Colors.deepPurple),
+            ),
             child: SizedBox(
                 width: double.infinity,
-                child: Text(
-                  user.isFollowing! ? 'unfollow' : 'follow',
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.white),
+                child: Obx(
+                  () => Text(
+                    (fCtr.isLoading.value)
+                        ? 'Wait...'
+                        : (user.isFollowing! && !fCtr.isLoading.value)
+                            ? 'Unfollow'
+                            : 'Follow',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(color: Colors.white),
+                  ),
                 ))),
       ],
     ),

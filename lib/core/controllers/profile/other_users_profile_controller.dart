@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import '../../models/user/user_model.dart';
+import '../follow/follow_controller.dart';
 
 class OtherUsersProfileController extends GetxController {
+  final FollowController followCtr = Get.put(FollowController());
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   String get currentUserId => _auth.currentUser!.uid;
