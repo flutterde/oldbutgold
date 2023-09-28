@@ -106,5 +106,44 @@ const Map<String, String> en = {
 'no_notifications': 'No notifications',
 'commented_on_your_post': 'commented on your post',
 'from': 'from',
+
+// 27/09/2023
+'started_following_you': 'Started following you',
+'check_profile': 'Check profile',
+'Followers_': 'Followers',
+'Following_': 'Following',
+'posts': 'Posts:',
+'user_not_found': 'User not found',
+'wait': 'Wait...',
+'unfollow': 'Unfollow',
+'follow': 'Follow',
+
+// Onboarding
+'welcome': 'Welcome to Old But Gold!',
+'onboarding_1_description': 'Discover and share timeless videos from the past. Explore a world of nostalgia and creativity.',
+'onbo_title2': 'Explore Vintage Videos',
+'onboarding_2_description': 'Scroll through a vast collection of short videos spanning different eras. From classic moments to forgotten gems, find the best of the past.',
+'onbo_title3': 'Connect with the Community',
+'onboarding_3_description': 'Join a community of fellow enthusiasts. Follow your favorite creators, leave comments, and share your thoughts on the videos that resonate with you.',
+'onbo_title4': 'Save and Report',
+'onboarding_4_description': 'Save your favorite videos for later, or report content that violates our community guidelines. Your input helps keep Old But Gold safe and enjoyable for all.',
+'choose_lange': 'Choose Language',
+'save_and_next': 'Save and Next',
+'start': 'Start',
+'next': 'Next',
   
 };
+
+/*
+
+// Onboarding
+'welcome': 'Welcome to Old But Gold!',
+'onboarding_1_description': 'Discover and share timeless videos from the past. Explore a world of nostalgia and creativity.',
+'onbo_title2': 'Explore Vintage Videos',
+'onboarding_2_description': 'Scroll through a vast collection of short videos spanning different eras. From classic moments to forgotten gems, find the best of the past.',
+'onbo_title3': 'Connect with the Community',
+'onboarding_3_description': 'Join a community of fellow enthusiasts. Follow your favorite creators, leave comments, and share your thoughts on the videos that resonate with you.',
+'onbo_title4': 'Save and Report',
+'onboarding_4_description': 'Save your favorite videos for later, or report content that violates our community guidelines. Your input helps keep Old But Gold safe and enjoyable for all.',
+
+ */

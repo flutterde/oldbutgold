@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../../core/controllers/main_pages/main_page_controller.dart';
+import 'package:badges/badges.dart' as badges;
 
 class MainPage extends GetWidget {
   const MainPage({super.key});
@@ -56,7 +57,16 @@ class MainPage extends GetWidget {
                                 selectedIcon: const Icon(Icons.search_outlined),
                                 label: 'search'.tr),
                             NavigationDestination(
-                                icon: const Icon(Icons.notifications_none),
+                                icon: badges.Badge(
+                                    onTap: () {
+                                      controller.nCount = 0;
+                                      controller.update();
+                                    },
+                                    showBadge: (controller.nCount == 0) ? false : true,
+                                    badgeContent:
+                                        Text(controller.nCount.toString()),
+                                    child:
+                                        const Icon(Icons.notifications_none)),
                                 selectedIcon: const Icon(Icons.notifications),
                                 label: ('notifications'.tr).substring(0, 9)),
                             NavigationDestination(

@@ -54,6 +54,8 @@ dependencies:
   flutter_signin_button: ^2.0.0
   lottie: ^2.6.0
   timeago: ^3.5.0
+  badges: ^3.1.2
+  firebase_app_check: ^0.2.0
 
 dev_dependencies:
   flutter_launcher_icons: "^0.13.1"

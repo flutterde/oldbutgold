@@ -9,6 +9,7 @@ import 'core/bindings/initial_binding.dart';
 import 'core/languages/local.dart';
 import 'core/languages/local_controller.dart';
 import 'core/routes/app_routes.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -27,6 +28,10 @@ void main() async {
   seenOnboard = pref.getBool('onboardingshowed') ?? false;
   await Firebase.initializeApp();
   await FirebaseApi().initNotifications();
+    await FirebaseAppCheck.instance.activate(
+    androidProvider: AndroidProvider.debug,
+    appleProvider: AppleProvider.appAttest,
+  );
   HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }

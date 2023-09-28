@@ -66,7 +66,7 @@ class UserModel {
     AggregateQuerySnapshot query = await _firestore
         .collection('followers')
         .doc(userId)
-        .collection('followers_list')
+        .collection('following_list')
         .count()
         .get();
     return (query.count);

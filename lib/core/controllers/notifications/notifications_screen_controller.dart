@@ -8,6 +8,7 @@ import '../../models/notification/notification_model.dart';
 class NotificationsScreenController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  String get currentUserUId => _auth.currentUser!.uid;
   List<NotificationModel> notifications = [];
   RxBool isLoading = false.obs;
 
@@ -68,4 +69,22 @@ class NotificationsScreenController extends GetxController {
       }
     }
   }
+
+  Future<void> updateFollowNotificationStatus(
+      {required NotificationModel notification}) async {
+        try {
+          await _firestore
+              .collection('notifications')
+              .doc(notification.id)
+              .update({'is_read': true});
+          notification.isRead = true;
+          update();
+        } catch (e) {
+          if (kDebugMode) {
+            print('========= Notification Ctr Error ==============');
+            print(e);
+            print('========= End Error ==========');
+          }
+        }
+      }
 }

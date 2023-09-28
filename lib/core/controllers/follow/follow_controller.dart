@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:oldbutgold/core/models/user/user_model.dart';
 
@@ -16,6 +17,7 @@ class FollowController extends GetxController {
       if (!isFollow) {
         await _following(user.id!);
         await _follower(user.id!);
+        await createNotification(currentUserId, user.id!);
         user.followersCount = user.followersCount! + 1;
         user.isFollowing = true;
       } else {
@@ -75,5 +77,32 @@ class FollowController extends GetxController {
         .collection('following_list')
         .doc(currentUserId)
         .delete();
+  }
+
+  Future<void> createNotification(
+    String followerId, // the one who follow (me / current user)
+    String followingId, // the one who is followed (other user)
+    ) async {
+    try {
+      await _firestore.collection('notifications').add({
+        'created_at': FieldValue.serverTimestamp(),
+        'type': 'follow',
+        'comment': null,
+        'commentId': null,
+        'is_read': false,
+        'post_id': null,
+        'post': null,
+        'user': _firestore.collection('users').doc(followerId),
+        'user_id': followerId,
+        'post_owner_id': followingId,
+        'post_owner': _firestore.collection('users').doc(followingId),
+      });
+    } on FirebaseException catch (e) {
+      if (kDebugMode) {
+        print('========= Error ==========');
+        print(e);
+        print('========= End Notification Error ==========');
+      }
+    }
   }
 }

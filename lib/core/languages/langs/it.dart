@@ -33,13 +33,15 @@ const Map<String, String> it = {
   'enter_your_password': 'Inserisci la tua password',
   'please_enter_your_password': 'Per favore, inserisci la tua password',
   'enter_your_name': 'Inserisci il tuo nome',
-  'password_should_be_longer_than_6_characters': 'La password deve essere più lunga di 6 caratteri',
+  'password_should_be_longer_than_6_characters':
+      'La password deve essere più lunga di 6 caratteri',
 
   // create post
   'create_post': 'Crea post',
   'select_video': 'Seleziona video',
   'video_is_required': 'Il video è obbligatorio',
-  'video_duration_should_be_between_45sec_to_2_min': 'La durata del video deve essere compresa tra 45 secondi \n e 2 minuti e deve essere inferiore a 100 MB',
+  'video_duration_should_be_between_45sec_to_2_min':
+      'La durata del video deve essere compresa tra 45 secondi \n e 2 minuti e deve essere inferiore a 100 MB',
   'invalid_video_duration': 'Durata del video non valida',
   'video_duration': 'Durata del video: ',
   'video_description': 'Descrizione del video',
@@ -53,15 +55,9 @@ const Map<String, String> it = {
   'create': 'Crea',
   'notifications': 'Notifiche',
 
-
   // search
   'search_here': 'Cerca qui...',
   'search_for_a_friend': 'Cerca un amico',
-
-
-
-
-
 
   // 07/08/2023
   'loading': 'Caricamento in corso...',
@@ -76,7 +72,8 @@ const Map<String, String> it = {
   'reset_password': 'Resetta password',
   'forgot_password': 'Password dimenticata?',
   'already_have_an_account': 'Hai già un account?',
-  'please_check_your_email_to_reset_your_password': 'Controlla la tua email per reimpostare la password',
+  'please_check_your_email_to_reset_your_password':
+      'Controlla la tua email per reimpostare la password',
   'dont_have_an_account': 'Non hai un account?',
 
   // Post Categories
@@ -106,21 +103,37 @@ const Map<String, String> it = {
   'post_not_found': 'Post non trovato',
   'error_while_loading_post': 'Errore durante il caricamento del post',
 
-
-
-
-
-
-
-
-
-
-
-
-
   // 12/09/2023
   'no_notification': 'Nessuna notifica',
   'commented_on_your_post': 'ha commentato il tuo post',
   'from': 'da',
 
+  // 27/09/2023
+  'started_following_you': 'Ha iniziato a seguirti',
+  'check_profile': 'Controlla il profilo',
+  'Followers_': 'Seguaci',
+  'Following_': 'Seguiti',
+  'posts': 'Post:',
+  'user_not_found': 'Utente non trovato',
+  'wait': 'Aspetta...',
+  'unfollow': 'Non seguire più',
+  'follow': 'Segui',
+
+  // Onboarding
+  'welcome': 'Benvenuti su Old But Gold!',
+  'onboarding_1_description':
+      'Scopri e condividi video senza tempo del passato. Esplora un mondo di nostalgia e creatività.',
+  'onbo_title2': 'Esplora Video Vintage',
+  'onboarding_2_description':
+      'Scorri una vasta collezione di video brevi che spaziano in diverse epoche. Dai momenti classici alle gemme dimenticate, trova il meglio del passato.',
+  'onbo_title3': 'Connettiti con la Comunità',
+  'onboarding_3_description':
+      'Unisciti a una comunità di appassionati. Segui i tuoi creatori preferiti, lascia commenti e condividi le tue opinioni sui video che ti emozionano.',
+  'onbo_title4': 'Salva e Segnala',
+  'onboarding_4_description':
+      'Salva i tuoi video preferiti per dopo o segnala i contenuti che violano le nostre linee guida della comunità. Il tuo contributo aiuta a mantenere Old But Gold sicuro e divertente per tutti.',
+  'choose_lange': 'Scegli la Lingua',
+  'save_and_next': 'Salva e Avanti',
+  'start': 'Inizia',
+  'next': 'Avanti',
 };

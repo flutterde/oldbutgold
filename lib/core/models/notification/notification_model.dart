@@ -40,11 +40,14 @@ class NotificationModel {
 
   Future<NotificationModel> fromDocSnapshot(
       {required DocumentSnapshot doc}) async {
-    final postDoc = doc['post'] as DocumentReference;
+    final postDoc = doc['post'] as DocumentReference?;
+    final post = postDoc != null
+        ? await PostModel().fromDocSnapshot(doc: await postDoc.get())
+        : null;
     final userDoc = doc['user'] as DocumentReference;
     return NotificationModel(
       id: doc.id,
-      post: await PostModel().fromDocSnapshot(doc: await postDoc.get()),
+      post: post,
       user: await UserModel().fromDocumentSnapshot(
         documentSnapshot: await userDoc.get(),
       ),

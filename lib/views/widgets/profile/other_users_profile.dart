@@ -16,8 +16,8 @@ class OtherUsersProfile extends GetWidget {
           return Obx(() => ctr.isLoading.value
               ? const CircularProgressIndicator()
               : (!ctr.isLoading.value && user == null)
-                  ? const Center(
-                      child: Text('User not Exist'),
+                  ? Center(
+                      child: Text('user_not_found'.tr),
                     )
                   : Scaffold(
                       appBar: AppBar(
@@ -34,9 +34,9 @@ class OtherUsersProfile extends GetWidget {
                               const SizedBox(height: 10),
                               const Divider(),
                               const SizedBox(height: 10),
-                              const Text(
-                                'Posts:',
-                                style: TextStyle(fontSize: 20),
+                              Text(
+                                'posts'.tr,
+                                style: const TextStyle(fontSize: 20),
                                 textAlign: TextAlign.start,
                               ),
                               const SizedBox(height: 10),
@@ -116,10 +116,10 @@ Widget otherUserProfileCard(UserModel user, OtherUsersProfileController ctr) {
                 child: Obx(
                   () => Text(
                     (fCtr.isLoading.value)
-                        ? 'Wait...'
+                        ? 'wait'.tr
                         : (user.isFollowing! && !fCtr.isLoading.value)
-                            ? 'Unfollow'
-                            : 'Follow',
+                            ? 'unfollow'.tr
+                            : 'follow'.tr,
                     textAlign: TextAlign.center,
                     style: const TextStyle(color: Colors.white),
                   ),

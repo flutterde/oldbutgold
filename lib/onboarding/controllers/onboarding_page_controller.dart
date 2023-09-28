@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/onboarding_info_model.dart';
 
-
 class OnBoradingController extends GetxController {
   var selectedPageIndex = 0.obs;
   bool get isLastPage => selectedPageIndex.value == onBoardingPages.length - 1;
@@ -13,7 +12,8 @@ class OnBoradingController extends GetxController {
   forwardAction() {
     if (isLastPage) {
       saveOnboardingAction();
-      Get.offAllNamed('/');  // this is has been changed from '/' to '/login' in order to redirect to login page after onboarding
+      Get.offAllNamed(
+          '/auth/register'); // this is has been changed from '/' to '/auth/register' in order to redirect to login page after onboarding
     } else {
       pageController.nextPage(duration: 500.milliseconds, curve: Curves.ease);
     }
@@ -28,11 +28,11 @@ class OnBoradingController extends GetxController {
   List onBoardingPages = [
     OnBoardingInfo('assets/images/onboarding/welcome.png', 'welcome'.tr,
         'onboarding_1_description'.tr),
-    OnBoardingInfo('assets/images/onboarding/articles.png', 'best_filters'.tr,
+    OnBoardingInfo('assets/images/onboarding/explorer_.png', 'onbo_title2'.tr,
         'onboarding_2_description'.tr),
-    OnBoardingInfo('assets/images/onboarding/fast.png', 'easy_to_use'.tr,
+    OnBoardingInfo('assets/images/onboarding/connect_.png', 'onbo_title3'.tr,
         'onboarding_3_description'.tr),
-    OnBoardingInfo('assets/images/onboarding/choose_lang.png', 'enjoy'.tr,
+    OnBoardingInfo('assets/images/onboarding/save_.png', 'onbo_title4'.tr,
         'onboarding_4_description'.tr),
   ];
 }
