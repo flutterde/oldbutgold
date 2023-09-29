@@ -85,6 +85,7 @@ class CommentsController extends GetxController {
                   .doc(postId)
                   .collection('comments')
                   .doc(commentId);
+                  /* // has been changed to be deleted by cloud function
               // Reference to the subcollection
               CollectionReference subcollectionRef =
                   commentDocRef.collection('notifications');
@@ -95,6 +96,7 @@ class CommentsController extends GetxController {
               subcollectionSnapshot.docs.forEach((doc) {
                 batch.delete(subcollectionRef.doc(doc.id));
               });
+              */
               batch.delete(commentDocRef);
               await batch.commit();
               Get.back();

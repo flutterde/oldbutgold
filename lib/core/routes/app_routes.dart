@@ -1,10 +1,7 @@
 import 'package:get/get.dart';
-
 import '../../onboarding/views/onboarding_page.dart';
 import '../../onboarding/views/splash_lang_page.dart';
 import '../../onboarding/views/splash_page.dart';
-import '../../tests/views/add.dart';
-import '../../tests/views/add_t.dart';
 import '../../views/screens/auth/login_screen.dart';
 import '../../views/screens/auth/register_screen.dart';
 import '../../views/screens/auth/reset_password_screen.dart';
@@ -23,7 +20,6 @@ import '../middlewares/auth_middlewares.dart';
 var appRoutes = [
   GetPage(name: '/splash', page: () => const SplashPage()),
   GetPage(name: '/post/create', page: () => const CreatePostScreen(), middlewares: [AuthMiddleware()]),
-  GetPage(name: '/test', page: () => const AddTest(), middlewares: [AuthMiddleware()]),
 
 
   // auth
@@ -44,7 +40,6 @@ var appRoutes = [
   GetPage(name: '/onboarding', page: () => OnboardingPage()),
 
   // tests
-  GetPage(name: '/test2', page: ()=> const AddT(), middlewares: [AuthMiddleware()]),
   
 
   // profile

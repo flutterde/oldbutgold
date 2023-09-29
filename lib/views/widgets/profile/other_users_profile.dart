@@ -98,32 +98,35 @@ Widget otherUserProfileCard(UserModel user, OtherUsersProfileController ctr) {
         const SizedBox(
           height: 10,
         ),
-        ElevatedButton(
-            onPressed: () {
-              (!fCtr.isLoading.value)
-                  ? fCtr.handleFollowUser(
-                      user: user,
-                      isFollow: user.isFollowing!,
-                    )
-                  : null;
-            },
-            style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all<Color>(Colors.deepPurple),
-            ),
-            child: SizedBox(
+        Obx(
+          () => ElevatedButton(
+              onPressed: () {
+                (!fCtr.isLoading.value)
+                    ? fCtr.handleFollowUser(
+                        user: user,
+                        isFollow: user.isFollowing!,
+                      )
+                    : null;
+              },
+              style: ButtonStyle(
+                backgroundColor: (!user.isFollowing! &&
+                        (!fCtr.isLoading.value || fCtr.isLoading.value))
+                    ? MaterialStateProperty.all<Color>(Colors.deepPurple)
+                    : MaterialStateProperty.all<Color>(Colors.red),
+              ),
+              child: SizedBox(
                 width: double.infinity,
-                child: Obx(
-                  () => Text(
-                    (fCtr.isLoading.value)
-                        ? 'wait'.tr
-                        : (user.isFollowing! && !fCtr.isLoading.value)
-                            ? 'unfollow'.tr
-                            : 'follow'.tr,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ))),
+                child: Text(
+                  (fCtr.isLoading.value)
+                      ? 'wait'.tr
+                      : (user.isFollowing! && !fCtr.isLoading.value)
+                          ? 'unfollow'.tr
+                          : 'follow'.tr,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(color: Colors.white),
+                ),
+              )),
+        ),
       ],
     ),
   );
