@@ -1,20 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:oldbutgold/core/models/user/user_model.dart';
-
 import '../../models/post/post_model.dart';
+import '../../models/user/user_model.dart';
 
 class ProfileConntroller extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseMessaging _messaging = FirebaseMessaging.instance;
 
   UserModel? user;
   List<PostModel> posts = [];
   RxBool isPostsLoading = false.obs;
   RxBool isLoading = false.obs;
+  RxBool isDeleting = false.obs;
 
   final int _perPage = 10;
   RxBool isLoadingMore = false.obs;
@@ -34,7 +36,7 @@ class ProfileConntroller extends GetxController {
           .collection('users')
           .doc(_auth.currentUser!.uid)
           .get()
-          .then((value) async{
+          .then((value) async {
         user = await UserModel().fromDocumentSnapshot(documentSnapshot: value);
       });
       isLoading.value = false;
@@ -112,4 +114,97 @@ class ProfileConntroller extends GetxController {
       );
     }
   }
+
+  Future<void> deleteThePost(PostModel post) async {
+    String userUid = _auth.currentUser!.uid;
+    String? dToken = await _messaging.getToken();
+    try {
+      Get.defaultDialog(
+        title: 'Delete Post',
+        middleText: 'Are you sure you want to delete this Post?',
+        actions: [
+          TextButton(
+            onPressed: () {
+              Get.back();
+            },
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () async {
+              try {
+                isDeleting.toggle();
+                _firestore.collection('delete_post').doc(post.id).set({
+                  'user_id': userUid,
+                  'post_id': post.id,
+                  'fcmToken': dToken,
+                  'user_lang_code': Get.locale!.languageCode,
+                }).then((value) async {
+                  isDeleting.value = false;
+                  Get.back();
+                  Get.snackbar(
+                    'Success',
+                    'Post Processed for deletion',
+                    snackPosition: SnackPosition.BOTTOM,
+                    backgroundColor: Colors.green,
+                  );
+                  posts.removeWhere((element) => element.id == post.id);
+                  update();
+                });
+              } on FirebaseException catch (e) {
+                Get.back();
+                Get.snackbar(
+                  'Error',
+                  e.message!,
+                  snackPosition: SnackPosition.BOTTOM,
+                  backgroundColor: Colors.red,
+                );
+              }
+            },
+            child: Obx(() => isDeleting.value
+                ? const Text('Deleting...')
+                : const Text('Delete')),
+          ),
+        ],
+        radius: 10,
+      );
+    } catch (e) {
+      Get.back();
+      isDeleting.value = false;
+      if (kDebugMode) {
+        print('=====================');
+        print(e);
+        print('======================');
+      }
+      Get.snackbar(
+        'Error',
+        e.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+      );
+    }
+  }
 }
+
+
+/*
+
+          isDeleting.value = true;
+          _firestore.collection('delete_post').doc(post.id).set({
+            'user_id': userUid,
+            'post_id': post.id,
+            'fcmToken': dToken,
+            'user_lang_code': Get.locale!.languageCode,
+          }).then((value) async {
+            posts.remove(post);
+            isDeleting.value = false;
+            Get.back();
+            Get.snackbar(
+              'Success',
+              'Post Processed for deletion',
+              snackPosition: SnackPosition.BOTTOM,
+              backgroundColor: Colors.green,
+            );
+          });
+
+
+*/

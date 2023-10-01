@@ -27,7 +27,6 @@ exports.generateGif = async (event, context) => {
 
 
 
-
 function replaceAfterLastSlashWithImage(filePath) {
     const directory = path.dirname(filePath);
     const basename = path.basename(filePath);

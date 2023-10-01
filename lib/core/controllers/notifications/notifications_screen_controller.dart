@@ -27,6 +27,7 @@ class NotificationsScreenController extends GetxController {
           .orderBy('created_at', descending: true)
           .limit(10)
           .get();
+      notifications.clear();
       for (var item in querySnapshot.docs) {
         if (kDebugMode) {
           print('========= Notification Data ==============');
@@ -72,19 +73,19 @@ class NotificationsScreenController extends GetxController {
 
   Future<void> updateFollowNotificationStatus(
       {required NotificationModel notification}) async {
-        try {
-          await _firestore
-              .collection('notifications')
-              .doc(notification.id)
-              .update({'is_read': true});
-          notification.isRead = true;
-          update();
-        } catch (e) {
-          if (kDebugMode) {
-            print('========= Notification Ctr Error ==============');
-            print(e);
-            print('========= End Error ==========');
-          }
-        }
+    try {
+      await _firestore
+          .collection('notifications')
+          .doc(notification.id)
+          .update({'is_read': true});
+      notification.isRead = true;
+      update();
+    } catch (e) {
+      if (kDebugMode) {
+        print('========= Notification Ctr Error ==============');
+        print(e);
+        print('========= End Error ==========');
       }
+    }
+  }
 }

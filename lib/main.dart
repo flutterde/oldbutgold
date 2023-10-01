@@ -21,17 +21,18 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
 bool? seenOnboard;
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await FirebaseApi().initNotifications();
+  await FirebaseAppCheck.instance.activate(
+    androidProvider: AndroidProvider.debug,
+    appleProvider: AppleProvider.debug,
+    webProvider: ReCaptchaV3Provider('recaptcha-v3-site-key'),
+  );
   await dotenv.load(fileName: ".env");
   SharedPreferences pref = await SharedPreferences.getInstance();
   seenOnboard = pref.getBool('onboardingshowed') ?? false;
-  await Firebase.initializeApp();
-  await FirebaseApi().initNotifications();
-    await FirebaseAppCheck.instance.activate(
-    androidProvider: AndroidProvider.debug,
-    appleProvider: AppleProvider.appAttest,
-  );
   HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
