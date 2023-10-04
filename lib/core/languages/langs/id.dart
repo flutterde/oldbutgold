@@ -136,4 +136,17 @@ const Map<String, String> id = {
   'save_and_next': 'Simpan dan Selanjutnya',
   'start': 'Mulai',
   'next': 'Selanjutnya',
+
+  // 04/10/2023
+  'comments': 'Komentar',
+  'no_comments_to_display': 'Tidak ada komentar untuk ditampilkan',
+  'add_comment': 'Tambahkan Komentar',
+  'please_enter_your_comment': 'Silakan masukkan komentar Anda',
+    'delete_comment': 'Hapus Komentar',
+  'delete_comment_dialog': 'Apakah Anda yakin ingin menghapus komentar ini?',
+  'comment_deleted_successfully': 'Komentar berhasil dihapus',
+  'delete': 'Hapus',
+  'deleting': 'Menghapus..',
+  'delete_post': 'Hapus Postingan',
+  'delete_post_dialog': 'Apakah Anda yakin ingin menghapus postingan ini?',
 };

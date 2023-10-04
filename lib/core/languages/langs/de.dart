@@ -137,5 +137,18 @@ const Map<String, String> de = {
   'choose_lange': 'Sprache wählen',
   'save_and_next': 'Speichern und Weiter',
   'start': 'Start',
-  'next': 'Weiter'
+  'next': 'Weiter',
+
+  // 04/10/2023
+  'comments': 'Kommentare',
+  'no_comments_to_display': 'Keine Kommentare zum Anzeigen',
+  'add_comment': 'Kommentar hinzufügen',
+  'please_enter_your_comment': 'Bitte geben Sie Ihren Kommentar ein',
+    'delete_comment': 'Kommentar löschen',
+  'delete_comment_dialog': 'Möchten Sie diesen Kommentar wirklich löschen?',
+  'comment_deleted_successfully': 'Kommentar erfolgreich gelöscht',
+  'delete': 'Löschen',
+  'deleting': 'Löschen...',
+  'delete_post': 'Beitrag löschen',
+  'delete_post_dialog': 'Möchten Sie diesen Beitrag wirklich löschen?',
 };

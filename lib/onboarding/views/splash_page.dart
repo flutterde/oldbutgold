@@ -26,7 +26,7 @@ class _SplashPageState extends State<SplashPage> {
 
   void _skipToPages() async {
     await Future.delayed(const Duration(milliseconds: 5000));
-    Get.offAndToNamed(seenOnboard == false ? '/splashlang' : '/');
+    Get.offAndToNamed(seenOnboard == false ? '/splashlang' : '/mains');
   }
 
   @override

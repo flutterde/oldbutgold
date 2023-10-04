@@ -120,14 +120,14 @@ class ProfileConntroller extends GetxController {
     String? dToken = await _messaging.getToken();
     try {
       Get.defaultDialog(
-        title: 'Delete Post',
-        middleText: 'Are you sure you want to delete this Post?',
+        title: 'delete_post'.tr,
+        middleText: 'delete_post_dialog'.tr,
         actions: [
           TextButton(
             onPressed: () {
               Get.back();
             },
-            child: const Text('Cancel'),
+            child: Text('cancel'.tr),
           ),
           TextButton(
             onPressed: () async {
@@ -153,16 +153,15 @@ class ProfileConntroller extends GetxController {
               } on FirebaseException catch (e) {
                 Get.back();
                 Get.snackbar(
-                  'Error',
+                  'error'.tr,
                   e.message!,
                   snackPosition: SnackPosition.BOTTOM,
                   backgroundColor: Colors.red,
                 );
               }
             },
-            child: Obx(() => isDeleting.value
-                ? const Text('Deleting...')
-                : const Text('Delete')),
+            child: Obx(() =>
+                isDeleting.value ? Text('deleting'.tr) : Text('delete'.tr)),
           ),
         ],
         radius: 10,
@@ -176,7 +175,7 @@ class ProfileConntroller extends GetxController {
         print('======================');
       }
       Get.snackbar(
-        'Error',
+        'error'.tr,
         e.toString(),
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red,

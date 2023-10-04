@@ -194,7 +194,7 @@ class CreatePostController extends GetxController {
           tagsCtr.clear();
           pickedVideoFile = null;
           isLoading.value = false;
-          Get.offAllNamed('/');
+          Get.offAllNamed('/mains');
           Get.snackbar(
             'Success',
             'Post created successfully',

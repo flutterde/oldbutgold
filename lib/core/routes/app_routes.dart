@@ -19,6 +19,7 @@ import '../../views/widgets/profile/profile_screen.dart';
 import '../middlewares/auth_middlewares.dart';
 
 var appRoutes = [
+  GetPage(name: '/notfound', page: () => const SplashPage()),
   GetPage(name: '/splash', page: () => const SplashPage()),
 
   // Posts
@@ -27,17 +28,14 @@ var appRoutes = [
       page: () => const CreatePostScreen(),
       middlewares: [AuthMiddleware()]),
   GetPage(
-      name: '/p/:id',
-      page: () {
-        print('===========================================================');
-        print('===========================================================');
-        print('==========================SinglePostScreenWidget=================================');
-        print('===========================================================');
-        return const SinglePostScreenWidget();
-      },
-      middlewares: [AuthMiddleware()],
-      transition: Transition.cupertino,
-      transitionDuration: const Duration(milliseconds: 500)),
+    name: '/p/:id',
+    page: () {
+      return const SinglePostScreenWidget();
+    },
+    middlewares: [AuthMiddleware()],
+    // transition: Transition.cupertino,
+    // transitionDuration: const Duration(milliseconds: 500),
+  ),
 
   // auth
   GetPage(
@@ -55,7 +53,9 @@ var appRoutes = [
 
   // main screens
   GetPage(
-      name: '/', page: () => const MainPage(), middlewares: [AuthMiddleware()]),
+      name: '/mains',
+      page: () => const MainPage(),
+      middlewares: [AuthMiddleware()]),
   GetPage(
       name: '/main/feed',
       page: () => const FeedScreen(),

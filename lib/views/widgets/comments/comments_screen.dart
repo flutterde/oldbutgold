@@ -14,7 +14,8 @@ class CommentsScreen extends GetWidget {
           var createCtr = ctr.createCommentController;
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Comments'),
+              title: Text('comments'.tr),
+              centerTitle: true,
             ),
             body: Stack(
               children: [
@@ -22,8 +23,8 @@ class CommentsScreen extends GetWidget {
                   () => ctr.isLoading.value
                       ? const Center(child: CircularProgressIndicator())
                       : (ctr.comments.isEmpty && !ctr.isLoading.value)
-                          ? const Center(
-                              child: Text('No Comments to display'),
+                          ? Center(
+                              child: Text('no_comments_to_display'.tr),
                             )
                           : ListView.builder(
                               itemCount: ctr.comments.length,
@@ -99,9 +100,9 @@ class CommentsScreen extends GetWidget {
                                   TextFormField(
                                     controller: createCtr.commentCtr,
                                     maxLength: 90,
-                                    decoration: const InputDecoration(
-                                      hintText: 'Write a comment',
-                                      border: OutlineInputBorder(
+                                    decoration: InputDecoration(
+                                      hintText: 'add_comment'.tr,
+                                      border: const OutlineInputBorder(
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(10),
                                         ),
@@ -110,7 +111,7 @@ class CommentsScreen extends GetWidget {
                                     validator: (value) {
                                       if (value!.isEmpty ||
                                           value.trim().isEmpty) {
-                                        return 'Please enter a comment';
+                                        return 'please_enter_your_comment'.tr;
                                       }
                                       return null;
                                     },

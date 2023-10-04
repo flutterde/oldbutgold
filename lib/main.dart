@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
     Get.put(AppLocalController());
     return GetMaterialApp(
       title: 'Old But Gold',
+      unknownRoute: appRoutes[0],
       getPages: appRoutes,
       theme: ThemeData.dark().copyWith(
         useMaterial3: true,

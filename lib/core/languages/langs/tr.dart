@@ -137,4 +137,17 @@ const Map<String, String> tr = {
   'save_and_next': 'Kaydet ve Sonraki',
   'start': 'Başla',
   'next': 'Sonraki',
+
+  // 04/10/2023
+  'comments': 'Yorumlar',
+  'no_comments_to_display': 'Görüntülenecek yorum yok',
+  'add_comment': 'Yorum ekle',
+  'please_enter_your_comment': 'Lütfen yorumunuzu girin',
+  'delete_comment': 'Yorumu sil',
+  'delete_comment_dialog': 'Bu yorumu silmek istediğinizden emin misiniz?',
+  'comment_deleted_successfully': 'Yorum başarıyla silindi',
+  'delete': 'Sil',
+  'deleting': 'Siliniyor...',
+  'delete_post': 'Gönderiyi sil',
+  'delete_post_dialog': 'Bu gönderiyi silmek istediğinizden emin misiniz?',
 };

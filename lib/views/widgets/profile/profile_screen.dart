@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../../core/controllers/profile/profile_controller.dart';
 import 'profile_card.dart';
@@ -16,6 +15,7 @@ class ProfileScreen extends GetWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text('profile'.tr),
+              centerTitle: true,
               actions: [
                 IconButton(
                   onPressed: () {
@@ -48,9 +48,9 @@ class ProfileScreen extends GetWidget {
                             const SizedBox(height: 10),
                             const Divider(),
                             const SizedBox(height: 10),
-                            const Text(
-                              'Posts',
-                              style: TextStyle(fontSize: 20),
+                            Text(
+                              'posts'.tr,
+                              style: const TextStyle(fontSize: 20),
                               textAlign: TextAlign.start,
                             ),
                             const SizedBox(height: 10),
@@ -60,8 +60,8 @@ class ProfileScreen extends GetWidget {
                                   )
                                 : (ctr.posts.isEmpty &&
                                         !ctr.isPostsLoading.value)
-                                    ? const Center(
-                                        child: Text('No Posts to display'),
+                                    ? Center(
+                                        child: Text('no_post_to_display'.tr),
                                       )
                                     : ListView.builder(
                                         shrinkWrap: true,
@@ -75,9 +75,6 @@ class ProfileScreen extends GetWidget {
                                           var post = ctr.posts[index];
                                           return GestureDetector(
                                             onTap: () {
-                                              String url = 'https://old-butgold.web.app/p/Ks6MQi8Wf3m1c5hfE3VoxXjX41boV9';
-                                              // copy to clipboard
-                                              Clipboard.setData(ClipboardData(text: url));
                                               Get.toNamed(
                                                   '/p/${post.id}');
                                             },

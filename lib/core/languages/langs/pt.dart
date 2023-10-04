@@ -136,4 +136,17 @@ const Map<String, String> pt = {
   'save_and_next': 'Salvar e Avançar',
   'start': 'Iniciar',
   'next': 'Avançar',
+
+  // 04/10/2023
+  'comments': 'Comentários',
+  'no_comments_to_display': 'Nenhum comentário para exibir',
+  'add_comment': 'Adicionar comentário',
+  'please_enter_your_comment': 'Por favor, insira seu comentário',
+    'delete_comment': 'Excluir comentário',
+  'delete_comment_dialog': 'Tem certeza de que deseja excluir este comentário?',
+  'comment_deleted_successfully': 'Comentário excluído com sucesso',
+  'delete': 'Excluir',
+  'deleting': 'Excluindo...',
+  'delete_post': 'Excluir postagem',
+  'delete_post_dialog': 'Tem certeza de que deseja excluir esta postagem?',
 };

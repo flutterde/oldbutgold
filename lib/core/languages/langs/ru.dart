@@ -137,4 +137,17 @@ const Map<String, String> ru = {
   'save_and_next': 'Сохранить и далее',
   'start': 'Начать',
   'next': 'Далее',
+
+  // 04/10/2023
+  'comments': 'Комментарии',
+  'no_comments_to_display': 'Нет комментариев для отображения',
+  'add_comment': 'Добавить комментарий',
+  'please_enter_your_comment': 'Пожалуйста, введите свой комментарий',
+  'delete_comment': 'Удалить комментарий',
+  'delete_comment_dialog': 'Вы уверены, что хотите удалить этот комментарий?',
+  'comment_deleted_successfully': 'Комментарий успешно удален',
+  'delete': 'Удалить',
+  'deleting': 'Удаление...',
+  'delete_post': 'Удалить пост',
+  'delete_post_dialog': 'Вы уверены, что хотите удалить этот пост?',
 };

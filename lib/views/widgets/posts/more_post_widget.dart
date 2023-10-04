@@ -90,29 +90,29 @@ Future<dynamic> morePostWidget(PostModel post) async {
             ),
           ],
         )),
-        Expanded(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            IconButton(
-                onPressed: () async {
-                  // await Clipboard.setData(ClipboardData(text: "https://old-butgold.web.app/post/${post.id}"));
-                  Get.back();
-                  Get.snackbar('sorry'.tr, 'you_cannot_copy'.tr,
-                      backgroundColor: Colors.red);
-                },
-                icon: const Icon(Icons.copy)),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              'copy_link'.tr,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        )),
+        // Expanded(
+        //     child: Column(
+        //   mainAxisAlignment: MainAxisAlignment.center,
+        //   children: [
+        //     IconButton(
+        //         onPressed: () async {
+        //           // await Clipboard.setData(ClipboardData(text: "https://old-butgold.web.app/post/${post.id}"));
+        //           Get.back();
+        //           Get.snackbar('sorry'.tr, 'you_cannot_copy'.tr,
+        //               backgroundColor: Colors.red);
+        //         },
+        //         icon: const Icon(Icons.copy)),
+        //     const SizedBox(
+        //       height: 10,
+        //     ),
+        //     Text(
+        //       'copy_link'.tr,
+        //       style: const TextStyle(
+        //         fontWeight: FontWeight.bold,
+        //       ),
+        //     ),
+        //   ],
+        // )),
       ]),
     ),
   );

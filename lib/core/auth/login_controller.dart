@@ -45,7 +45,7 @@ class LoginController extends GetxController {
         passwordController.clear();
         if (value.user!.emailVerified) {
           isLoading.value = false;
-          Get.offAllNamed('/');
+          Get.offAllNamed('/mains');
           Get.snackbar(
             'Success',
             'Login successful',
@@ -122,7 +122,7 @@ class LoginController extends GetxController {
         if (check == 1) {
           await updateUserDeviceToken();
           isLoading.value = false;
-          Get.offAllNamed('/');
+          Get.offAllNamed('/mains');
         } else {
           await registerController.storeUserData(
             value.user!.displayName!,

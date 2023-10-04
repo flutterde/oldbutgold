@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class VideoPlayerWidget extends StatefulWidget {
   final String videoUrl;
@@ -72,7 +73,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   void cachVideoFile(String url) async {
     print('===================== 11 =====================');
     await CacheManager(_config).getSingleFile(url).then((value) =>
-      print('the video Downloaded successfully to the cache: source:: $url'));
+        print('the video Downloaded successfully to the cache: source:: $url'));
   }
 
   Future<void> increaseViews(String postID) async {
@@ -130,7 +131,14 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
                           child: SizedBox(),
                         );
                 } else {
-                  return Center(child: Text('loading'.tr));
+                  return Center(
+                      child: AnimatedTextKit(
+                    repeatForever: true,
+                    isRepeatingAnimation: true,
+                    animatedTexts: [
+                      WavyAnimatedText('loading'.tr),
+                    ],
+                  ));
                 }
               }),
               Obx(() {

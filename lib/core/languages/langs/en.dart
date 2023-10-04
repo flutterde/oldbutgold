@@ -57,8 +57,6 @@ const Map<String, String> en = {
   'search_here': 'Search here...',
   'search_for_a_friend': 'Search for a friend',
 
-
-
   // 07/08/2023
   'loading': 'Loading...',
   'or': 'Or',
@@ -72,7 +70,8 @@ const Map<String, String> en = {
   'reset_password': 'Reset Password',
   'forgot_password': 'Forgot Password?',
   'already_have_an_account': 'Already have an account?',
-  'please_check_your_email_to_reset_your_password': 'Please check your email to reset your password',
+  'please_check_your_email_to_reset_your_password':
+      'Please check your email to reset your password',
   'dont_have_an_account': 'Don\'t have an account?',
 
   // Post Categories
@@ -103,35 +102,51 @@ const Map<String, String> en = {
   'error_while_loading_post': 'Error while loading post',
 
 // 12/09/2023
-'no_notifications': 'No notifications',
-'commented_on_your_post': 'commented on your post',
-'from': 'from',
+  'no_notifications': 'No notifications',
+  'commented_on_your_post': 'commented on your post',
+  'from': 'from',
 
 // 27/09/2023
-'started_following_you': 'Started following you',
-'check_profile': 'Check profile',
-'Followers_': 'Followers',
-'Following_': 'Following',
-'posts': 'Posts:',
-'user_not_found': 'User not found',
-'wait': 'Wait...',
-'unfollow': 'Unfollow',
-'follow': 'Follow',
+  'started_following_you': 'Started following you',
+  'check_profile': 'Check profile',
+  'Followers_': 'Followers',
+  'Following_': 'Following',
+  'posts': 'Posts:',
+  'user_not_found': 'User not found',
+  'wait': 'Wait...',
+  'unfollow': 'Unfollow',
+  'follow': 'Follow',
 
 // Onboarding
-'welcome': 'Welcome to Old But Gold!',
-'onboarding_1_description': 'Discover and share timeless videos from the past. Explore a world of nostalgia and creativity.',
-'onbo_title2': 'Explore Vintage Videos',
-'onboarding_2_description': 'Scroll through a vast collection of short videos spanning different eras. From classic moments to forgotten gems, find the best of the past.',
-'onbo_title3': 'Connect with the Community',
-'onboarding_3_description': 'Join a community of fellow enthusiasts. Follow your favorite creators, leave comments, and share your thoughts on the videos that resonate with you.',
-'onbo_title4': 'Save and Report',
-'onboarding_4_description': 'Save your favorite videos for later, or report content that violates our community guidelines. Your input helps keep Old But Gold safe and enjoyable for all.',
-'choose_lange': 'Choose Language',
-'save_and_next': 'Save and Next',
-'start': 'Start',
-'next': 'Next',
-  
+  'welcome': 'Welcome to Old But Gold!',
+  'onboarding_1_description':
+      'Discover and share timeless videos from the past. Explore a world of nostalgia and creativity.',
+  'onbo_title2': 'Explore Vintage Videos',
+  'onboarding_2_description':
+      'Scroll through a vast collection of short videos spanning different eras. From classic moments to forgotten gems, find the best of the past.',
+  'onbo_title3': 'Connect with the Community',
+  'onboarding_3_description':
+      'Join a community of fellow enthusiasts. Follow your favorite creators, leave comments, and share your thoughts on the videos that resonate with you.',
+  'onbo_title4': 'Save and Report',
+  'onboarding_4_description':
+      'Save your favorite videos for later, or report content that violates our community guidelines. Your input helps keep Old But Gold safe and enjoyable for all.',
+  'choose_lange': 'Choose Language',
+  'save_and_next': 'Save and Next',
+  'start': 'Start',
+  'next': 'Next',
+
+// 04/10/2023
+  'comments': 'Comments',
+  'no_comments_to_display': 'No Comments to display',
+  'add_comment': 'Add Comment',
+  'please_enter_your_comment': 'Please enter your comment',
+  'delete_comment': 'Delete Comment',
+  'delete_comment_dialog': 'Are you sure you want to delete this comment?',
+  'comment_deleted_successfully': 'Comment deleted successfully',
+  'delete': 'Delete',
+  'deleting': 'Deleting...',
+  'delete_post': 'Delete Post',
+  'delete_post_dialog': 'Are you sure you want to delete this post?',
 };
 
 /*

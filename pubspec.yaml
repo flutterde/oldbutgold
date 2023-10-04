@@ -57,6 +57,8 @@ dependencies:
   badges: ^3.1.2
   firebase_app_check: ^0.2.0
   flutter_cache_manager: ^3.3.1
+  loading_animation_widget: ^1.2.0+4
+  animated_text_kit: ^4.2.2
 
 dev_dependencies:
   flutter_launcher_icons: "^0.13.1"

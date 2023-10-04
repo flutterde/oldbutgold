@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import '../../../../core/controllers/main_pages/feed/feed_controller.dart';
 import '../../../widgets/posts/more_post_widget.dart';
 import '../../../widgets/video_player_widget.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class FeedScreen extends GetWidget {
   const FeedScreen({super.key});
@@ -15,7 +16,7 @@ class FeedScreen extends GetWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text('feed'.tr),
-              actions: const [],
+              centerTitle: true,
             ),
             body: RefreshIndicator(
               onRefresh: () async {
@@ -26,7 +27,11 @@ class FeedScreen extends GetWidget {
               color: Colors.white,
               child: Obx(
                 () => ctr.isLoading.value
-                    ? const Center(child: CircularProgressIndicator())
+                    ? Center(
+                        child: LoadingAnimationWidget.dotsTriangle(
+                        color: Colors.white,
+                        size: 50,
+                      ))
                     : ctr.isPostsEmpty.value
                         ? Center(
                             child: Text('no_post_to_display'.tr),

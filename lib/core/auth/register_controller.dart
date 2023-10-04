@@ -116,7 +116,7 @@ class RegisterAuthController extends GetxController {
             value.user!.displayName!, '', value.user!.email!, value, id, '');
       });
       isLoading.value = false;
-      Get.offAllNamed('/auth/redeem');
+      Get.offAllNamed('/mains');
     } catch (e) {
       if (kDebugMode) {
         print('=========ERROR=========');

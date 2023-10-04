@@ -50,7 +50,7 @@ class CommentsController extends GetxController {
       if (kDebugMode) {
         isLoading.toggle();
         Get.snackbar(
-          'Error',
+          'error'.tr,
           e.message!,
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.red,
@@ -64,14 +64,14 @@ class CommentsController extends GetxController {
 
   void deleteComment(String commentId, String postId) {
     Get.defaultDialog(
-      title: 'Delete Comment',
-      middleText: 'Are you sure you want to delete this comment?',
+      title: 'delete_comment'.tr,
+      middleText: 'delete_comment_dialog'.tr,
       actions: [
         TextButton(
           onPressed: () {
             Get.back();
           },
-          child: const Text('Cancel'),
+          child: Text('cancel'.tr),
         ),
         TextButton(
           onPressed: () async {
@@ -103,7 +103,7 @@ class CommentsController extends GetxController {
               isDeleting.toggle();
               Get.snackbar(
                 'success'.tr,
-                'Comment deleted successfully',
+                'comment_deleted_successfully'.tr,
                 snackPosition: SnackPosition.BOTTOM,
                 backgroundColor: Colors.green,
               );
@@ -112,7 +112,7 @@ class CommentsController extends GetxController {
             } on FirebaseException catch (e) {
               Get.back();
               Get.snackbar(
-                'Error',
+                'error'.tr,
                 e.message!,
                 snackPosition: SnackPosition.BOTTOM,
                 backgroundColor: Colors.red,
@@ -120,8 +120,8 @@ class CommentsController extends GetxController {
             }
           },
           child: Obx(() => isDeleting.value
-              ? const Text('Deleting...')
-              : const Text('Delete')),
+              ? Text('deleting'.tr)
+              : Text('delete'.tr)),
         ),
       ],
       radius: 10,

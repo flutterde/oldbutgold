@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../core/controllers/profile/other_users_profile_controller.dart';
 import '../../../core/models/user/user_model.dart';
 import 'followers_following_widget.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class OtherUsersProfile extends GetWidget {
   const OtherUsersProfile({super.key});
@@ -40,6 +42,55 @@ class OtherUsersProfile extends GetWidget {
                                 textAlign: TextAlign.start,
                               ),
                               const SizedBox(height: 10),
+                              Obx(() => ctr.isLoadingPosts.value
+                                  ? Center(
+                                      child:
+                                          LoadingAnimationWidget.newtonCradle(
+                                        color: Colors.white,
+                                        size: 80,
+                                      ),
+                                    )
+                                  : (ctr.posts.isEmpty &&
+                                          !ctr.isLoadingPosts.value)
+                                      ? Center(
+                                          child: Text('no_post_to_display'.tr),
+                                        )
+                                      : ListView.builder(
+                                          shrinkWrap: true,
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemCount: ctr.posts.length,
+                                          itemBuilder: (context, index) {
+                                            if (index == ctr.posts.length - 3) {
+                                              ctr.getMorePosts(user.id!);
+                                            }
+                                            var post = ctr.posts[index];
+                                            return GestureDetector(
+                                              onTap: () {
+                                                Get.toNamed('/p/${post.id}');
+                                              },
+                                              child: ListTile(
+                                                title: Text(post.description!),
+                                                subtitle: Row(
+                                                  children: [
+                                                    Text(
+                                                      timeago.format(
+                                                        post.createdAt!
+                                                            .toDate(),
+                                                        locale: Get.locale!
+                                                            .languageCode,
+                                                      ),
+                                                      style: TextStyle(
+                                                        fontSize: 12,
+                                                        color: Colors.grey[600],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        )),
                             ],
                           ),
                         ),
