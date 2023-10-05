@@ -93,14 +93,14 @@ class CreatePostController extends GetxController {
       isLoading.value = true;
       if (pickedVideoFile == null) {
         Get.snackbar(
-          'Error',
+          'error'.tr,
           'Video is required',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
         );
-      } else if (videoDuration < 4 || videoDuration > 120) {
+      } else if (videoDuration < 45 || videoDuration >= 120) {
         Get.snackbar(
-          'Error',
+          'error'.tr,
           'Video duration chould be between 45 seconds to 2 minutes',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
@@ -151,7 +151,7 @@ class CreatePostController extends GetxController {
         }
         var sizeInMb = videMetaData.size! / 1024 / 1024;
 
-        await _firestore.collection('pt').doc(postId).set({
+        await _firestore.collection('posts').doc(postId).set({
           'id': postId,
           'user': _firestore.collection('users').doc(_auth.currentUser!.uid),
           'user_id': _auth.currentUser!.uid,
@@ -194,7 +194,7 @@ class CreatePostController extends GetxController {
           tagsCtr.clear();
           pickedVideoFile = null;
           isLoading.value = false;
-          Get.offAllNamed('/');
+          Get.offAllNamed('/mains');
           Get.snackbar(
             'Success',
             'Post created successfully',

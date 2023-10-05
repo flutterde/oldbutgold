@@ -19,8 +19,6 @@ exports.changeProfile = async (event, context) => {
   const bucketName = 'gs://old-butgold.appspot.com';
   const r2BucketName = 'oldbutgold';
 
-
-
   const hour = new Date().getHours();
   const minute = new Date().getMinutes();
   const second = new Date().getSeconds();
@@ -63,18 +61,7 @@ exports.changeProfile = async (event, context) => {
     console.log('Error while downloading or uploading image', err);
     return;
   }
-
-
-
-
-
-
-
-
-
-
 };
-
 
 const s3 = new S3Client({
   region: 'auto',
@@ -104,20 +91,12 @@ const uploadFile = async (bucketName, fileName, fileContent, contentType) => {
   }
 };
 
-
-
-
-
-
 async function updateUserData(userUid, iR2Path) {
   try {
     // Update the post to indicate that the video has been uploaded.
     const db = admin.firestore();
     await db.collection('users').doc(userUid).update({
-        
             'profile_photo_url':iR2Path,
-        
-
     });
     console.log('User  updated successfully');
   } catch (err) {
@@ -125,9 +104,7 @@ async function updateUserData(userUid, iR2Path) {
   }
 }
 
-
 // delete pprocess
-
 async function deleteDoc(userUid) {
   try {
     // Update the post to indicate that the video has been uploaded.
@@ -139,7 +116,6 @@ async function deleteDoc(userUid) {
   }
 }
 
-
 async function deleteFileFromBucket(bucketName, fileName) {
   try {
     const bucket = admin.storage().bucket(bucketName);
@@ -149,4 +125,3 @@ async function deleteFileFromBucket(bucketName, fileName) {
     console.log('Error while deleting file', err);
   }
 }
-

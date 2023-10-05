@@ -1,6 +1,5 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -25,16 +24,17 @@ class DownloadPostController extends GetxController {
         var time = DateTime.now().millisecondsSinceEpoch;
         Dio dio = Dio();
         var path = "/storage/emulated/0/Download/video_$time.$videoExtension";
-        var file = File(path);
-
         await dio.download(
           videoUrl,
           path,
           onReceiveProgress: (rec, total) {
             progress.value = ((rec / total) * 100);
-            print('==================== DOWNLOADING ====================');
-            print('Rec: $rec, Total: $total');
-            print('==================== End DOWNLOADING ====================');
+            if (kDebugMode) {
+              print('==================== DOWNLOADING ====================');
+              print('Rec: $rec, Total: $total');
+              print(
+                  '==================== End DOWNLOADING ====================');
+            }
             update();
           },
           deleteOnError: true,
@@ -45,9 +45,6 @@ class DownloadPostController extends GetxController {
           'video_downloaded_successfully'.tr,
           snackPosition: SnackPosition.TOP,
           backgroundColor: Colors.green,
-          
-        
-
         );
       } else if (status.isDenied) {
         // permission is denied
@@ -55,8 +52,10 @@ class DownloadPostController extends GetxController {
         // permission is permanently denied, navigate to app settings
       }
     } catch (e) {
-      print('==================== ERROR DOWNLOADING ====================');
-      print(e);
+      if (kDebugMode) {
+        print('==================== ERROR DOWNLOADING ====================');
+        print(e);
+      }
       Get.snackbar(
         'error'.tr,
         'error_downloading_video'.tr,

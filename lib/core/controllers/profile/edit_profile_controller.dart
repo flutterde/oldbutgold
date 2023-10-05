@@ -101,7 +101,6 @@ class EditProfileController extends GetxController {
 
   Future<void> updateProfileImage() async {
     try {
-      //
       final imageDestination = ref.child(fireStoreImagePath);
       await imageDestination.putFile(File(pickedImageFile!.path!));
       var imgUrl = await imageDestination.getDownloadURL();

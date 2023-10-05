@@ -33,13 +33,15 @@ const Map<String, String> id = {
   'enter_your_password': 'Masukkan kata sandi Anda',
   'please_enter_your_password': 'Silakan masukkan kata sandi Anda',
   'enter_your_name': 'Masukkan nama Anda',
-  'password_should_be_longer_than_6_characters': 'Kata sandi harus lebih dari 6 karakter',
+  'password_should_be_longer_than_6_characters':
+      'Kata sandi harus lebih dari 6 karakter',
 
   // create post
   'create_post': 'Buat Postingan',
   'select_video': 'Pilih Video',
   'video_is_required': 'Video diperlukan',
-  'video_duration_should_be_between_45sec_to_2_min': 'Durasi video harus antara 45 detik \n dan 2 menit dan kurang dari 100 MB',
+  'video_duration_should_be_between_45sec_to_2_min':
+      'Durasi video harus antara 45 detik \n dan 2 menit dan kurang dari 100 MB',
   'invalid_video_duration': 'Durasi video tidak valid',
   'video_duration': 'Durasi video: ',
   'video_description': 'Deskripsi Video',
@@ -54,6 +56,97 @@ const Map<String, String> id = {
   'notifications': 'Notifikasi',
 
   // Search
-    'search_here': 'Cari di sini...',
+  'search_here': 'Cari di sini...',
   'search_for_a_friend': 'Cari teman',
+
+  // 07/08/2023
+  'loading': 'Memuat...',
+  'or': 'Atau',
+  'verify_email': 'Verifikasi Email',
+  'please_check_your_email_to_verify_your_account':
+      'Silakan cek email Anda untuk memverifikasi akun Anda',
+  'no_user_found_for_that_email':
+      'Tidak ada pengguna yang ditemukan untuk email tersebut.',
+  'wrong_password_provided_for_that_user':
+      'Kata sandi yang salah diberikan untuk pengguna tersebut',
+  'continue_with_google': 'Lanjutkan dengan Google',
+  'reset_password': 'Atur ulang kata sandi',
+  'forgot_password': 'Lupa kata sandi?',
+  'already_have_an_account': 'Sudah punya akun?',
+  'please_check_your_email_to_reset_your_password':
+      'Silakan cek email Anda untuk mengatur ulang kata sandi Anda',
+  'dont_have_an_account': 'Belum punya akun?',
+
+  // Post Categories
+  'music': 'Musik',
+  'comedy': 'Komedi',
+  'gaming': 'Gaming',
+  'news': 'Berita',
+  'entertainment': 'Hiburan',
+  'education': 'Pendidikan',
+  'people': 'Orang',
+  'animals': 'Hewan',
+  'travel': 'Perjalanan',
+  'sports': 'Olahraga',
+  'film': 'Film',
+  'series': 'Seri',
+  'history': 'Sejarah',
+  'art': 'Seni',
+  'food': 'Makanan',
+  'fashion': 'Mode',
+  'war': 'Perang',
+
+  // Reports
+  'post_reported_successfully': 'Postingan dilaporkan berhasil',
+  'something_went_wrong_try_again_later': 'Ada yang salah, coba lagi nanti',
+  'error_in_update_user_data': 'Kesalahan dalam memperbarui data pengguna',
+  'post_not_found': 'Postingan tidak ditemukan',
+  'error_while_loading_post': 'Kesalahan saat memuat postingan',
+
+  // 12/09/2023
+  'no_notifications': 'Tidak ada notifikasi',
+  'commented_on_your_post': 'mengomentari postingan Anda',
+  'from': 'dari',
+
+  // 27/09/2023
+  'started_following_you': 'Mulai mengikuti Anda',
+  'check_profile': 'Periksa profil',
+  'Followers_': 'Pengikut',
+  'Following_': 'Mengikuti',
+  'posts': 'Postingan:',
+  'user_not_found': 'Pengguna tidak ditemukan',
+  'wait': 'Tunggu...',
+  'unfollow': 'Berhenti mengikuti',
+  'follow': 'Ikuti',
+
+  // Onboarding
+  'welcome': 'Selamat datang di Old But Gold!',
+  'onboarding_1_description':
+      'Temukan dan bagikan video-video yang timeless dari masa lalu. Jelajahi dunia nostalgia dan kreativitas.',
+  'onbo_title2': 'Jelajahi Video-Vide Kuno',
+  'onboarding_2_description':
+      'Gulir melalui koleksi video pendek yang luas yang melintasi berbagai era. Dari momen-momen klasik hingga harta terlupakan, temukan yang terbaik dari masa lalu.',
+  'onbo_title3': 'Terhubung dengan Komunitas',
+  'onboarding_3_description':
+      'Bergabunglah dengan komunitas rekan penggemar. Ikuti para kreator favorit Anda, tinggalkan komentar, dan bagikan pemikiran Anda tentang video-video yang menginspirasi Anda.',
+  'onbo_title4': 'Simpan dan Laporkan',
+  'onboarding_4_description':
+      'Simpan video-video favorit Anda untuk nanti, atau laporkan konten yang melanggar pedoman komunitas kami. Kontribusi Anda membantu menjaga agar Old But Gold tetap aman dan menyenangkan untuk semua.',
+  'choose_lange': 'Pilih Bahasa',
+  'save_and_next': 'Simpan dan Selanjutnya',
+  'start': 'Mulai',
+  'next': 'Selanjutnya',
+
+  // 04/10/2023
+  'comments': 'Komentar',
+  'no_comments_to_display': 'Tidak ada komentar untuk ditampilkan',
+  'add_comment': 'Tambahkan Komentar',
+  'please_enter_your_comment': 'Silakan masukkan komentar Anda',
+    'delete_comment': 'Hapus Komentar',
+  'delete_comment_dialog': 'Apakah Anda yakin ingin menghapus komentar ini?',
+  'comment_deleted_successfully': 'Komentar berhasil dihapus',
+  'delete': 'Hapus',
+  'deleting': 'Menghapus..',
+  'delete_post': 'Hapus Postingan',
+  'delete_post_dialog': 'Apakah Anda yakin ingin menghapus postingan ini?',
 };

@@ -1,0 +1,14 @@
+Go to : ./lib/views/widgets/profile/other_users_profile.dart
+Hover on: import 'package:timeago/timeago.dart' as timeago;
+Click on: right of the mouse
+Click on: Go to definition
+-> You will be redirected to the timeago.dart file
+Go to the bottom of the file
+Hover on : export 'package:timeago/src/timeago.dart';
+Click on: right of the mouse
+Click on: Go to definition
+
+
+-> You will be redirected to the timeago.dart file(1*)
+Copy timeago-nw.dart that in the same folder(helper/timeago/timeago-nw.dart)
+Past it in (1*)

@@ -3,7 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:video_player/video_player.dart';
-
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class VideoPlayerWidget extends StatefulWidget {
   final String videoUrl;
@@ -16,27 +17,69 @@ class VideoPlayerWidget extends StatefulWidget {
 }
 
 class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
-  late VideoPlayerController videoPlayerController;
-
- 
+  VideoPlayerController? videoPlayerController;
+  RxBool isVInitialized = false.obs;
 
   @override
   void initState() {
     super.initState();
-    videoPlayerController = VideoPlayerController.network(
-      widget.videoUrl,
-    )..initialize().then((value) {
-        videoPlayerController.play();
-        videoPlayerController.setVolume(1);
-        videoPlayerController.setLooping(true);
-      });
+    initializeVideoPlayer(widget.videoUrl);
     increaseViews(widget.postId);
+  }
+
+  void initializeVideoPlayer(String vUrl) async {
+    final fileInfo = await checkCacheForFile(vUrl);
+    if (fileInfo == null) {
+      videoPlayerController = VideoPlayerController.networkUrl(
+        Uri.parse(vUrl),
+        //httpHeaders: {'accept': '*/*'},
+      )..initialize().then((value) async {
+          print('===================== 33 =====================');
+          cachVideoFile(vUrl);
+          videoPlayerController?.play();
+          videoPlayerController?.setVolume(1);
+          videoPlayerController?.setLooping(true);
+          videoPlayerController?.addListener(() {
+            isVInitialized.value = videoPlayerController!.value.isInitialized;
+          });
+        });
+    } else {
+      print('===================== 44 in cache =====================');
+      final file = fileInfo.file;
+      videoPlayerController = VideoPlayerController.file(file)
+        ..initialize().then((value) {
+          videoPlayerController?.play();
+          videoPlayerController?.setVolume(1);
+          videoPlayerController?.setLooping(true);
+          videoPlayerController?.addListener(() {
+            isVInitialized.value = videoPlayerController!.value.isInitialized;
+          });
+        });
+    }
+  }
+
+  final Config _config = Config(
+    'customCacheKeyConfigOBG',
+    stalePeriod: const Duration(minutes: 15),
+    maxNrOfCacheObjects: 20,
+  );
+
+  Future<FileInfo?> checkCacheForFile(String url) async {
+    print('===================== 22 =====================');
+    final FileInfo? value = await CacheManager(_config).getFileFromCache(url);
+    return (value);
+  }
+
+  void cachVideoFile(String url) async {
+    print('===================== 11 =====================');
+    await CacheManager(_config).getSingleFile(url).then((value) =>
+        print('the video Downloaded successfully to the cache: source:: $url'));
   }
 
   Future<void> increaseViews(String postID) async {
     final dbPostsRef = FirebaseDatabase.instance.ref().child('posts');
     try {
-       await dbPostsRef.child(postID).set({
+      await dbPostsRef.child(postID).set({
         'views': ServerValue.increment(1),
       });
     } catch (e) {
@@ -51,7 +94,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   @override
   void dispose() {
     super.dispose();
-    videoPlayerController.dispose();
+    videoPlayerController?.dispose();
   }
 
   @override
@@ -60,11 +103,11 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
     press() {
       if (isPlaying.value) {
         // Pause vieo
-        videoPlayerController.pause();
+        videoPlayerController?.pause();
         isPlaying.value = false;
       } else {
         // Play video
-        videoPlayerController.play();
+        videoPlayerController?.play();
         isPlaying.value = true;
       }
     }
@@ -80,7 +123,40 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
           },
           child: Stack(
             children: [
-              VideoPlayer(videoPlayerController),
+              Obx(() {
+                if (isVInitialized.value) {
+                  return (videoPlayerController != null && isVInitialized.value)
+                      ? VideoPlayer(videoPlayerController!)
+                      : const Center(
+                          child: SizedBox(),
+                        );
+                } else {
+                  return Center(
+                      child: AnimatedTextKit(
+                    repeatForever: true,
+                    isRepeatingAnimation: true,
+                    animatedTexts: [
+                      WavyAnimatedText('loading'.tr),
+                    ],
+                  ));
+                }
+              }),
+              Obx(() {
+                if (isVInitialized.value) {
+                  return (videoPlayerController != null &&
+                          videoPlayerController!.value.isInitialized)
+                      ? VideoProgressIndicator(videoPlayerController!,
+                          colors: const VideoProgressColors(
+                            backgroundColor: Colors.grey,
+                            bufferedColor: Colors.white,
+                            playedColor: Colors.red,
+                          ),
+                          allowScrubbing: true)
+                      : const SizedBox();
+                } else {
+                  return const SizedBox();
+                }
+              }),
               Center(
                   child: Obx(
                 () => isPlaying.value

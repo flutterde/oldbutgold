@@ -95,6 +95,7 @@ class CreatePostScreen extends GetWidget {
                             ),
                             TextFormField(
                               controller: ctr.videoDescriptionCtr,
+                              maxLength: 90,
                               decoration: InputDecoration(
                                 labelText: 'video_description'.tr,
                               ),
@@ -159,7 +160,7 @@ class CreatePostScreen extends GetWidget {
                               () => Container(
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  color: Colors.grey[200],
+                                  color: Colors.grey[800],
                                 ),
                                 height: 150,
                                 width: double.infinity,

@@ -32,9 +32,11 @@ class RegisterAuthController extends GetxController {
   String? userIpAddress;
 
   String userDeviceToken = '';
+  RxString? gender = 'male'.obs;
 
-  //
+
   RxBool isLoading = false.obs;
+  RxBool isPasswordVisible = false.obs;
 
   @override
   void onClose() {
@@ -42,13 +44,9 @@ class RegisterAuthController extends GetxController {
   }
 
   @override
-  void onInit() async{
-    await FirebaseAuth.instance.setLanguageCode(Get.locale?.languageCode ?? 'en');
-
-    print('============== Time =======================');
-    print('t');
-    print('=====================================');
-
+  void onInit() async {
+    await FirebaseAuth.instance
+        .setLanguageCode(Get.locale?.languageCode ?? 'en');
     _getUserDevToken();
     getUserLocation();
     super.onInit();
@@ -59,16 +57,15 @@ class RegisterAuthController extends GetxController {
     super.onReady();
   }
 
-  // register user
   Future<void> registerNewUser() async {
-    // time
     try {
       isLoading.value = true;
       await _auth
           .createUserWithEmailAndPassword(
               email: emailController.text, password: passwordController.text)
           .then((value) async {
-        await storeUserData(nameController.text, '', emailController.text, value, value.user!.uid);
+        await storeUserData(nameController.text, '', emailController.text,
+            value, value.user!.uid, gender!.value);
         await value.user!.sendEmailVerification().then((value) async {
           Get.snackbar(
             'success'.tr,
@@ -76,9 +73,10 @@ class RegisterAuthController extends GetxController {
             backgroundColor: Colors.green,
             colorText: Colors.white,
             snackPosition: SnackPosition.BOTTOM,
-            duration: const Duration(seconds: 4),
+            duration: const Duration(seconds: 6),
           );
           await _auth.signOut();
+          Get.toNamed('/auth/login');
         });
       });
       isLoading.value = false;
@@ -98,16 +96,13 @@ class RegisterAuthController extends GetxController {
         backgroundColor: Colors.red,
         colorText: Colors.white,
         snackPosition: SnackPosition.BOTTOM,
-      );
-    }
+    );
   }
+}
 
-
-
-    Future<void> registerWithGoogle() async {
+  Future<void> registerWithGoogle() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     try {
-      //
       isLoading.value = true;
       GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
@@ -117,10 +112,11 @@ class RegisterAuthController extends GetxController {
       );
       await auth.signInWithCredential(credential).then((value) async {
         var id = value.user!.uid;
-        await storeUserData(value.user!.displayName!,'', value.user!.email!, value,  id);
+        await storeUserData(
+            value.user!.displayName!, '', value.user!.email!, value, id, '');
       });
       isLoading.value = false;
-      Get.offAllNamed('/auth/redeem');
+      Get.offAllNamed('/mains');
     } catch (e) {
       if (kDebugMode) {
         print('=========ERROR=========');
@@ -139,7 +135,8 @@ class RegisterAuthController extends GetxController {
     }
   }
 
-  Future<void> storeUserData(String name, String? username, String  email, UserCredential _user, String _userUid) async {
+  Future<void> storeUserData(String name, String? username, String email,
+      UserCredential _user, String _userUid, String userGender) async {
     await _firestore.collection('users').doc(_user.user!.uid).set({
       'name': name.toLowerCase(),
       'username': username?.toLowerCase(),
@@ -148,6 +145,7 @@ class RegisterAuthController extends GetxController {
       'userRole': 'user',
       'user_account_status': 'active',
       'created_at': FieldValue.serverTimestamp(),
+      'user_gender': userGender.toLowerCase(),
       'user_data': {
         'countryName': countryName,
         'countryCode': countryCode,
@@ -156,7 +154,6 @@ class RegisterAuthController extends GetxController {
         'userIpAddress': userIpAddress,
         'userProviderId': _user.user!.providerData[0].providerId,
         'userUid': _user.user!.uid,
-        // 'userEmailVerified': value.user!.emailVerified,
         'userPhoneNumber': _user.user!.phoneNumber,
         'userPhotoUrl': _user.user!.photoURL,
         'userCreationTime': _user.user!.metadata.creationTime,
@@ -165,7 +162,7 @@ class RegisterAuthController extends GetxController {
       'profile_photo_url': 'data/images/defaults/avatar.png',
       'profile': {
         'is_profile_verified': false,
-        'profile_bio': '',       
+        'profile_bio': '',
       },
       'user_social_links': {
         'facebook': '',
@@ -212,7 +209,6 @@ class RegisterAuthController extends GetxController {
     }
   }
 
-  // get country name and country code from api using dio package
   Future<void> getUserLocation() async {
     try {
       Dio dio = Dio();
@@ -227,7 +223,6 @@ class RegisterAuthController extends GetxController {
             update();
           });
         } else {
-          //
           countryName = value.data['countryName'] ?? 'null';
           countryCode = value.data['countryCode'] ?? 'null';
           city = value.data['cityName'] ?? 'null';
@@ -247,12 +242,10 @@ class RegisterAuthController extends GetxController {
 
   Future<void> policyAgree() async {
     var policyUrl =
-        Uri.parse('https://plf-app.blogspot.com/p/privecy-policy.html');
-    // open webview using url launcher
+        Uri.parse('https://old-butgold.web.app/p/privacy-policy.html');
     await launchUrl(policyUrl);
   }
 
-  // Get the token, of the current user
   _getUserDevToken() async {
     await _firebaseMessaging.getToken().then((token) {
       userDeviceToken = token.toString();

@@ -15,60 +15,61 @@ class SinglePostController extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
-    loadPost(Get.parameters['postId'] ?? '');
+    print('=================================');
+    print(Get.parameters['id']);
+    print('=================================');
+    loadPost(Get.parameters['id'] ?? '');
     super.onInit();
   }
 
   Future<void> loadPost(String id) async {
     try {
-      //   //
+    print('=================================');
+    print('is Loading Post');
+    print('=================================');
       isLoading.value = true;
       var data = await _firestore.collection('posts').doc(id).get();
       if (data.exists) {
         isPostsEmpty.value = false;
         post = await PostModel().fromDocSnapshot(doc: data);
+            print('=================================');
+    print('Post Loaded');
+    print('=================================');
       } else {
+            print('=================================');
+    print('Post Not Found');
+    print('=================================');
         isPostsEmpty.value = true;
+        Get.snackbar('error'.tr, 'post_not_found'.tr);
       }
-
       isLoading.value = false;
     } catch (e) {
       isLoading.value = false;
       if (kDebugMode) {
         print('=====================');
-        print('Error in updateUserData: $e');
+        print('Error in Load Single Post:: \n $e');
         print('=====================');
       }
-
-      Get.snackbar('error'.tr, 'error_in_update_user_data'.tr);
+      Get.snackbar('error'.tr, 'error_while_loading_post'.tr);
     }
   }
 
-
-
-
 // Todo: Add like post functionality 'test version'
-
   Future<void> likePost(PostModel post) async {
     try {
-      //
       if (post.isLiked! == true) {
         await _firestore
-            .collection('pt')
+            .collection('posts')
             .doc(post.id)
             .collection('likes')
             .doc(_auth.currentUser!.uid)
             .delete();
-
         post.likesCount = post.likesCount! - 1;
         post.isLiked = false;
         update();
       } else {
-
-
         await _firestore
-            .collection('pt')
+            .collection('posts')
             .doc(post.id)
             .collection('likes')
             .doc(_auth.currentUser!.uid)
@@ -76,7 +77,7 @@ class SinglePostController extends GetxController {
           'user_id': _auth.currentUser!.uid,
           'user': _firestore.collection('users').doc(_auth.currentUser!.uid),
           'post_id': post.id,
-          'post': _firestore.collection('pt').doc(post.id),
+          'post': _firestore.collection('posts').doc(post.id),
           'createdAt': FieldValue.serverTimestamp(),
           'type': 'like',
         });

@@ -1,16 +1,15 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'core/apis/firebase_api.dart';
 import 'core/bindings/initial_binding.dart';
 import 'core/languages/local.dart';
 import 'core/languages/local_controller.dart';
 import 'core/routes/app_routes.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -21,23 +20,21 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
-void main() async {
+bool? seenOnboard;
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env");
-
-  // shared preferences
-  SharedPreferences pref = await SharedPreferences.getInstance();
-
-  // firebase
   await Firebase.initializeApp();
-
-  // notifications
   await FirebaseApi().initNotifications();
-
+  await FirebaseAppCheck.instance.activate(
+    androidProvider: AndroidProvider.debug,
+    appleProvider: AppleProvider.debug,
+    webProvider: ReCaptchaV3Provider('recaptcha-v3-site-key'),
+  );
+  await dotenv.load(fileName: ".env");
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  seenOnboard = pref.getBool('onboardingshowed') ?? false;
   HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
-
-  
 }
 
 class MyApp extends StatelessWidget {
@@ -46,20 +43,23 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     Get.put(AppLocalController());
     return GetMaterialApp(
-      
       title: 'Old But Gold',
+      unknownRoute: appRoutes[0],
       getPages: appRoutes,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      theme: ThemeData.dark().copyWith(
         useMaterial3: true,
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.deepPurple,
+          brightness: Brightness.dark,
+        ),
       ),
+      themeMode: ThemeMode.dark,
       locale: const Locale('en'),
       fallbackLocale: const Locale('en'),
       translations: AppLocal(),
-      initialRoute: '/',
+      initialRoute: '/splash',
       debugShowCheckedModeBanner: false,
       initialBinding: InitialBinding(),
     );

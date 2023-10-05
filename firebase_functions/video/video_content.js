@@ -24,11 +24,9 @@ exports.videoContentDetection = async (event, context) => {
     console.log(`Processing video for ${videoFullPath}...`);
     const gcsUri = bucket + videoFullPath;
 
-
     const u_id1 = process.env.USER_ID1;
     const u_id2 = process.env.USER_ID2;
     const u_id3 = process.env.USER_ID3;
-
 
     if (userId === u_id1 || userId === u_id2 || userId === u_id3) {
         console.log('================= Video Approved =================');
@@ -37,14 +35,11 @@ exports.videoContentDetection = async (event, context) => {
         return;
     }
 
-
-
         const client = new video.VideoIntelligenceServiceClient();
             const request = {
         inputUri: gcsUri,
         features: ['EXPLICIT_CONTENT_DETECTION'],
     };
-
 
     // Human-readable likelihoods
     const likelihoods = [
@@ -56,10 +51,7 @@ exports.videoContentDetection = async (event, context) => {
         'VERY_LIKELY',
     ];
 
-
     console.log(`Processing video for ${gcsUri}...`);
-
-
 
     try {
         const [operation] = await client.annotateVideo(request);
@@ -69,8 +61,6 @@ exports.videoContentDetection = async (event, context) => {
             operationResult.annotationResults[0].explicitAnnotation;
 
         console.log('Explicit annotation results:');
-
-
 
         const veryLikelyCount = explicitContentResults.frames.reduce((count, result) => {
             if (result.pornographyLikelihood === 5 /* VERY_LIKELY */) {
@@ -88,9 +78,6 @@ exports.videoContentDetection = async (event, context) => {
             }
         }, 0);
 
-
-
-
         console.log(`VERY_LIKELY count: ${veryLikelyCount}`);
         console.log(`LIKELY count: ${likelyCount}`);
 
@@ -101,26 +88,15 @@ exports.videoContentDetection = async (event, context) => {
             await updatePost(postId, isRejected);
             await sendPushNotification(userDeviceToken, 'Post Rejected', 'Your post has been rejected due to explicit content.');
             return;
-
         } else {
             console.log('================= Video Approved =================');
             await updatePost(postId, isRejected);
             await nextProcess(postId, userId, userLang, videoUrl, userDeviceToken, videoExtension, videoContentType, videoFullPath);
             return;
-
-
-
         }
-
-
-
     } catch (error) {
         console.error('Error processing video:', error);
     }
-
-
-
-
 };
 
 

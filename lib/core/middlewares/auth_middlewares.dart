@@ -21,7 +21,7 @@ class AuthRedirectMiddleware extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
     if (_auth.currentUser != null) {
-      return const RouteSettings(name: '/');
+      return const RouteSettings(name: '/mains');
     } else {
       return null;
     }

@@ -22,11 +22,14 @@ class LoginController extends GetxController {
 
   //
   RxBool isLoading = false.obs;
+  RxBool isPasswordVisible = false.obs;
 
 
   
   // user Device token
   String deviceToken = '';
+
+  
 
   // login user
   Future<void> loginUser() async {
@@ -42,7 +45,7 @@ class LoginController extends GetxController {
         passwordController.clear();
         if (value.user!.emailVerified) {
           isLoading.value = false;
-          Get.offAllNamed('/');
+          Get.offAllNamed('/mains');
           Get.snackbar(
             'Success',
             'Login successful',
@@ -119,7 +122,7 @@ class LoginController extends GetxController {
         if (check == 1) {
           await updateUserDeviceToken();
           isLoading.value = false;
-          Get.offAllNamed('/');
+          Get.offAllNamed('/mains');
         } else {
           await registerController.storeUserData(
             value.user!.displayName!,
@@ -127,6 +130,7 @@ class LoginController extends GetxController {
             value.user!.email!,
             value,
             value.user!.uid,
+            '',
           );
           isLoading.value = false;
           Get.offAllNamed('/auth/redeem');

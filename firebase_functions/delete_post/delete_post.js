@@ -17,27 +17,27 @@ const { S3Client, DeleteObjectCommand } = require("@aws-sdk/client-s3");
 exports.deletePost = async (event, context) => {
     const documentData = event.value.fields;
     const postId = documentData.post_id.stringValue;
-    const userLang = documentData.user_lang_code.stringValue;
-    const fcmToken = documentData.fcmToken.stringValue;
     const userID = documentData.user_id.stringValue;
-
     const r2BucketName = 'oldbutgold';
 
-
     try {
-        //
         const db = admin.firestore().collection('posts');
         await db.doc(postId).get().then(async (doc) => {
             const data = doc.data();
             const userid = data.user_id;
             const videoUrl = data.videoUrl;
             const gifUrl = data.thumbnailGifUrl;
+            const audioUrl = data.audioUrl;
             if (userID === userid) {
                 // Delete the video from Cloudflare R2
                 await deleteVideoFromR2(videoUrl, r2BucketName);
                 console.log('Video deleted from R2');
                 await deleteVideoFromR2(gifUrl, r2BucketName);
                 console.log('Gif deleted from R2');
+                if (audioUrl) {
+                    await deleteVideoFromR2(audioUrl, r2BucketName);
+                    console.log('Audio deleted from R2');
+                }
                 // Delete the post from Firestore
                 await db.doc(postId).delete();
                 console.log('Post deleted from Firestore');
@@ -46,7 +46,6 @@ exports.deletePost = async (event, context) => {
                 // Delete the post from delete_post collection
                 await admin.firestore().collection('delete_post').doc(postId).delete();
                 console.log('Delete-post document deleted from Firestore');
-
             } else {
                 console.log('User not authorized to delete this post');
             }

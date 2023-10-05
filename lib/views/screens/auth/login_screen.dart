@@ -29,6 +29,7 @@ class LoginUserScreen extends GetWidget {
                           children: [
                             TextFormField(
                               controller: ctr.emailController,
+                              keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
                                 hintText: 'enter_your_email'.tr,
                               ),
@@ -39,18 +40,29 @@ class LoginUserScreen extends GetWidget {
                                 return null;
                               },
                             ),
-                            TextFormField(
-                              controller: ctr.passwordController,
-                              decoration: InputDecoration(
-                                hintText: 'enter_your_password'.tr,
-                              ),
-                              validator: (value) {
-                                if (value!.isEmpty || value.trim().length < 6) {
-                                  return 'please_enter_your_password'.tr;
-                                }
-                                return null;
-                              },
-                            ),
+                            Obx(() => TextFormField(
+                                  controller: ctr.passwordController,
+                                  obscureText: !ctr.isPasswordVisible.value,
+                                  decoration: InputDecoration(
+                                    hintText: 'enter_your_password'.tr,
+                                    suffixIcon: IconButton(
+                                      onPressed: () {
+                                        ctr.isPasswordVisible.value =
+                                            !ctr.isPasswordVisible.value;
+                                      },
+                                      icon: ctr.isPasswordVisible.value
+                                          ? const Icon(Icons.visibility)
+                                          : const Icon(Icons.visibility_off),
+                                    ),
+                                  ),
+                                  validator: (value) {
+                                    if (value!.isEmpty ||
+                                        value.trim().length < 6) {
+                                      return 'please_enter_your_password'.tr;
+                                    }
+                                    return null;
+                                  },
+                                )),
                             const SizedBox(
                               height: 10,
                             ),
@@ -70,7 +82,12 @@ class LoginUserScreen extends GetWidget {
                                   ctr.loginUser();
                                 }
                               },
-                              child: Text('login'.tr),
+                              child: SizedBox(
+                                  width: double.infinity,
+                                  child: Text(
+                                    'login'.tr,
+                                    textAlign: TextAlign.center,
+                                  )),
                             ),
                             const SizedBox(
                               height: 20,
