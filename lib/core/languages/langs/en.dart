@@ -38,8 +38,8 @@ const Map<String, String> en = {
   'create_post': 'Create Post',
   'select_video': 'Select Video',
   'video_is_required': 'Video is required',
-  'video_duration_should_be_between_45sec_to_2_min':
-      'Video duration should be between 45sec \n to 2 min and less than 100MB',
+  'video_duration_should_be_between_45sec_to_3_min':
+      'Video duration should be between 45sec \n to 3 min and less than 100MB',
   'invalid_video_duration': 'Invalid video duration',
   'video_duration': 'Video duration: ',
   'video_description': 'Video description',
@@ -147,6 +147,17 @@ const Map<String, String> en = {
   'deleting': 'Deleting...',
   'delete_post': 'Delete Post',
   'delete_post_dialog': 'Are you sure you want to delete this post?',
+
+  // 06/10/2023
+  'gender': 'Gender',
+  'male': 'Male',
+  'female': 'Female',
+
+  // 07/10/2023
+  'post_created_successfully': 'Post created successfully',
+  'ok': 'Ok',
+  'warning': 'Warning',
+  'your_video_will_be_ready_soon': 'Your video will be ready soon',
 };
 
 /*

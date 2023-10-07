@@ -40,8 +40,8 @@ const Map<String, String> ru = {
   'create_post': 'Создать пост',
   'select_video': 'Выбрать видео',
   'video_is_required': 'Видео обязательно',
-  'video_duration_should_be_between_45sec_to_2_min':
-      'Длительность видео должна быть от 45 секунд до 2 минут \n и размер файла должен быть менее 100 МБ',
+  'video_duration_should_be_between_45sec_to_3_min':
+      'Длительность видео должна быть от 45 секунд до 3 минут \n и размер файла должен быть менее 100 МБ',
   'invalid_video_duration': 'Недопустимая длительность видео',
   'video_duration': 'Длительность видео: ',
   'video_description': 'Описание видео',
@@ -150,4 +150,15 @@ const Map<String, String> ru = {
   'deleting': 'Удаление...',
   'delete_post': 'Удалить пост',
   'delete_post_dialog': 'Вы уверены, что хотите удалить этот пост?',
+
+  // 06/10/2023
+  'gender': 'Пол',
+  'male': 'Мужской',
+  'female': 'Женский',
+
+  // 07/10/2023
+  'post_created_successfully': 'Пост успешно создан',
+  'ok': 'ОК',
+  'warning': 'Предупреждение',
+  'your_video_will_be_ready_soon': 'Ваше видео скоро будет готово',
 };

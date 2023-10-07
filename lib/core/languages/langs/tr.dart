@@ -41,8 +41,8 @@ const Map<String, String> tr = {
   'create_post': 'Gönderi oluştur',
   'select_video': 'Video seç',
   'video_is_required': 'Video gereklidir',
-  'video_duration_should_be_between_45sec_to_2_min':
-      'Video süresi 45 saniye ile 2 dakika arasında olmalıdır \n ve 100 MB\'dan küçük olmalıdır',
+  'video_duration_should_be_between_45sec_to_3_min':
+      'Video süresi 45 saniye ile 3 dakika arasında olmalıdır \n ve 100 MB\'dan küçük olmalıdır',
   'invalid_video_duration': 'Geçersiz video süresi',
   'video_duration': 'Video süresi: ',
   'video_description': 'Video açıklaması',
@@ -150,4 +150,15 @@ const Map<String, String> tr = {
   'deleting': 'Siliniyor...',
   'delete_post': 'Gönderiyi sil',
   'delete_post_dialog': 'Bu gönderiyi silmek istediğinizden emin misiniz?',
+
+  // 06/10/2023
+  'gender': 'Cinsiyet',
+  'male': 'Erkek',
+  'female': 'Kadın',
+
+  // 07/10/2023
+  'post_created_successfully': 'Gönderi başarıyla oluşturuldu',
+  'ok': 'Tamam',
+  'warning': 'Uyarı',
+  'your_video_will_be_ready_soon': 'Videonuz yakında hazır olacak',
 };

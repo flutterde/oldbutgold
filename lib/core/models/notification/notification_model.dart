@@ -57,6 +57,7 @@ class NotificationModel {
       postId: doc['post_id'],
       type: getNotificationType(doc['type']),
       isRead: doc['is_read'],
+      createdAt: doc['created_at'],
     );
   }
 }

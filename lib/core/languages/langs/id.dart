@@ -40,8 +40,8 @@ const Map<String, String> id = {
   'create_post': 'Buat Postingan',
   'select_video': 'Pilih Video',
   'video_is_required': 'Video diperlukan',
-  'video_duration_should_be_between_45sec_to_2_min':
-      'Durasi video harus antara 45 detik \n dan 2 menit dan kurang dari 100 MB',
+  'video_duration_should_be_between_45sec_to_3_min':
+      'Durasi video harus antara 45 detik \n dan 3 menit dan kurang dari 100 MB',
   'invalid_video_duration': 'Durasi video tidak valid',
   'video_duration': 'Durasi video: ',
   'video_description': 'Deskripsi Video',
@@ -142,11 +142,22 @@ const Map<String, String> id = {
   'no_comments_to_display': 'Tidak ada komentar untuk ditampilkan',
   'add_comment': 'Tambahkan Komentar',
   'please_enter_your_comment': 'Silakan masukkan komentar Anda',
-    'delete_comment': 'Hapus Komentar',
+  'delete_comment': 'Hapus Komentar',
   'delete_comment_dialog': 'Apakah Anda yakin ingin menghapus komentar ini?',
   'comment_deleted_successfully': 'Komentar berhasil dihapus',
   'delete': 'Hapus',
   'deleting': 'Menghapus..',
   'delete_post': 'Hapus Postingan',
   'delete_post_dialog': 'Apakah Anda yakin ingin menghapus postingan ini?',
+
+  // 06/10/2023
+  'gender': 'Jenis Kelamin',
+  'male': 'Laki-laki',
+  'female': 'Perempuan',
+
+  // 07/10/2023
+  'post_created_successfully': 'Postingan berhasil dibuat',
+  'ok': 'Oke',
+  'warning': 'Peringatan',
+  'your_video_will_be_ready_soon': 'Video Anda akan segera siap',
 };

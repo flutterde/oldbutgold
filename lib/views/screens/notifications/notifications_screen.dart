@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../../../core/controllers/notifications/notifications_screen_controller.dart';
 import '../../../core/models/notification/notification_model.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class NotificationsScreen extends GetWidget {
   const NotificationsScreen({super.key});
@@ -35,7 +36,7 @@ class NotificationsScreen extends GetWidget {
                         ))
                       : (ctr.notifications.isEmpty && !ctr.isLoading.value)
                           ? Center(
-                            child: Column(
+                              child: Column(
                                 children: [
                                   const SizedBox(height: 50),
                                   const Icon(
@@ -47,7 +48,7 @@ class NotificationsScreen extends GetWidget {
                                   const SizedBox(height: 50),
                                 ],
                               ),
-                          )
+                            )
                           : SingleChildScrollView(
                               physics: const AlwaysScrollableScrollPhysics(),
                               child: Column(
@@ -127,10 +128,27 @@ class NotificationsScreen extends GetWidget {
                                               notification,
                                               notification.type!,
                                               true)),
-                                          subtitle: Text(handleNotificationText(
-                                              notification,
-                                              notification.type!,
-                                              false)),
+                                          subtitle: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(handleNotificationText(
+                                                  notification,
+                                                  notification.type!,
+                                                  false)),
+                                              Text(
+                                                timeago.format(
+                                                  notification.createdAt!
+                                                      .toDate(),
+                                                  locale:
+                                                      Get.locale!.languageCode,
+                                                ),
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.grey[600],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                           trailing: notification.isRead!
                                               ? const SizedBox.shrink()
                                               : Container(

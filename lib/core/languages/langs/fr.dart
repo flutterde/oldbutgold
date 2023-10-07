@@ -39,8 +39,8 @@ const Map<String, String> fr = {
   'create_post': 'Créer une publication',
   'select_video': 'Sélectionner une vidéo',
   'video_is_required': 'La vidéo est obligatoire',
-  'video_duration_should_be_between_45sec_to_2_min':
-      'La durée de la vidéo doit être comprise entre 45 secondes \n et 2 minutes et être inférieure à 100 Mo',
+  'video_duration_should_be_between_45sec_to_3_min':
+      'La durée de la vidéo doit être comprise entre 45 secondes \n et 3 minutes et être inférieure à 100 Mo',
   'invalid_video_duration': 'Durée de la vidéo non valide',
   'video_duration': 'Durée de la vidéo : ',
   'video_description': 'Description de la vidéo',
@@ -142,11 +142,22 @@ const Map<String, String> fr = {
   'no_comments_to_display': 'Aucun commentaire à afficher',
   'add_comment': 'Ajouter un commentaire',
   'please_enter_your_comment': 'Veuillez entrer votre commentaire',
-    'delete_comment': 'Supprimer le commentaire',
+  'delete_comment': 'Supprimer le commentaire',
   'delete_comment_dialog': 'Voulez-vous vraiment supprimer ce commentaire ?',
   'comment_deleted_successfully': 'Commentaire supprimé avec succès',
   'delete': 'Supprimer',
   'deleting': 'suppression...',
   'delete_post': 'Supprimer le post',
   'delete_post_dialog': 'Voulez-vous vraiment supprimer ce post ?',
+
+  // 06/10/2023
+  'gender': 'Genre',
+  'male': 'Homme',
+  'female': 'Femme',
+
+  // 07/10/2023
+  'post_created_successfully': 'Post créé avec succès',
+  'ok': 'D\'accord',
+  'warning': 'Attention',
+  'your_video_will_be_ready_soon': 'Votre vidéo sera bientôt prête',
 };

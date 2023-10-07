@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../core/controllers/comments/comments_controller.dart';
 import 'last_comment_widget.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class CommentsScreen extends GetWidget {
   const CommentsScreen({super.key});
@@ -62,6 +63,17 @@ class CommentsScreen extends GetWidget {
                                           style: TextStyle(
                                               fontSize: 12,
                                               color: Colors.grey[600]),
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          timeago.format(
+                                            comment.createdAt!.toDate(),
+                                            locale: Get.locale!.languageCode,
+                                          ),
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.grey[600],
+                                          ),
                                         ),
                                       ],
                                     ),

@@ -51,7 +51,7 @@ class RegisterUserScreen extends GetWidget {
                                     ),
                                     validator: (value) {
                                       if (value!.isEmpty || !value.isEmail) {
-                                        return 'Please enter your email';
+                                        return 'please_enter_your_email'.tr;
                                       }
                                       return null;
                                     },
@@ -69,7 +69,7 @@ class RegisterUserScreen extends GetWidget {
                                     return Column(
                                       children: [
                                         ListTile(
-                                          title: const Text('Male'),
+                                          title: Text('male'.tr),
                                           leading: Radio<String>(
                                             value: 'male',
                                             groupValue: ctr.gender!.value,
@@ -80,7 +80,7 @@ class RegisterUserScreen extends GetWidget {
                                           ),
                                         ),
                                         ListTile(
-                                          title: const Text('Female'),
+                                          title: Text('female'.tr),
                                           leading: Radio<String>(
                                             value: 'female',
                                             groupValue: ctr.gender!.value,

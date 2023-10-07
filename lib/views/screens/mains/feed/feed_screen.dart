@@ -13,6 +13,8 @@ class FeedScreen extends GetWidget {
     return GetBuilder(
         init: Get.put(FeedController(), permanent: false),
         builder: (ctr) {
+          ctr.pageController =
+              PageController(initialPage: ctr.currentIndex.value);
           return Scaffold(
             appBar: AppBar(
               title: Text('feed'.tr),
@@ -40,6 +42,9 @@ class FeedScreen extends GetWidget {
                             scrollDirection: Axis.vertical,
                             controller: ctr.pageController,
                             itemCount: ctr.posts.length,
+                            onPageChanged: (value) {
+                              ctr.currentIndex.value = value;
+                            },
                             itemBuilder: (context, index) {
                               if (index == ctr.posts.length - 3) {
                                 ctr.getMorePosts();
