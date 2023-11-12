@@ -11,8 +11,8 @@
 migrate_working_dir/
 
 #Admin
-next-admin-beta/.env
-next-admin-beta/src/keys/
+/next-admin-beta/.env
+/next-admin-beta/src/keys/
 
 .dart_tool
 
