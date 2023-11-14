@@ -3,12 +3,12 @@ import NavBar from "@/components/NavBar";
 export default function ReportsPage() {
   const posts = [
     {
-      id: 1,
+      id: "F3KJTQymAMpfOSGYw7erTNEeHV8Zvb",
       title: "Sample Report 1",
       user: "John Doe",
     },
     {
-      id: 2,
+      id: "Ppht1OPsSqzfEi6vnzPgG0AyS36vo4",
       title: "Sample Report 2",
       user: "Jane Smith",
     },
