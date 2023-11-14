@@ -16,6 +16,7 @@
 
 
 .env
+/src/keys/
 # production
 /build
 
