@@ -1,5 +1,6 @@
 import  admin  from './firebaseAdmin';
 import { getFirestore } from "firebase-admin/firestore";
+import { Timestamp } from 'firebase-admin/firestore';
 
 const db = getFirestore();
 
@@ -42,14 +43,16 @@ const handlerUsr = async () => {
 
 const createAd = async (title, description, url, image) => {
     try {
+        const createdAt = Timestamp.now();
+        const endAt = new Timestamp(createdAt.seconds + 10 * 24 * 60 * 60, createdAt.nanoseconds);
         const docRef = await db.collection('ads').add({
             title: title,
             description: description,
             url: url,
             image: image,
             is_active: true,
-            created_at: Date.now(),
-            end_at: Date.now() + 30 * 24 * 60 * 60 * 1000,
+            created_at: createdAt,
+            end_at: endAt,
         });
         console.log("Document written with ID: ", docRef.id);
         return true;
@@ -111,4 +114,55 @@ const getUserName = async (userRef) => {
     }
 }
 
-export { getAds, handlerUsr, createAd, getPost };
+const deleteReport = async (postId, userIdd) => {
+    try {
+        await db.collection('posts').doc(postId).collection('reports').doc(userIdd).delete();
+        return true;
+    } catch (error) {
+        console.error("Error deleting document: ", error);
+        return false;
+    }
+}
+
+// get the first 100 reports from firestore groupCollection
+const getReports = async () => {
+    try {
+        const snapshot = await db.collectionGroup('reports').limit(100).get();
+        const reports = [];
+        snapshot.forEach((doc) => {
+            reports.push({id: doc.id, ...doc.data()});
+        });
+        return reports;
+    } catch (error) {
+        console.error("Error getting documents: ", error);
+        console.error(error);
+        console.error("===== ====== ===== ==== ===== ====");
+        return false;
+    }
+}
+
+// _firestore.collection('delete_post').doc(post.id).set({
+//     'user_id': userUid,
+//     'post_id': post.id,
+//     'fcmToken': dToken,
+//     'user_lang_code': Get.locale!.languageCode,
+//   })
+
+const deletePost = async (postId, userId) => {
+    try {
+        await db.collection('delete_post').doc(postId).set({
+            'user_id': userId,
+            'post_id': postId,
+            'fcmToken': "",
+            'user_lang_code': "en",
+        });
+        return true;
+    } catch (error) {
+        console.error("Error deleting document: ", error);
+        return false;
+    }
+}
+
+
+
+export { getAds, handlerUsr, createAd, getPost, deleteReport, getReports, deletePost };

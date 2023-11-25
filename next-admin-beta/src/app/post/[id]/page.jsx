@@ -6,11 +6,18 @@ import { AiTwotoneSafetyCertificate } from "react-icons/ai";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { ClipLoader } from 'react-spinners';
+import { useSearchParams, useRouter  } from 'next/navigation'
 
 export default function PostPage({ params }) {
     const [isLoadingData, setIsLoadingData] = useState(true);
     var [post, setPost] = useState({});
+    const searchParams = useSearchParams()
+    const user = searchParams.get('user')
+    console.log("==============> USER <================");
+    console.log("Value of user: " + user);
+    console.log("==============> USER <================");
     const postId = params.id;
+    const router = useRouter();
     useEffect(() => {
         (async () => {
             // Your async code here
@@ -46,11 +53,49 @@ export default function PostPage({ params }) {
     }
 
     async function deletePost() {
-        console.log("delete post");
+        const data = {
+            post_id: postId,
+            user_id: user,
+        };
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+        // const res = await axios.post('/api/delete-post', data, config);
+        // if (res.status !== 200) {
+        //     console.log(".......................error.......................");
+        //     console.log(res);
+        //     return;
+        // } else {
+        //     console.log(".......................success.......................");
+        //     console.log(res);
+        // }
+        console.log(`mark as safe, the posr id: ${postId} && user id: ${user}`);
+        router.push('/reports');
     }
 
     async function markAsSafe() {
-        console.log("mark as safe");
+        const data = {
+            post_id: postId,
+            user_id: user,
+        };
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+        // const res = await axios.post('/api/delete-report', data, config);
+        // if (res.status !== 200) {
+        //     console.log(".......................error.......................");
+        //     console.log(res);
+        //     return;
+        // } else {
+        //     console.log(".......................success.......................");
+        //     console.log(res);
+        // }
+        console.log(`mark as safe, the posr id: ${postId} && user id: ${user}`);
+        router.push('/reports');
     }
     return (
         <div className="p-2">

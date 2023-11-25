@@ -98,7 +98,7 @@ class UserModel {
     DocumentSnapshot doc = await _firestore
         .collection('followers')
         .doc(_auth.currentUser!.uid)
-        .collection('followers_list')
+        .collection('following_list')
         .doc(userId)
         .get();
     return (doc.exists);

@@ -18,7 +18,9 @@ const uploadFile = async (bucketName, fileName, fileContent, contentType) => {
         Key: fileName,
         Body: fileContent,
         ContentType: contentType,
-    });
+        
+    }
+    );
     try {
         const { ETag, Location } = await s3.send(command);
         console.log(`File uploaded successfully at ${Location}`);
@@ -38,7 +40,7 @@ const handleUploadFn = async ( fileName, fileContent, contentType) => {
     const milliseconds = date.getMilliseconds();
     const s3_path = 'ads/' + year + '/' + month + '/' + milliseconds + '/' + fileName;
     try {
-        const result = await uploadFile("my-bucket-1234", s3_path, fileContent, contentType);
+        const result = await uploadFile(process.env.NEXT_PUBLIC_BUCKET_NAME, s3_path, fileContent, contentType);
         if (result) {
             console.log('File uploaded successfully');
             return { status: 200, message: "File uploaded successfully", path: s3_path };
