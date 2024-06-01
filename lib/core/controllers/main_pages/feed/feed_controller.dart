@@ -22,7 +22,8 @@ class FeedController extends GetxController {
   DocumentSnapshot? _lastDocument;
 
   // Page content..
-  final pageController = PageController();
+  PageController pageController = PageController();
+  RxInt currentIndex = 0.obs;
 
   Future<void> fetchAllPosts() async {
     if (kDebugMode) {
@@ -56,7 +57,7 @@ class FeedController extends GetxController {
     } on FirebaseException catch (e) {
       isLoading.toggle();
       Get.snackbar(
-        'Error',
+        'error'.tr,
         e.message!,
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red,
@@ -110,7 +111,7 @@ class FeedController extends GetxController {
         print('======================');
       }
       Get.snackbar(
-        'Error',
+        'error'.tr,
         e.toString(),
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red,

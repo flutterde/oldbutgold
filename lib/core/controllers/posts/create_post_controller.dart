@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -43,7 +42,7 @@ class CreatePostController extends GetxController {
   addTag(String tag) {
     if (tag == '' || tag == ' ' || tag.isEmpty || tag.trim().isEmpty) {
       Get.snackbar(
-        'Error',
+        'error'.tr,
         'Tag is required',
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red,
@@ -77,13 +76,6 @@ class CreatePostController extends GetxController {
     await vc.initialize();
     var duration = vc.value.duration;
     videoDuration = duration.inSeconds.toDouble();
-    if (kDebugMode) {
-      print('===============Video Data ===============');
-      print(videoDuration);
-      print(vc.value.size);
-      print(vc.value.buffered);
-      print('==============================');
-    }
     update();
   }
 
@@ -94,20 +86,20 @@ class CreatePostController extends GetxController {
       if (pickedVideoFile == null) {
         Get.snackbar(
           'error'.tr,
-          'Video is required',
+          'video_is_required'.tr,
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
         );
-      } else if (videoDuration < 45 || videoDuration >= 120) {
+      } else if (videoDuration < 45 || videoDuration >= 180) {
         Get.snackbar(
           'error'.tr,
-          'Video duration chould be between 45 seconds to 2 minutes',
+          'video_duration_should_be_between_45sec_to_3_min'.tr,
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
         );
       } else if (pickedVideoFile!.size > 100000000) {
         Get.snackbar(
-          'Error',
+          'error'.tr,
           'Video size should be less than 100 Mb',
           snackPosition: SnackPosition.BOTTOM,
           backgroundColor: Colors.red,
@@ -127,30 +119,12 @@ class CreatePostController extends GetxController {
         uploadTask!.snapshotEvents.listen((event) {
           uploadProgress.value =
               event.bytesTransferred.toDouble() / event.totalBytes.toDouble();
-          if (kDebugMode) {
-            print('==============================================');
-            print('================ Progress !! ====================');
-            print(uploadProgress.value);
-            print('==============================================');
-            print('=================------=======================');
-          }
         });
-         await uploadTask!.whenComplete(() {});
+        await uploadTask!.whenComplete(() {});
         // await videoFileDestination.putFile(videoFile);
         var videoUrl = await videoFileDestination.getDownloadURL();
         FullMetadata videMetaData = await videoFileDestination.getMetadata();
-        if (kDebugMode) {
-          print('==============================================');
-          print('================ Meta Data !! ====================');
-          var sizeInMb = videMetaData.size! / 1024 / 1024;
-          var description = videMetaData.contentDisposition;
-          print(sizeInMb);
-          print(description);
-          print('==============================================');
-          print('=================------=======================');
-        }
         var sizeInMb = videMetaData.size! / 1024 / 1024;
-
         await _firestore.collection('posts').doc(postId).set({
           'id': postId,
           'user': _firestore.collection('users').doc(_auth.currentUser!.uid),
@@ -167,7 +141,8 @@ class CreatePostController extends GetxController {
           'user_lang_code': 'en',
           'is_ready': false,
           'isRejected': false,
-          'audience': 'public', // 'public' | 'following' | 'followers' | 'friends' | 'only_me'
+          'audience':
+              'public', // 'public' | 'following' | 'followers' | 'friends' | 'only_me'
           'is_processed': false,
           'meta_data': {
             'duration': videoDuration,
@@ -196,10 +171,29 @@ class CreatePostController extends GetxController {
           isLoading.value = false;
           Get.offAllNamed('/mains');
           Get.snackbar(
-            'Success',
-            'Post created successfully',
+            'success'.tr,
+            'post_created_successfully'.tr,
             snackPosition: SnackPosition.BOTTOM,
             backgroundColor: Colors.green,
+          );
+          Get.defaultDialog(
+            title: 'warning'.tr,
+            middleText: 'your_video_will_be_ready_soon'.tr,
+            backgroundColor: Colors.green,
+            titleStyle: const TextStyle(color: Colors.white),
+            middleTextStyle: const TextStyle(color: Colors.white),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Get.back();
+                },
+                child: Text(
+                  'ok'.tr,
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
+            radius: 5,
           );
         });
       }
@@ -207,7 +201,7 @@ class CreatePostController extends GetxController {
       isLoading.value = false;
 
       Get.snackbar(
-        'Error',
+        'error'.tr,
         e.toString(),
         snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red,
@@ -237,10 +231,6 @@ class CreatePostController extends GetxController {
   @override
   void onInit() {
     postId = generateRandomString();
-    if (kDebugMode) {
-      print('==============================================');
-      print('==============================================');
-    }
     super.onInit();
   }
 
@@ -257,14 +247,10 @@ class CreatePostController extends GetxController {
         'ABCDEFGHIJKLMNOPQRSTVWXYZ0123456789abcdefghijklmnopqrstvwxyz'; // KuJlgYN6w3THrl0mlPporTgAIe12
     final random = Random();
     final buffer = StringBuffer();
-
-    for (var i = 0; i < 30; i++) {
+    for (int i = 0; i < 30; i++) {
       final randomIndex = random.nextInt(characters.length);
       buffer.write(characters[randomIndex]);
     }
-
     return buffer.toString();
   }
 }
-
-

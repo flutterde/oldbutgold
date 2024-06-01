@@ -42,8 +42,8 @@ const Map<String, String> de = {
   'create_post': 'Beitrag erstellen',
   'select_video': 'Video auswählen',
   'video_is_required': 'Video ist erforderlich',
-  'video_duration_should_be_between_45sec_to_2_min':
-      'Die Videodauer sollte zwischen 45 Sekunden \n und 2 Minuten liegen und kleiner als 100 MB sein',
+  'video_duration_should_be_between_45sec_to_3_min':
+      'Die Videodauer sollte zwischen 45 Sekunden \n und 3 Minuten liegen und kleiner als 100 MB sein',
   'invalid_video_duration': 'Ungültige Videodauer',
   'video_duration': 'Videodauer: ',
   'video_description': 'Videobeschreibung',
@@ -151,4 +151,15 @@ const Map<String, String> de = {
   'deleting': 'Löschen...',
   'delete_post': 'Beitrag löschen',
   'delete_post_dialog': 'Möchten Sie diesen Beitrag wirklich löschen?',
+
+    // 06/10/2023
+  'gender': 'Geschlecht',
+  'male': 'Männlich',
+  'female': 'Weiblich',
+
+    // 07/10/2023
+  'post_created_successfully': 'Beitrag erfolgreich erstellt',
+  'ok': 'OK',
+  'warning': 'Warnung',
+  'your_video_will_be_ready_soon': 'Ihr Video wird in Kürze fertig sein',
 };

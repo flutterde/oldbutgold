@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:oldbutgold/core/models/comment/comment_model.dart';
 import '../../../core/controllers/comments/comments_controller.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 Widget lastCommentWidget(CommentModel comment, CommentsController ctr) =>
     Column(
@@ -33,6 +34,17 @@ Widget lastCommentWidget(CommentModel comment, CommentsController ctr) =>
                 Text(
                   comment.user!.name!,
                   style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                ),
+                const Spacer(),
+                Text(
+                  timeago.format(
+                    comment.createdAt!.toDate(),
+                    locale: Get.locale!.languageCode,
+                  ),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey[600],
+                  ),
                 ),
               ],
             ),

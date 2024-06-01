@@ -34,7 +34,6 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
         Uri.parse(vUrl),
         //httpHeaders: {'accept': '*/*'},
       )..initialize().then((value) async {
-          print('===================== 33 =====================');
           cachVideoFile(vUrl);
           videoPlayerController?.play();
           videoPlayerController?.setVolume(1);
@@ -44,7 +43,6 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
           });
         });
     } else {
-      print('===================== 44 in cache =====================');
       final file = fileInfo.file;
       videoPlayerController = VideoPlayerController.file(file)
         ..initialize().then((value) {
@@ -65,13 +63,11 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   );
 
   Future<FileInfo?> checkCacheForFile(String url) async {
-    print('===================== 22 =====================');
     final FileInfo? value = await CacheManager(_config).getFileFromCache(url);
     return (value);
   }
 
   void cachVideoFile(String url) async {
-    print('===================== 11 =====================');
     await CacheManager(_config).getSingleFile(url).then((value) =>
         print('the video Downloaded successfully to the cache: source:: $url'));
   }

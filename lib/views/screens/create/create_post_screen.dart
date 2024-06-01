@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../core/controllers/posts/create_post_controller.dart';
 import '../../../core/controllers/posts/post_category_controller.dart';
 
@@ -41,6 +40,21 @@ class CreatePostScreen extends GetWidget {
                                         ),
                                       ),
                                       Text(ctr.pickedVideoFile!.name),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      ElevatedButton(
+                                        onPressed: () async {
+                                          await ctr.selectFile();
+                                        },
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all(
+                                            Colors.yellow,
+                                          ),
+                                        ),
+                                        child: Text('select_video'.tr),
+                                      ),
                                     ],
                                   )
                                 : SizedBox(
@@ -68,7 +82,7 @@ class CreatePostScreen extends GetWidget {
                                               color: Colors.red),
                                         ),
                                         Text(
-                                          'video_duration_should_be_between_45sec_to_2_min'
+                                          'video_duration_should_be_between_45sec_to_3_min'
                                               .tr,
                                           textAlign: TextAlign.center,
                                           style: const TextStyle(
@@ -81,12 +95,12 @@ class CreatePostScreen extends GetWidget {
                               ctr.videoDuration == 0.0
                                   ? ''
                                   : ctr.videoDuration < 45 ||
-                                          ctr.videoDuration > 120
+                                          ctr.videoDuration > 180
                                       ? 'invalid_video_duration'.tr
                                       : '${'video_duration'.tr} ${ctr.videoDuration.toString()}',
                               style: TextStyle(
                                   color: ctr.videoDuration < 45 ||
-                                          ctr.videoDuration > 120
+                                          ctr.videoDuration > 180
                                       ? Colors.red
                                       : Colors.green),
                             ),
@@ -96,6 +110,8 @@ class CreatePostScreen extends GetWidget {
                             TextFormField(
                               controller: ctr.videoDescriptionCtr,
                               maxLength: 90,
+                              minLines: 2,
+                              maxLines: 4,
                               decoration: InputDecoration(
                                 labelText: 'video_description'.tr,
                               ),
@@ -137,8 +153,8 @@ class CreatePostScreen extends GetWidget {
                                             value: value.id,
                                             child: Row(
                                               children: [
-                                                const CircleAvatar(
-                                                  backgroundColor: Colors.grey,
+                                                CircleAvatar(
+                                                  backgroundColor: value.color,
                                                   radius: 15,
                                                 ),
                                                 const SizedBox(

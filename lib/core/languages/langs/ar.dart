@@ -38,8 +38,8 @@ const Map<String, String> ar = {
   'create_post': 'إنشاء منشور',
   'select_video': 'تحديد الفيديو',
   'video_is_required': 'الفيديو مطلوب',
-  'video_duration_should_be_between_45sec_to_2_min':
-      'يجب أن يكون مدة الفيديو بين 45 ثانية \n و 2 دقيقة وأقل من 100 ميجابايت',
+  'video_duration_should_be_between_45sec_to_3_min':
+      'يجب أن يكون مدة الفيديو بين 45 ثانية \n و 3 دقيقة وأقل من 100 ميجابايت',
   'invalid_video_duration': 'مدة الفيديو غير صالحة',
   'video_duration': 'مدة الفيديو: ',
   'video_description': 'وصف الفيديو',
@@ -141,11 +141,22 @@ const Map<String, String> ar = {
   'no_comments_to_display': 'لا توجد تعليقات لعرضها',
   'add_comment': 'أضف تعليقًا',
   'please_enter_your_comment': 'الرجاء إدخال تعليقك',
-    'delete_comment': 'حذف التعليق',
+  'delete_comment': 'حذف التعليق',
   'delete_comment_dialog': 'هل أنت متأكد أنك تريد حذف هذا التعليق؟',
   'comment_deleted_successfully': 'تم حذف التعليق بنجاح',
   'delete': 'حذف',
   'deleting': 'جاري الحذف...',
   'delete_post': 'حذف المنشور',
   'delete_post_dialog': 'هل أنت متأكد أنك تريد حذف هذا المنشور؟',
+
+  // 06/10/2023
+  'gender': 'الجنس',
+  'male': 'ذكر',
+  'female': 'أنثى',
+
+  // 07/10/2023
+  'post_created_successfully': 'تم إنشاء المنشور بنجاح',
+  'ok': 'حسنا',
+  'warning': 'انتباه',
+  'your_video_will_be_ready_soon': 'سيكون الفيديو الخاص بك جاهزًا قريبًا',
 };
